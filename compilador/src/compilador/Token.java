@@ -14,10 +14,12 @@ public class Token {
         this.spelling = spelling;
         this.line = line;
         this.collum = collum;
-
-        if(map.containsKey(spelling)){
-            this.kind = map.get(spelling);
-            System.out.println(this.kind);
-        }    
+        
+        if(kind == map.get("id")){
+            if(map.containsKey(spelling)){
+                this.kind = map.get(spelling);
+                System.out.println(this.kind);
+            }
+        }
     }
 }

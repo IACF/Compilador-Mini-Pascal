@@ -5,6 +5,7 @@
  */
 package compilador;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class Compilador {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         Map<String, Integer> map = new HashMap<>()
         {{
@@ -60,6 +61,8 @@ public class Compilador {
         }};
         
         Token t = new Token(map, 1, "while", 0 ,1);
+        Scanner s;
+        s = new Scanner();
     }
     
 }
