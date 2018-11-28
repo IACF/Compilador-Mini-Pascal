@@ -19,6 +19,10 @@ import java.util.Map;
 public class Scanner {
     
     Map<String, Integer> map;
+    char currentChar;
+    String currentSpelling;
+    int coordnates[] = new int[2];
+    String line;
     
     public Scanner(){
        this.map = new HashMap<>()
@@ -59,7 +63,11 @@ public class Scanner {
             put("array", 33);
             put("..", 34);
             put("of", 35);
+            put("error", 36);
         }};
+       
+       this.coordnates[0] = 0;
+       this.coordnates[1] = 0;
     }
       
     private boolean isLetter(char c){
@@ -78,22 +86,62 @@ public class Scanner {
     
     }
     
+    private void take(char c){
+        if(this.currentChar == c){
+             this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
+             this.currentChar = this.line.charAt(++this.coordnates[1]);
+        }else{
+            
+        }
+    }
+    
+    private void takeIt(){
+        this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
+        this.currentChar = this.line.charAt(++this.coordnates[1]);
+    }
+    
+    private int scanToken(){
+        if(isLetter(this.currentChar)){
+            takeIt(); 
+            while(isLetter(this.currentChar) || isDigit(this.currentChar)){
+                takeIt();
+            }
+            
+            if(this.map.containsKey(this.currentSpelling)){
+                return this.map.get(this.currentSpelling);
+            }
+            
+            return 15;      
+        }
+        
+        if(isDigit(currentChar)){
+            
+        }
+    }
+    
     public void scan() throws FileNotFoundException, IOException{
         BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
-        String line = reader.readLine();
-        //chamar separator
         
-        char c;
+        line = reader.readLine();       
+        
         while (line != null) {
+            this.coordnates[0]++;
+            
             System.out.println(line);
             
-            for (int i = 0; i < line.length(); i++) {
-               c = line.charAt(i);
+            while(this.coordnates[1] < line.length()){
+               currentChar = line.charAt(this.coordnates[1]);               
+               if(scanSeparator() == 0)
+                   break;
+               
+               if(scanSeparator() < 3)
+                   continue;
+               
+               scanToken();
                
             }
             
             line = reader.readLine();  
-            //chamar separator.
         }
     }
 }
