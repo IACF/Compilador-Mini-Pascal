@@ -5,10 +5,6 @@
  */
 package compilador;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,12 +15,16 @@ import java.util.Map;
 public class Scanner {
     
     Map<String, Integer> map;
-    char currentChar;
     String currentSpelling;
-    int coordnates[] = new int[2];
     String line;
+    int coordinates[] = new int[2];
+    char currentChar;
+    int currentKind;
     
     public Scanner(){
+       this.currentSpelling = "";
+        System.out.println("construtor");
+       
        this.map = new HashMap<>()
         {{
             put(":=" , 0);
@@ -63,11 +63,14 @@ public class Scanner {
             put("array", 33);
             put("..", 34);
             put("of", 35);
-            put("error", 36);
+            put("program", 36);
+            put("eol", 37);
+            put("error", 38);
+            put("eof", 39);
         }};
        
-       this.coordnates[0] = 0;
-       this.coordnates[1] = 0;
+       this.coordinates[0] = 0;
+       this.coordinates[1] = 0;
     }
       
     private boolean isLetter(char c){
@@ -82,22 +85,38 @@ public class Scanner {
         return true;
     }
     
-    private void scanSeparator(){
     
+    private byte scanSeparator(){
+        switch (this.currentChar) {
+            case '!' : {
+                this.coordinates[0]++;
+                return 0;
+            }
+            case ' ': 
+                this.coordinates[1]++;
+                System.out.println("branco");
+                return 1;
+            case '\n' : {
+                takeIt();
+                return 2;
+            }            
+        }
+        return 3;
     }
-    
+       
     private void take(char c){
         if(this.currentChar == c){
              this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
-             this.currentChar = this.line.charAt(++this.coordnates[1]);
+             this.currentChar = this.line.charAt(++this.coordinates[1]);
         }else{
             
         }
     }
     
     private void takeIt(){
-        this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
-        this.currentChar = this.line.charAt(++this.coordnates[1]);
+        System.out.println(this.currentChar);
+        this.currentSpelling = this.currentSpelling.concat(Character.toString(this.currentChar));
+        this.currentChar = this.line.charAt(++this.coordinates[1]);
     }
     
     private int scanToken(){
@@ -106,42 +125,80 @@ public class Scanner {
             while(isLetter(this.currentChar) || isDigit(this.currentChar)){
                 takeIt();
             }
-            
-            if(this.map.containsKey(this.currentSpelling)){
-                return this.map.get(this.currentSpelling);
-            }
-            
-            return 15;      
+                        
+            return this.map.get("id");      
         }
         
         if(isDigit(currentChar)){
-            
+            takeIt();
+            while(isDigit(this.currentChar))
+                takeIt();
+            return this.map.get("int-lit");
         }
+        
+        switch(this.currentChar){
+            case '<':
+                
+                if(this.currentChar == '>'){
+                    takeIt();
+                    return this.map.get(this.currentSpelling);
+                }
+                
+            case ':': case '>':
+                takeIt();
+              
+                if(this.currentChar == '=')
+                    takeIt();
+                
+                return this.map.get(this.currentSpelling);
+            
+            case '.':
+                takeIt();
+                
+                if(this.currentChar == '.'){
+                    takeIt();
+                    return this.map.get(this.currentSpelling);
+                }
+                break;
+            
+            case '\n':
+                this.coordinates[0]++;
+                return this.map.get("eol");
+                
+        }
+        
+        if(this.map.containsKey(this.currentChar)){
+            return this.map.get(this.currentChar);
+        }
+            
+        return this.map.get("error");
     }
     
-    public void scan() throws FileNotFoundException, IOException{
-        BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
-        
-        line = reader.readLine();       
-        
-        while (line != null) {
-            this.coordnates[0]++;
-            
-            System.out.println(line);
-            
-            while(this.coordnates[1] < line.length()){
-               currentChar = line.charAt(this.coordnates[1]);               
-               if(scanSeparator() == 0)
+    public void changeLine(String line){
+        this.line = line;
+    }
+    
+    public Token scan(){
+            int aux;
+            this.currentSpelling = "";
+    
+            while(this.coordinates[1] < line.length()){
+               currentChar = line.charAt(this.coordinates[1]);
+               // System.out.println(currentChar);
+               System.out.println(this.coordinates[1]);
+               aux = scanSeparator();
+               if(aux == 0)
                    break;
                
-               if(scanSeparator() < 3)
+               if(aux == 1)
                    continue;
                
-               scanToken();
+                System.out.println("passou");
+               currentKind = scanToken();
                
+               return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
             }
-            
-            line = reader.readLine();  
+            this.currentKind = this.map.get("error");
+            return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
         }
     }
-}
