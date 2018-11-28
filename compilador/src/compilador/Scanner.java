@@ -33,8 +33,7 @@ public class Scanner {
             put("else", 7);
             put("var", 8);
             put(":", 9);
-            put(";", 10);
-            
+            put(";", 10);        
             put("int-lit", 11);
             put("(", 12);
             put(")", 13);
@@ -80,7 +79,7 @@ public class Scanner {
     }
     
     public void scan() throws FileNotFoundException, IOException{
-        BufferedReader reader = new BufferedReader(new FileReader("exemplo.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
         String line = reader.readLine();
         //chamar separator
         
