@@ -63,6 +63,7 @@ public class Compilador {
         Token t = new Token(map, 1, "while", 0 ,1);
         Scanner s;
         s = new Scanner();
+        s.scan();
     }
     
 }

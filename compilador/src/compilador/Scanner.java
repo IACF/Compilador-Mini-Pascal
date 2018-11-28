@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -16,18 +18,50 @@ import java.io.IOException;
  */
 public class Scanner {
     
-    public Scanner() throws FileNotFoundException, IOException{
-     
-        BufferedReader reader = new BufferedReader(new FileReader("/home/victor/Compilador-Mini-Pascal/compilador/exemplo.txt"));
-        String line = reader.readLine();
-        
-        while(line != null){
-            System.out.println(line);
-            line = reader.readLine();           
-        }
+    Map<String, Integer> map;
     
+    public Scanner(){
+       this.map = new HashMap<>()
+        {{
+            put(":=" , 0);
+            put("true", 1);
+            put("false", 2);
+            put("begin", 3);
+            put("end", 4);
+            put("if", 5);
+            put("then", 6);
+            put("else", 7);
+            put("var", 8);
+            put(":", 9);
+            put(";", 10);
+            put("int-lit", 11);
+            put("(", 12);
+            put(")", 13);
+            put(".", 14);
+            put("id", 15);
+            put("while", 16);
+            put("do", 17);
+            put(",", 18);
+            put("+", 19);
+            put("-", 20);
+            put("or", 21);
+            put("*", 22);
+            put("/", 23);
+            put("and", 24);
+            put("<", 25);
+            put(">", 26);
+            put("<=", 27);
+            put(">=", 28);
+            put("=", 29);
+            put("<>", 30);
+            put("[", 31);
+            put("]", 32);
+            put("array", 33);
+            put("..", 34);
+            put("of", 35);
+        }};
     }
-    
+      
     private boolean isLetter(char c){
         return Character.isLetter(c);
     }
@@ -40,4 +74,26 @@ public class Scanner {
         return true;
     }
     
+    private void scanSeparator(){
+    
+    }
+    
+    public void scan() throws FileNotFoundException, IOException{
+        BufferedReader reader = new BufferedReader(new FileReader("exemplo.txt"));
+        String line = reader.readLine();
+        //chamar separator
+        
+        char c;
+        while (line != null) {
+            System.out.println(line);
+            
+            for (int i = 0; i < line.length(); i++) {
+               c = line.charAt(i);
+               
+            }
+            
+            line = reader.readLine();  
+            //chamar separator.
+        }
+    }
 }

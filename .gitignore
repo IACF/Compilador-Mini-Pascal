@@ -1,2 +1,4 @@
 idea
 /compilador/dist/
+compilador/build/
+/compilador/exemplo.txt
