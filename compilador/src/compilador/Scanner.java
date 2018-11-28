@@ -34,6 +34,7 @@ public class Scanner {
             put("var", 8);
             put(":", 9);
             put(";", 10);
+            
             put("int-lit", 11);
             put("(", 12);
             put(")", 13);
