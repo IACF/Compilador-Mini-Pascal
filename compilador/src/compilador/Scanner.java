@@ -19,6 +19,9 @@ import java.util.Map;
 public class Scanner {
     
     Map<String, Integer> map;
+    int coordinates[] = new int[2];
+    char currentChar;
+    
     
     public Scanner(){
        this.map = new HashMap<>()
@@ -74,8 +77,25 @@ public class Scanner {
         return true;
     }
     
-    private void scanSeparator(){
     
+    private byte scanSeparator(){
+        switch (this.currentChar) {
+            case '!' : {
+                this.coordinates[0]++;
+                return 0;
+            }
+            case ' ': 
+                this.coordinates[0]++;
+                return 1;
+            case '\n' : {
+                takeIt();
+                return 2;
+            }            
+        }
+    }
+    
+    private void take (char current) {
+        
     }
     
     public void scan() throws FileNotFoundException, IOException{
