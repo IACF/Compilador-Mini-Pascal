@@ -70,6 +70,7 @@ public class Scanner {
             put("eol", 37);
             put("error", 38);
             put("eof", 39);
+            put("float-lit", 40);
         }};
        
        this.coordinates[0] = 0;
@@ -85,9 +86,7 @@ public class Scanner {
     }
     
     private boolean isGraphic(char c){
-        if (c != '\n' && c != (char) -1)
-            return true;
-        return false;
+        return c != '\n' && c != (char) -1;
     }
     
     
