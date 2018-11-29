@@ -85,22 +85,28 @@ public class Scanner {
     }
     
     private boolean isGraphic(char c){
-        return true;
+        if (c != '\n' && c != (char) -1)
+            return true;
+        return false;
     }
     
     
     private void scanSeparator() throws IOException{
         switch (this.currentChar) {
-            case '!' : 
-                this.coordinates[0]++;
-                // tem q consumir todo os caracteres dos comentarios um a um.
+            case '!' :
+                do{
+                    this.coordinates[1]++;
+                    this.currentChar = ( char ) this.reader.read();
+                    System.out.println("");
+                }while(isGraphic(this.currentChar));
+                
                 break;
             
             case ' ': 
                 do{
-                    currentChar = ( char )reader.read();
+                    this.currentChar = ( char ) this.reader.read();
                     this.coordinates[1]++;
-                }while(currentChar == ' ');
+                }while(this.currentChar == ' ');
         }
     }
        
