@@ -9,9 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -24,25 +23,21 @@ public class Compilador {
      */
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
-        String line;
-        Scanner s = new Scanner();
+        Scanner s = new Scanner(reader);
         Token t;
         List tokens =  new ArrayList();
-        
-        line = reader.readLine();
-        s.changeLine(line);
-        
-        while (line != null) {
+            
+        do{
             t = s.scan();
             tokens.add(t);
-            if(t.kind == 37){
-                line = reader.readLine();
-                s.changeLine(line);
-            }
-            System.out.println("voltei");
-        }
-        
+        }while(t.kind != 39); // diferente de EOF.
+
         System.out.println(tokens.size());
+        
+        for (Iterator iterator = tokens.iterator(); iterator.hasNext();) {
+            Token next = (Token) iterator.next();
+            System.out.println(next.spelling);
+        }
     }
     
 }

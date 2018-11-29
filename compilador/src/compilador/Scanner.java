@@ -5,6 +5,8 @@
  */
 package compilador;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,7 @@ import java.util.Map;
  * @author victor
  */
 public class Scanner {
-    
+    BufferedReader reader;
     Map<String, Integer> map;
     String currentSpelling;
     String line;
@@ -21,9 +23,10 @@ public class Scanner {
     char currentChar;
     int currentKind;
     
-    public Scanner(){
+    public Scanner(BufferedReader reader) throws IOException{
+       this.reader = reader;
        this.currentSpelling = "";
-        System.out.println("construtor");
+       currentChar = ( char )reader.read();
        
        this.map = new HashMap<>()
         {{
@@ -86,40 +89,36 @@ public class Scanner {
     }
     
     
-    private byte scanSeparator(){
+    private void scanSeparator() throws IOException{
         switch (this.currentChar) {
-            case '!' : {
+            case '!' : 
                 this.coordinates[0]++;
-                return 0;
-            }
+                // tem q consumir todo os caracteres dos comentarios um a um.
+                break;
+            
             case ' ': 
-                this.coordinates[1]++;
-                System.out.println("branco");
-                return 1;
-            case '\n' : {
-                takeIt();
-                return 2;
-            }            
+                do{
+                    currentChar = ( char )reader.read();
+                    this.coordinates[1]++;
+                }while(currentChar == ' ');
         }
-        return 3;
     }
        
-    private void take(char c){
+    private void take(char c) throws IOException{
         if(this.currentChar == c){
              this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
-             this.currentChar = this.line.charAt(++this.coordinates[1]);
-        }else{
-            
+             this.currentChar = ( char )reader.read();   //Here you go
+            this.coordinates[1]++;
         }
     }
     
-    private void takeIt(){
-        System.out.println(this.currentChar);
+    private void takeIt() throws IOException{
         this.currentSpelling = this.currentSpelling.concat(Character.toString(this.currentChar));
-        this.currentChar = this.line.charAt(++this.coordinates[1]);
+        this.currentChar = ( char )reader.read();   //Here you go
+        this.coordinates[1]++;
     }
     
-    private int scanToken(){
+    private int scanToken() throws IOException{
         if(isLetter(this.currentChar)){
             takeIt(); 
             while(isLetter(this.currentChar) || isDigit(this.currentChar)){
@@ -138,67 +137,50 @@ public class Scanner {
         
         switch(this.currentChar){
             case '<':
-                
-                if(this.currentChar == '>'){
-                    takeIt();
-                    return this.map.get(this.currentSpelling);
-                }
+                takeIt();
+                take('>');
+                take('=');
+
+                return this.map.get(this.currentSpelling);
                 
             case ':': case '>':
                 takeIt();
-              
-                if(this.currentChar == '=')
-                    takeIt();
+                take('=');
                 
                 return this.map.get(this.currentSpelling);
             
             case '.':
-                takeIt();
-                
-                if(this.currentChar == '.'){
-                    takeIt();
-                    return this.map.get(this.currentSpelling);
-                }
-                break;
-            
+                takeIt();               
+                take('.');
+                return this.map.get(this.currentSpelling);
+                        
             case '\n':
+                takeIt();
                 this.coordinates[0]++;
+                this.coordinates[1] = 0;
+                this.currentSpelling = "eol";
                 return this.map.get("eol");
-                
+            
+            case (char) -1:
+                this.currentSpelling = "eof";
+                return this.map.get("eof");
         }
         
         if(this.map.containsKey(this.currentChar)){
             return this.map.get(this.currentChar);
         }
-            
+        
+        takeIt();
         return this.map.get("error");
     }
     
-    public void changeLine(String line){
-        this.line = line;
-    }
-    
-    public Token scan(){
-            int aux;
+    public Token scan() throws IOException{
             this.currentSpelling = "";
-    
-            while(this.coordinates[1] < line.length()){
-               currentChar = line.charAt(this.coordinates[1]);
-               // System.out.println(currentChar);
-               System.out.println(this.coordinates[1]);
-               aux = scanSeparator();
-               if(aux == 0)
-                   break;
-               
-               if(aux == 1)
-                   continue;
-               
-                System.out.println("passou");
-               currentKind = scanToken();
-               
-               return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
-            }
-            this.currentKind = this.map.get("error");
+            
+            scanSeparator();
+            currentKind = scanToken();
+
             return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
+            
         }
     }
