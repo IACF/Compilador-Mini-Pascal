@@ -133,10 +133,18 @@ public class Scanner {
             return this.map.get("id");      
         }
         
-        if(isDigit(currentChar)){
+        if(isDigit(this.currentChar)){
             takeIt();
-            while(isDigit(this.currentChar))
-                takeIt();
+            while(isDigit(this.currentChar) || this.currentChar == '.'){
+                if (this.currentChar == '.') {
+                    takeIt();
+                    while(isDigit(this.currentChar) && !isLetter(this.currentChar)){
+                        takeIt();
+                    }
+                    return this.map.get("float-lit");
+                }
+                
+            }
             return this.map.get("int-lit");
         }
         
