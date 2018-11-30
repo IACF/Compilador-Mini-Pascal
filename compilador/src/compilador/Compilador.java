@@ -30,7 +30,7 @@ public class Compilador {
         do{
             t = s.scan();
             tokens.add(t);
-            System.out.println(t.kind);
+            //System.out.println(t.kind);
         }while(t.kind != 39); // diferente de EOF.
 
         System.out.println(tokens.size());

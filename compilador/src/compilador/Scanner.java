@@ -18,15 +18,16 @@ public class Scanner {
     BufferedReader reader;
     Map<String, Integer> map;
     String currentSpelling;
-    String line;
     int coordinates[] = new int[2];
     char currentChar;
     int currentKind;
+    boolean flag;
     
     public Scanner(BufferedReader reader) throws IOException{
        this.reader = reader;
        this.currentSpelling = "";
        currentChar = ( char )reader.read();
+       this.flag = false;
        
        this.map = new HashMap<>()
         {{
@@ -96,7 +97,6 @@ public class Scanner {
                 do{
                     this.coordinates[1]++;
                     this.currentChar = ( char ) this.reader.read();
-                    System.out.println("");
                 }while(isGraphic(this.currentChar));
                 
                 break;
@@ -109,14 +109,12 @@ public class Scanner {
         }
     }
        
-    private boolean take(char c) throws IOException{
+    private void take(char c) throws IOException{
         if(this.currentChar == c){
             this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
             this.currentChar = ( char )reader.read();   //Here you go
             this.coordinates[1]++;
-            return true;
         }
-        return false;
     }
     
     private void takeIt() throws IOException{
@@ -140,9 +138,22 @@ public class Scanner {
             while(isDigit(this.currentChar) || this.currentChar == '.'){
                 if (this.currentChar == '.') {
                     char aux = ( char )reader.read();
-                    if(aux == '.')
+                    this.coordinates[1]++;
+                    
+                    if(aux == '.'){
+                        flag = true;
                         break;
-                    takeIt();
+                    }
+                    
+                    take('.');
+                    
+                    if(isDigit(aux)){
+                        this.currentSpelling = this.currentSpelling.concat(Character.toString(aux));
+                    }else{
+                        this.currentChar = aux;
+                        flag = true;
+                    }
+                    
                     while(isDigit(this.currentChar)){
                         takeIt();
                     }
@@ -201,8 +212,10 @@ public class Scanner {
     public Token scan() throws IOException{
         this.currentSpelling = "";
         
-        if(this.currentChar == '.')
-            this.currentSpelling = ".";
+        if(flag){
+            this.currentSpelling = this.currentSpelling.concat(Character.toString(this.currentChar));
+            flag = false;
+        }
                   
         scanSeparator();
         currentKind = scanToken();
