@@ -37,7 +37,7 @@ public class Compilador {
         
         for (Iterator iterator = tokens.iterator(); iterator.hasNext();) {
             Token next = (Token) iterator.next();
-            System.out.println(next.spelling);
+            System.out.println(next.spelling + " l = " +  Integer.toString(next.line) + " c =" + Integer.toString(next.collum));
         }
     }
     

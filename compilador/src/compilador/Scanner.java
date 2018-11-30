@@ -138,17 +138,16 @@ public class Scanner {
             while(isDigit(this.currentChar) || this.currentChar == '.'){
                 if (this.currentChar == '.') {
                     char aux = ( char )reader.read();
-                    this.coordinates[1]++;
                     
                     if(aux == '.'){
                         flag = true;
                         break;
-                    }
-                    
+                    }                    
                     take('.');
                     
                     if(isDigit(aux)){
                         this.currentSpelling = this.currentSpelling.concat(Character.toString(aux));
+                        this.coordinates[1]++;
                     }else{
                         this.currentChar = aux;
                         flag = true;
@@ -192,7 +191,6 @@ public class Scanner {
             case '\n':
                 takeIt();
                 this.coordinates[0]++;
-                this.coordinates[1] = 0;
                 this.currentSpelling = "eol";
                 return this.map.get("eol");
             
@@ -212,15 +210,21 @@ public class Scanner {
     public Token scan() throws IOException{
         this.currentSpelling = "";
         
+        if(currentKind == 37)
+            this.coordinates[1] = 0;
+        
         if(flag){
-            this.currentSpelling = this.currentSpelling.concat(Character.toString(this.currentChar));
+            this.currentSpelling = Character.toString(this.currentChar);
             flag = false;
         }
                   
         scanSeparator();
         currentKind = scanToken();
-
-        return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
+        
+        int collum = this.coordinates[1] - this.currentSpelling.length();
+        if(collum < 0)
+            collum = 0;
+        return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], collum);
             
     }
 }
