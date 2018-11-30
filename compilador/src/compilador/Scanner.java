@@ -111,8 +111,8 @@ public class Scanner {
        
     private void take(char c) throws IOException{
         if(this.currentChar == c){
-             this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
-             this.currentChar = ( char )reader.read();   //Here you go
+            this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
+            this.currentChar = ( char )reader.read();   //Here you go
             this.coordinates[1]++;
         }
     }
