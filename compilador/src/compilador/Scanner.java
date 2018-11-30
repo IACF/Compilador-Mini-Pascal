@@ -109,12 +109,14 @@ public class Scanner {
         }
     }
        
-    private void take(char c) throws IOException{
+    private boolean take(char c) throws IOException{
         if(this.currentChar == c){
             this.currentSpelling = currentSpelling.concat(Character.toString(this.currentChar));
             this.currentChar = ( char )reader.read();   //Here you go
             this.coordinates[1]++;
+            return true;
         }
+        return false;
     }
     
     private void takeIt() throws IOException{
@@ -137,6 +139,9 @@ public class Scanner {
             takeIt();
             while(isDigit(this.currentChar) || this.currentChar == '.'){
                 if (this.currentChar == '.') {
+                    char aux = ( char )reader.read();
+                    if(aux == '.')
+                        break;
                     takeIt();
                     while(isDigit(this.currentChar)){
                         takeIt();
@@ -163,10 +168,16 @@ public class Scanner {
                 return this.map.get(this.currentSpelling);
             
             case '.':
-                takeIt();               
-                take('.');
-                return this.map.get(this.currentSpelling);
-                        
+                takeIt();
+                if(this.currentSpelling.equals(".."))
+                  return this.map.get(this.currentSpelling);  
+                
+                if(isDigit(currentChar)){
+                    while(isDigit(this.currentChar))
+                        takeIt();
+                    return this.map.get("float-lit");
+                }
+                                           
             case '\n':
                 takeIt();
                 this.coordinates[0]++;
@@ -188,12 +199,15 @@ public class Scanner {
     }
     
     public Token scan() throws IOException{
-            this.currentSpelling = "";
-            
-            scanSeparator();
-            currentKind = scanToken();
+        this.currentSpelling = "";
+        
+        if(this.currentChar == '.')
+            this.currentSpelling = ".";
+                  
+        scanSeparator();
+        currentKind = scanToken();
 
-            return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
+        return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], this.coordinates[1]);
             
-        }
     }
+}
