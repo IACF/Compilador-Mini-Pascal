@@ -138,12 +138,12 @@ public class Scanner {
             while(isDigit(this.currentChar) || this.currentChar == '.'){
                 if (this.currentChar == '.') {
                     takeIt();
-                    while(isDigit(this.currentChar) && !isLetter(this.currentChar)){
+                    while(isDigit(this.currentChar)){
                         takeIt();
                     }
                     return this.map.get("float-lit");
                 }
-                
+                takeIt();
             }
             return this.map.get("int-lit");
         }
