@@ -203,8 +203,9 @@ public class Scanner {
                 return this.map.get("eof");
         }
         
-        if(this.map.containsKey(this.currentChar)){
-            return this.map.get(this.currentChar);
+        if(this.map.containsKey(Character.toString(this.currentChar))){
+            takeIt();
+            return this.map.get(this.currentSpelling);
         }
         
         takeIt();
@@ -226,7 +227,6 @@ public class Scanner {
             scanSeparator();
  
         this.currentKind = scanToken();
-        
         int collum = this.coordinates[1] - this.currentSpelling.length();
         if(collum < 0)
             collum = 0;
