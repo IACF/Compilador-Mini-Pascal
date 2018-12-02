@@ -94,7 +94,7 @@ public class Scanner {
     private void scanSeparator() throws IOException{
         switch (this.currentChar) {
             case '!' :
-                do{
+               do{
                     this.coordinates[1]++;
                     this.currentChar = ( char ) this.reader.read();
                 }while(isGraphic(this.currentChar));
@@ -166,9 +166,13 @@ public class Scanner {
         switch(this.currentChar){
             case '<':
                 takeIt();
-                take('>');
-                take('=');
-
+                
+                if(this.currentChar == '>'){
+                    take('>');
+                }else{
+                    take('=');
+                }
+                
                 return this.map.get(this.currentSpelling);
                 
             case ':': case '>':
@@ -215,11 +219,13 @@ public class Scanner {
         
         if(flag){
             this.currentSpelling = Character.toString(this.currentChar);
-            flag = false;
+            this.flag = false;
         }
-                  
-        scanSeparator();
-        currentKind = scanToken();
+        
+        while (this.currentChar == ' ' || this.currentChar == '!')
+            scanSeparator();
+ 
+        this.currentKind = scanToken();
         
         int collum = this.coordinates[1] - this.currentSpelling.length();
         if(collum < 0)
