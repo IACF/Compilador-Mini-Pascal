@@ -184,12 +184,13 @@ public class Scanner {
                 takeIt();
                 if(this.currentSpelling.equals(".."))
                   return this.map.get(this.currentSpelling);  
-                
+
                 if(isDigit(currentChar)){
                     while(isDigit(this.currentChar))
                         takeIt();
                     return this.map.get("float-lit");
                 }
+                return this.map.get(this.currentSpelling); 
                                            
             case '\n':
                 takeIt();
