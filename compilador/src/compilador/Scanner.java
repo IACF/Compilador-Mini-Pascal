@@ -74,8 +74,8 @@ public class Scanner {
             put("float-lit", 40);
         }};
        
-       this.coordinates[0] = 0;
-       this.coordinates[1] = 0;
+       this.coordinates[0] = 1;
+       this.coordinates[1] = 1;
     }
       
     private boolean isLetter(char c){
@@ -89,7 +89,6 @@ public class Scanner {
     private boolean isGraphic(char c){
         return c != '\n' && c != (char) -1;
     }
-    
     
     private void scanSeparator() throws IOException{
         switch (this.currentChar) {
@@ -216,7 +215,7 @@ public class Scanner {
         this.currentSpelling = "";
         
         if(currentKind == 37)
-            this.coordinates[1] = 0;
+            this.coordinates[1] = 1;
         
         if(flag){
             this.currentSpelling = Character.toString(this.currentChar);
@@ -229,7 +228,7 @@ public class Scanner {
         this.currentKind = scanToken();
         int collum = this.coordinates[1] - this.currentSpelling.length();
         if(collum < 0)
-            collum = 0;
+            collum = 1;
         return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], collum);
             
     }
