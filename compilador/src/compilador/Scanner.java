@@ -137,19 +137,18 @@ public class Scanner {
             while(isDigit(this.currentChar) || this.currentChar == '.'){
                 if (this.currentChar == '.') {
                     char aux = ( char )reader.read();
-                    
-                    if(aux == '.'){
-                        flag = true;
-                        break;
-                    }                    
+                                      
                     take('.');
                     
                     if(isDigit(aux)){
                         this.currentSpelling = this.currentSpelling.concat(Character.toString(aux));
                         this.coordinates[1]++;
                     }else{
-                        this.currentChar = aux;
                         flag = true;
+                        if(aux == '.'){              
+                            break;
+                        }  
+                        this.currentChar = aux;
                     }
                     
                     while(isDigit(this.currentChar)){

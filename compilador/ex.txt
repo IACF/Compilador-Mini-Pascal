@@ -1,7 +1,7 @@
 program teste;
 begin.
 var a := 5:.
-.555 $
-1234455
-array[1..2] of Integer
-@#$%
+.555! $
+5.! ola
+[44]
+array[1...4] of Integer
