@@ -1,0 +1,116 @@
+<atribuição> ::=  <variável> := <expressão>
+
+<bool-lit> ::= true | false
+
+<comando> ::= 
+	<atribuição> 
+	| <condicional> 
+	| <iterativo> 
+	| <comando-composto>
+
+<comando-composto> ::= 
+	begin <lista-de-comandos> end
+
+<condicional> ::= 
+	if <expressão> then <comando> ( else <comando> | <vazio> )
+
+<corpo> ::= 
+	<declarações> <comando-composto>
+
+<declaração-de-variável> ::= 
+	var <lista-de-ids> : <tipo>
+
+<declarações> ::= (<declaração-de-variável>  ;)*
+
+<digito> ::= 
+	0 
+	| 1 
+	| 2 
+	| ...
+	| 9
+
+<expressão> ::= 
+	<expressão-simples> 
+	| <expressão-simples> <op-rel> <expressão-simples>
+	
+<expressão> ::= <expressão-simples> (<op-rel> <expressão-simples> | vazio)
+
+<expressão-simples> ::= <termo> (<op-ad> <termo>)*
+	
+
+<fator> ::= 
+	<variável> 
+	| <literal> 
+	| "(" <expressão> ")"
+	
+<float-lit> ::= (<int-lit>)* . (<int-lit>)* 
+	
+<id> ::= <letra>(<letra> | <digito>)* 
+
+<int-lit> ::= 
+	<digito> 
+	| <int-lit> <digito>
+
+<int-lit> ::= <digit>(<digit>)*
+
+<iterativo> ::= 
+	while <expressão> do <comando>
+
+<letra> ::= 
+	a 
+	| b 
+	| c 
+	| ... 
+	| z
+	
+<lista-de-comandos> ::= (<comando> ;)*
+
+<lista-de-ids> ::= <id> (, <id> )*
+	
+<literal> ::= 
+	<bool-lit> 
+	| <int-lit> 
+	| <float-lit> 
+<op-ad> ::= 
+	+ 
+	| - 
+	| or
+<op-mul> ::= 
+	* 
+	| / 
+	| and
+<op-rel> ::= 
+	< 
+	| > 
+	| <= 
+	| >= 
+	| = 
+	| <>
+<outros> ::= 
+	! 
+	| @ 
+	| # 
+	| ...
+
+<programa> ::= 
+	program <id> ; <corpo> .
+
+<seletor> ::= ( "[" <expressão> "]" )*
+	
+<termo> ::= (<op-mul> <fator> | <fator>)* 
+
+
+<tipo> ::= <tipo-agregado> | <tipo-simples>
+
+<tipo-agregado> ::= array [ <literal> .. <literal> ] of <tipo>
+
+<tipo-simples> ::= 
+	integer 
+	| real 
+	| boolean
+
+<variável> ::= 
+	<id> <seletor>
+
+<vazio> ::= 
+	ε
