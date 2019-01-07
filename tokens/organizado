@@ -1,0 +1,114 @@
+########################## Leonardo ######################
+
+<programa> ::= 
+	program <id> ; <corpo> .
+
+<id> ::= <letra>(<letra> | <digito>)* 
+
+<letra> ::= 
+	a 
+	| b 
+	| c 
+	| ... 
+	| z
+
+<corpo> ::= 
+	<declarações> <comando-composto>
+
+########################## ITALO ##############################
+
+<declarações> ::= (<declaração-de-variável>  ;)*
+
+<declaração-de-variável> ::= 
+	var <lista-de-ids> : <tipo>
+
+<lista-de-ids> ::= <id> (, <id> )*
+
+<tipo> ::= <tipo-agregado> | <tipo-simples>
+
+<tipo-simples> ::= 
+	integer 
+	| real 
+	| boolean
+
+<tipo-agregado> ::= array [ <literal> .. <literal> ] of <tipo>
+
+<literal> ::= 
+	<bool-lit> 
+	| <int-lit> 
+	| <float-lit> 
+
+<bool-lit> ::= true | false
+
+<float-lit> ::= (<int-lit>)* . (<int-lit>)* 
+
+<int-lit> ::= <digit>(<digit>)*
+
+<digito> ::= 
+	0 
+	| 1 
+	| 2 
+	| ...
+	| 9
+
+############################################ Victor ###########################################
+
+<comando-composto> ::= 
+	begin <lista-de-comandos> end
+
+<lista-de-comandos> ::= (<comando> ;)*
+
+<comando> ::= 
+	<atribuição> 
+	| <condicional> 
+	| <iterativo> 
+	| <comando-composto>
+
+<atribuição> ::=  <variável> := <expressão>
+
+<variável> ::= 
+	<id> <seletor>
+
+<seletor> ::= ( "[" <expressão> "]" )*
+
+<condicional> ::= 
+	if <expressão> then <comando> ( else <comando> | <vazio> )
+
+<iterativo> ::= 
+	while <expressão> do <comando>
+
+<expressão> ::= <expressão-simples> (<op-rel> <expressão-simples> | <vazio>)
+	
+######################################## Leonardo #############################################
+
+<op-rel> ::= 
+	< 
+	| > 
+	| <= 
+	| >= 
+	| = 
+	| <>
+
+<expressão-simples> ::= <termo> (<op-ad> <termo>)*
+
+<op-ad> ::= 
+	+ 
+	| - 
+	| or
+
+
+<termo> ::= (<op-mul> <fator> | <fator>)* 
+
+<op-mul> ::= 
+	* 
+	| / 
+	| and
+	
+<fator> ::= 
+	<variável> 
+	| <literal> 
+	| "(" <expressão> ")"
+	
+		
+<vazio> ::= 
+	ε

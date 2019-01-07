@@ -33,11 +33,10 @@
 	<expressão-simples> 
 	| <expressão-simples> <op-rel> <expressão-simples>
 	
-<expressão> ::= <expressão-simples> (<op-rel> <expressão-simples> | vazio)
+<expressão> ::= <expressão-simples> (<op-rel> <expressão-simples> | <vazio>)
 
 <expressão-simples> ::= <termo> (<op-ad> <termo>)*
 	
-
 <fator> ::= 
 	<variável> 
 	| <literal> 
