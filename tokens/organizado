@@ -59,28 +59,15 @@
 <lista-de-comandos> ::= (<comando> ;)*
 
 <comando> ::= 
-	<atribuição> 
-	| <condicional> 
-	| <iterativo> 
+	<id> <seletor> := <expressão>
+	| if <expressão> then <comando> ( else <comando> | <vazio> )
+	| while <expressão> do <comando>
 	| <comando-composto>
 
-<atribuição> ::=  <variável> := <expressão>
-
-<variável> ::= 
-	<id> <seletor>
-
 <seletor> ::= ( "[" <expressão> "]" )*
-
-<condicional> ::= 
-	if <expressão> then <comando> ( else <comando> | <vazio> )
-
-<iterativo> ::= 
-	while <expressão> do <comando>
-
+	
 <expressão> ::= <expressão-simples> (<op-rel> <expressão-simples> | <vazio>)
 	
-######################################## Leonardo #############################################
-
 <op-rel> ::= 
 	< 
 	| > 
@@ -88,6 +75,8 @@
 	| >= 
 	| = 
 	| <>
+
+######################################## Leonardo #############################################
 
 <expressão-simples> ::= <termo> (<op-ad> <termo>)*
 
