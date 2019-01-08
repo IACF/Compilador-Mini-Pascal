@@ -3,15 +3,6 @@
 <programa> ::= 
 	program <id> ; <corpo> .
 
-<id> ::= <letra>(<letra> | <digito>)* 
-
-<letra> ::= 
-	a 
-	| b 
-	| c 
-	| ... 
-	| z
-
 <corpo> ::= 
 	<declarações> <comando-composto>
 
@@ -40,16 +31,6 @@
 
 <bool-lit> ::= true | false
 
-<float-lit> ::= (<int-lit>)* . (<int-lit>)* 
-
-<int-lit> ::= <digit>(<digit>)*
-
-<digito> ::= 
-	0 
-	| 1 
-	| 2 
-	| ...
-	| 9
 
 ############################################ Victor ###########################################
 
