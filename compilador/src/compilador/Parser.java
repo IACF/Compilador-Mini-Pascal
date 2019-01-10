@@ -27,6 +27,56 @@ public class Parser {
         currentToken = scanner.scan();
     }
     
+    private void parseDeclaracoes() throws IOException{
+        while(this.currentToken.kind != scanner.map.get("begin")){
+            parseDeclarcaoDeVariavel();
+            accept(";");
+        }
+    }
+    
+    private void parseDeclarcaoDeVariavel() throws IOException{
+        accept("var");
+        parseListaDeIds();
+        accept(":");
+        parseTipo();
+    }
+    
+    private void parseListaDeIds() throws IOException{
+        accept("id");
+        while(this.currentToken.kind == scanner.map.get(",")){
+            accept(",");
+            accept("id");
+        }
+    }
+    
+    private void parseTipo() throws IOException{
+//        if(this.currentToken.kind == scanner.map.get("array")){
+//            parseTipoAgregado();
+//        } else if(this.currentToken ) {
+//            
+//        }
+        
+        
+    }
+    
+    private void parseTipoAgregado() throws IOException{
+        accept("array");
+        accept("[");
+        parseLiteral();
+        accept("..");
+        parseLiteral();
+        accept("[");
+        accept("of");
+        parseTipo();
+
+
+
+    }
+    
+    private void parseLiteral() throws IOException{
+        
+    }
+    
     private void parseComandoComposto() throws IOException{
         accept("begin");
         parseListaDeComandos();
