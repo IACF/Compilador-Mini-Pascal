@@ -50,13 +50,24 @@ public class Parser {
     }
     
     private void parseTipo() throws IOException{
-//        if(this.currentToken.kind == scanner.map.get("array")){
-//            parseTipoAgregado();
-//        } else if(this.currentToken ) {
-//            
-//        }
-        
-        
+        if(this.currentToken.kind == scanner.map.get("array")){
+            parseTipoAgregado();
+        } else {
+            parseTipoSimples();
+        }
+    }
+    
+    private void parseTipoSimples() throws IOException{
+        if (
+            this.currentToken.kind == scanner.map.get("integer") 
+            || this.currentToken.kind == scanner.map.get("real") 
+            || this.currentToken.kind == scanner.map.get("boolean")
+        ) {
+            acceptIt();
+        } else {
+            System.out.println("Erro");
+        }
+            
     }
     
     private void parseTipoAgregado() throws IOException{
@@ -65,7 +76,7 @@ public class Parser {
         parseLiteral();
         accept("..");
         parseLiteral();
-        accept("[");
+        accept("]");
         accept("of");
         parseTipo();
 
@@ -74,7 +85,25 @@ public class Parser {
     }
     
     private void parseLiteral() throws IOException{
-        
+        if(
+            this.currentToken.kind == scanner.map.get("int-lit") ||
+            this.currentToken.kind == scanner.map.get("float-lit")
+        ) {
+            acceptIt();
+        } else {
+            parseBooleanLiteral();
+        }
+    }
+    
+    private void parseBooleanLiteral() throws IOException{
+        if(
+            this.currentToken.kind == scanner.map.get("true") ||
+            this.currentToken.kind == scanner.map.get("false")
+        ) {
+            acceptIt();
+        } else {
+            System.out.println("error");
+        }
     }
     
     private void parseComandoComposto() throws IOException{
