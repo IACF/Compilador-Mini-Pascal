@@ -46,6 +46,7 @@ public class Parser {
             parseSeletor();
             accept(":=");
             parseExpressao();
+            return;
         }else{
             if(scanner.map.get("if") == currentToken.kind){
                 acceptIt();
@@ -56,18 +57,24 @@ public class Parser {
                     acceptIt();
                     parseComando();
                 }
+                return;
             }else{
                 if(scanner.map.get("while") == currentToken.kind){
                     acceptIt();
                     parseExpressao();
                     accept("do");
                     parseComando();
+                    return;
                 }else{
-                    if(scanner.map.get("begin") == currentToken.kind)
+                    if(scanner.map.get("begin") == currentToken.kind){
                         parseComandoComposto();
+                        return;
+                    }
                 }
             } 
         }
+        
+      throw new Error(currentToken);
    }
     
     private void parseSeletor() throws IOException {
