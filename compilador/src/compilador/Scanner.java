@@ -74,7 +74,6 @@ public class Scanner {
             put("float-lit", (byte) 40);
             put("integer", (byte) 41);
             put("real", (byte) 42);
-            put("boolean", (byte) 43);
         }};
        
        this.coordinates[0] = 1;
