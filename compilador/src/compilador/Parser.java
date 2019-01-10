@@ -19,7 +19,7 @@ public class Parser {
         if(this.currentToken.kind == scanner.map.get(expectedToken)){
             currentToken = scanner.scan();
         }else{
-            //reportar erro de sintaxe.
+            throw new Error(expectedToken, currentToken);
         }
     }
     
