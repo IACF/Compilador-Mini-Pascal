@@ -41,14 +41,8 @@
 	<variável> 
 	| <literal> 
 	| "(" <expressão> ")"
-	
-<float-lit> ::= (<int-lit>)* . (<int-lit>)* 
-	
+	 	
 <id> ::= <letra>(<letra> | <digito>)* 
-
-<int-lit> ::= 
-	<digito> 
-	| <int-lit> <digito>
 
 <int-lit> ::= <digit>(<digit>)*
 
@@ -111,5 +105,6 @@
 <variável> ::= 
 	<id> <seletor>
 
-<vazio> ::= 
-	ε
+<vazio> ::= ε
+
+<float-lit> ::= <digito> <digito>* .  <digito>* | . <digito><digito>* 
