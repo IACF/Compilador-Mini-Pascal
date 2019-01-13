@@ -1,9 +1,0 @@
-Token ::= := | true | false | begin | end | if | then | else | var | : | ; | int-lit | ( | ) | . | id | while | do | , | + | - | or | * | / | and | < | > | <= | >= | = | <> | [ | ] | array | .. | of
-
-<int-lit> ::= <digito> | <int-lit> <digito>
-
-<id> ::= <letra> | <id> <letra> | <id> <digito>
-
-<letra> ::= 	a | b | c | ... | z
-
-<digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
