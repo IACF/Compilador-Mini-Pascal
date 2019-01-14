@@ -67,7 +67,7 @@
 	| or
 
 
-<termo> ::= (<op-mul> <fator> | <fator>)* 
+<termo> ::= <fator> (<op-mul> <fator>)* 
 
 <op-mul> ::= 
 	* 

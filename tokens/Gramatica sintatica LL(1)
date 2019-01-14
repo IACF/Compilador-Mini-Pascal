@@ -90,7 +90,7 @@
 
 <seletor> ::= ( "[" <expressão> "]" )*
 	
-<termo> ::= (<op-mul> <fator> | <fator>)* 
+<termo> ::= <fator> (<op-mul> <fator>)* 
 
 
 <tipo> ::= <tipo-agregado> | <tipo-simples>
