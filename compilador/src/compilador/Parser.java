@@ -27,6 +27,19 @@ public class Parser {
         currentToken = scanner.scan();
     }
     
+    private void parsePrograma() throws IOException{
+        accept("program");
+        accept("id");
+        accept(";");
+        parseCorpo();
+        accept(".");
+    }
+    
+    private void parseCorpo() throws IOException{
+        parseDeclaracoes();
+        parseComandoComposto();     
+    }
+    
     private void parseDeclaracoes() throws IOException{
         while(this.currentToken.kind != scanner.map.get("begin")){
             parseDeclarcaoDeVariavel();
@@ -79,9 +92,6 @@ public class Parser {
         accept("]");
         accept("of");
         parseTipo();
-
-
-
     }
     
     private void parseLiteral() throws IOException{
@@ -174,7 +184,62 @@ public class Parser {
         
     }
 
-    private void parseExpressaoSimples() {
+    private void parseExpressaoSimples() throws IOException
+    {
+        parseTermo();
+        while(this.currentToken.kind != scanner.map.get("<")
+            && this.currentToken.kind != scanner.map.get(">")
+            && this.currentToken.kind != scanner.map.get("<=")
+            && this.currentToken.kind != scanner.map.get(">=")
+            && this.currentToken.kind != scanner.map.get("=")
+            && this.currentToken.kind != scanner.map.get("<>"))
+        {
+            parseOpAd();
+            parseTermo();
+        }  
+    }
+
+    private void parseOpAd() throws IOException{
+        if (
+            this.currentToken.kind == scanner.map.get("+") 
+            || this.currentToken.kind == scanner.map.get("-") 
+            || this.currentToken.kind == scanner.map.get("or")
+        ) {
+            acceptIt();
+        } else {
+            System.out.println("Erro");
+        }
+    }
+    
+    private void parseTermo() throws IOException{
+        parseFator();
+        while(this.currentToken.kind != scanner.map.get("+")
+            && this.currentToken.kind != scanner.map.get("-")
+            && this.currentToken.kind != scanner.map.get("or"))
+        {
+            parseOpMul();
+            parseFator();
+        }  
+    }
+    
+    private void parseOpMul() throws IOException{
+        if (
+            this.currentToken.kind == scanner.map.get("*") 
+            || this.currentToken.kind == scanner.map.get("/") 
+            || this.currentToken.kind == scanner.map.get("and")
+        ) {
+            acceptIt();
+        } else {
+            System.out.println("Erro");
+        }
+    }
+    
+    private void parseFator() throws IOException{
         
     }
+    
+    private void parseVazio() throws IOException{
+    
+    }
+
 }
