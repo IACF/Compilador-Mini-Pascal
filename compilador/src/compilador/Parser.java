@@ -5,6 +5,8 @@
  */
 package compilador;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -13,17 +15,29 @@ import java.io.IOException;
  */
 public class Parser {
     private Token currentToken;
-    private Scanner scanner;
+    private final Scanner scanner;
+    
+    public Parser() throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
+        this.scanner = new Scanner(reader);
+        this.currentToken = scanner.scan();
+        
+        this.parsePrograma();
+    }
     
     private void accept(String expectedToken) throws IOException{
+        System.out.println(this.currentToken.spelling);
         if(this.currentToken.kind == scanner.map.get(expectedToken)){
             currentToken = scanner.scan();
         }else{
-            throw new Error(expectedToken, currentToken);
+            System.out.println(this.currentToken.kind);
+            System.out.println(scanner.map.get(expectedToken));
+            throw new Error(currentToken);
         }
     }
     
     private void acceptIt() throws IOException{
+        System.out.println(this.currentToken.spelling);
         currentToken = scanner.scan();
     }
     
@@ -33,6 +47,7 @@ public class Parser {
         accept(";");
         parseCorpo();
         accept(".");
+        System.out.println("funfou");
     }
     
     private void parseCorpo() throws IOException{
@@ -41,13 +56,15 @@ public class Parser {
     }
     
     private void parseDeclaracoes() throws IOException{
+        System.out.println(this.currentToken.kind);
+        System.out.println(scanner.map.get("begin"));
         while(this.currentToken.kind != scanner.map.get("begin")){
-            parseDeclarcaoDeVariavel();
+            parseDeclaracaoDeVariavel();
             accept(";");
         }
     }
     
-    private void parseDeclarcaoDeVariavel() throws IOException{
+    private void parseDeclaracaoDeVariavel() throws IOException{
         accept("var");
         parseListaDeIds();
         accept(":");
@@ -78,9 +95,8 @@ public class Parser {
         ) {
             acceptIt();
         } else {
-            System.out.println("Erro");
-        }
-            
+           throw new Error(currentToken);
+        }        
     }
     
     private void parseTipoAgregado() throws IOException{
@@ -97,25 +113,15 @@ public class Parser {
     private void parseLiteral() throws IOException{
         if(
             this.currentToken.kind == scanner.map.get("int-lit") ||
-            this.currentToken.kind == scanner.map.get("float-lit")
-        ) {
+            this.currentToken.kind == scanner.map.get("float-lit") ||
+             this.currentToken.kind == scanner.map.get("bool-lit")) 
+        {
             acceptIt();
         } else {
-            parseBooleanLiteral();
+            
         }
     }
-    
-    private void parseBooleanLiteral() throws IOException{
-        if(
-            this.currentToken.kind == scanner.map.get("true") ||
-            this.currentToken.kind == scanner.map.get("false")
-        ) {
-            acceptIt();
-        } else {
-            System.out.println("error");
-        }
-    }
-    
+      
     private void parseComandoComposto() throws IOException{
         accept("begin");
         parseListaDeComandos();
@@ -181,7 +187,6 @@ public class Parser {
             acceptIt();
             parseExpressaoSimples();  
         }
-        
     }
 
     private void parseExpressaoSimples() throws IOException
@@ -232,11 +237,27 @@ public class Parser {
     }
     
     private void parseFator() throws IOException{
-        
+        if(this.currentToken.kind == scanner.map.get("id")){
+            parseVariavel();
+        }else{
+            if(this.currentToken.kind == scanner.map.get("(")){
+                parseExpressao();
+            }else{
+                if(this.currentToken.kind == scanner.map.get("bool-lit")
+                   || this.currentToken.kind == scanner.map.get("float-lit")
+                   || this.currentToken.kind == scanner.map.get("bool-lit"))
+                {
+                    parseLiteral();
+                }else{
+                    throw new Error(currentToken);
+                }
+            }
+        }
     }
     
-    private void parseVazio() throws IOException{
-    
+    private void parseVariavel() throws IOException{
+        accept("id");
+        parseSeletor();
     }
 
 }

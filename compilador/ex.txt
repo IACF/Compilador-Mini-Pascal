@@ -1,7 +1,5 @@
 program teste;
-begin.
-var a := 5:.
-.555! $
-5.! ola
-[44]
-array[1...4] of Integer
+begin
+a
+end
+.

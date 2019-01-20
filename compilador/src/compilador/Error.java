@@ -7,10 +7,10 @@ package compilador;
 
 public class Error extends RuntimeException{
     public Error(String expected, Token current){
-        super("Esperava-se " + expected + " linha = " + current.line + " coluna = " + current.collum);
+        super("Esperava-se " + expected + " encontrado " + current.spelling + " linha = " + current.line + " coluna = " + current.collum);
     }
     
     public Error(Token current){
-        super("Error de sintaxe na linha " + current.line + "coluna " + current.collum);
+        super("Error de sintaxe na linha " + current.line + " coluna " + current.collum);
     }
 }

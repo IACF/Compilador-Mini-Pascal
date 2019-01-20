@@ -32,8 +32,8 @@ public class Scanner {
        this.map = new HashMap<>()
         {{
             put(":=" , (byte) 0);
-            put("true",(byte) 1);
-            put("false",(byte) 2);
+            put("bool-lit",(byte) 1);
+            put("integer",(byte) 2);
             put("begin",(byte) 3);
             put("end",(byte) 4);
             put("if", (byte) 5);
@@ -68,12 +68,9 @@ public class Scanner {
             put("..", (byte) 34);
             put("of", (byte) 35);
             put("program", (byte) 36);
-            put("eol", (byte) 37);
+            put("float-lit", (byte) 37);
             put("error", (byte) 38);
             put("eof", (byte) 39);
-            put("float-lit", (byte) 40);
-            put("integer", (byte) 41);
-            put("real", (byte) 42);
         }};
        
        this.coordinates[0] = 1;
@@ -125,10 +122,26 @@ public class Scanner {
     }
     
     private int scanToken() throws IOException{
+        
+        if(this.currentChar == '\n'){
+            this.currentChar = ( char )reader.read();
+            this.coordinates[0]++;
+            this.coordinates[1] = 0;
+        }
+               
         if(isLetter(this.currentChar)){
             takeIt(); 
+            
             while(isLetter(this.currentChar) || isDigit(this.currentChar)){
                 takeIt();
+            }
+                     
+            
+            System.out.println("aq " + this.currentSpelling);
+            
+            if(this.map.containsKey(this.currentSpelling)){
+                System.out.println(this.currentSpelling);
+                return this.map.get(this.currentSpelling);
             }
                         
             return this.map.get("id");      
@@ -192,13 +205,7 @@ public class Scanner {
                     return this.map.get("float-lit");
                 }
                 return this.map.get(this.currentSpelling); 
-                                           
-            case '\n':
-                takeIt();
-                this.coordinates[0]++;
-                this.currentSpelling = "eol";
-                return this.map.get("eol");
-            
+                                               
             case (char) -1:
                 this.currentSpelling = "eof";
                 return this.map.get("eof");

@@ -27,18 +27,12 @@ public class Compilador {
         Token t;
         List tokens =  new ArrayList();
             
-        do{
-            t = s.scan();
-            tokens.add(t);
-            //System.out.println(t.kind);
-        }while(t.kind != 39); // diferente de EOF.
-
-        System.out.println(tokens.size());
+        Parser p;
         
-        for (Iterator iterator = tokens.iterator(); iterator.hasNext();) {
-            Token next = (Token) iterator.next();
-            System.out.println(next.spelling + " l = " +  Integer.toString(next.line) + " c = " + Integer.toString(next.collum) + " k = " + next.kind);
-        }
+        p = new Parser();
+        
+
+        
     }
     
 }
