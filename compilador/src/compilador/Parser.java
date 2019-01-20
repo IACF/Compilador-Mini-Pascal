@@ -187,12 +187,9 @@ public class Parser {
     private void parseExpressaoSimples() throws IOException
     {
         parseTermo();
-        while(this.currentToken.kind != scanner.map.get("<")
-            && this.currentToken.kind != scanner.map.get(">")
-            && this.currentToken.kind != scanner.map.get("<=")
-            && this.currentToken.kind != scanner.map.get(">=")
-            && this.currentToken.kind != scanner.map.get("=")
-            && this.currentToken.kind != scanner.map.get("<>"))
+        while(this.currentToken.kind == scanner.map.get("+") 
+            || this.currentToken.kind == scanner.map.get("-") 
+            || this.currentToken.kind == scanner.map.get("or"))
         {
             parseOpAd();
             parseTermo();
@@ -213,9 +210,9 @@ public class Parser {
     
     private void parseTermo() throws IOException{
         parseFator();
-        while(this.currentToken.kind != scanner.map.get("+")
-            && this.currentToken.kind != scanner.map.get("-")
-            && this.currentToken.kind != scanner.map.get("or"))
+        while(this.currentToken.kind != scanner.map.get("*")
+            || this.currentToken.kind != scanner.map.get("/")
+            || this.currentToken.kind != scanner.map.get("and"))
         {
             parseOpMul();
             parseFator();
