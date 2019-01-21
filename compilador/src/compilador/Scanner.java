@@ -196,9 +196,12 @@ public class Scanner {
             
             case '.':
                 takeIt();
-                if(this.currentSpelling.equals(".."))
+                
+                if(currentChar == '.'){
+                  takeIt();
                   return this.map.get(this.currentSpelling);  
-
+                }
+                
                 if(isDigit(currentChar)){
                     while(isDigit(this.currentChar))
                         takeIt();
