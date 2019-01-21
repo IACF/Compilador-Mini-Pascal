@@ -32,7 +32,7 @@ public class Parser {
         }else{
             System.out.println(this.currentToken.kind);
             System.out.println(scanner.map.get(expectedToken));
-            throw new Error(currentToken);
+            throw new Error(expectedToken, currentToken);
         }
     }
     
@@ -56,9 +56,7 @@ public class Parser {
     }
     
     private void parseDeclaracoes() throws IOException{
-        System.out.println(this.currentToken.kind);
-        System.out.println(scanner.map.get("begin"));
-        while(this.currentToken.kind != scanner.map.get("begin")){
+        while(this.currentToken.kind == scanner.map.get("var")){
             parseDeclaracaoDeVariavel();
             accept(";");
         }
@@ -169,6 +167,7 @@ public class Parser {
             } 
         }
         
+        System.out.println("aq " +  currentToken.kind);
       throw new Error(currentToken);
    }
     

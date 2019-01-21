@@ -71,6 +71,9 @@ public class Scanner {
             put("float-lit", (byte) 37);
             put("error", (byte) 38);
             put("eof", (byte) 39);
+            put("integer", (byte) 40);
+            put("real", (byte) 41);
+            put("boolean", (byte) 42);
         }};
        
        this.coordinates[0] = 1;
@@ -104,6 +107,13 @@ public class Scanner {
                     this.currentChar = ( char ) this.reader.read();
                     this.coordinates[1]++;
                 }while(this.currentChar == ' ');
+                
+                break;
+            case '\n':
+                
+                this.currentChar = ( char )reader.read();
+                this.coordinates[0]++;
+                this.coordinates[1] = 0;
         }
     }
        
@@ -122,25 +132,15 @@ public class Scanner {
     }
     
     private int scanToken() throws IOException{
-        
-        if(this.currentChar == '\n'){
-            this.currentChar = ( char )reader.read();
-            this.coordinates[0]++;
-            this.coordinates[1] = 0;
-        }
-               
+       
         if(isLetter(this.currentChar)){
             takeIt(); 
             
             while(isLetter(this.currentChar) || isDigit(this.currentChar)){
                 takeIt();
             }
-                     
-            
-            System.out.println("aq " + this.currentSpelling);
-            
+                                 
             if(this.map.containsKey(this.currentSpelling)){
-                System.out.println(this.currentSpelling);
                 return this.map.get(this.currentSpelling);
             }
                         
@@ -231,7 +231,7 @@ public class Scanner {
             this.flag = false;
         }
         
-        while (this.currentChar == ' ' || this.currentChar == '!')
+        while (this.currentChar == ' ' || this.currentChar == '!' || this.currentChar == '\n')
             scanSeparator();
  
         this.currentKind = scanToken();
