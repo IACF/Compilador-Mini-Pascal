@@ -214,9 +214,9 @@ public class Parser {
     
     private void parseTermo() throws IOException{
         parseFator();
-        while(this.currentToken.kind != scanner.map.get("*")
-            || this.currentToken.kind != scanner.map.get("/")
-            || this.currentToken.kind != scanner.map.get("and"))
+        while(this.currentToken.kind == scanner.map.get("*")
+            || this.currentToken.kind == scanner.map.get("/")
+            || this.currentToken.kind == scanner.map.get("and"))
         {
             parseOpMul();
             parseFator();
@@ -248,6 +248,7 @@ public class Parser {
                 {
                     parseLiteral();
                 }else{
+                    System.out.println(currentToken.spelling);
                     throw new Error(currentToken);
                 }
             }

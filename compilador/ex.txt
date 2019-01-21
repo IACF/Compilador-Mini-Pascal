@@ -1,6 +1,6 @@
 program teste;
 var variavel : integer;
 begin
-      
+    variavel := variavel;
 end
 .
