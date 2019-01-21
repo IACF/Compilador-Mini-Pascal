@@ -1,7 +1,11 @@
 program teste;
     var variavel,teste ,aux : integer;
-    var ar : array [ 1 . 3 ] of integer;
+    var aux2 : real;
+    var ar : array [ 1 .. 3 ] of integer;
 begin
+    if (2 > 3)
+    then 
     variavel := variavel;
+    
 end
 .

@@ -191,6 +191,7 @@ public class Parser {
     private void parseExpressaoSimples() throws IOException
     {
         parseTermo();
+        System.out.println("teste");
         while(this.currentToken.kind == scanner.map.get("+") 
             || this.currentToken.kind == scanner.map.get("-") 
             || this.currentToken.kind == scanner.map.get("or"))
@@ -236,15 +237,19 @@ public class Parser {
     }
     
     private void parseFator() throws IOException{
+       // System.out.println(this.currentToken.spelling);
+        
         if(this.currentToken.kind == scanner.map.get("id")){
             parseVariavel();
         }else{
             if(this.currentToken.kind == scanner.map.get("(")){
+                acceptIt();
                 parseExpressao();
+                accept(")");
             }else{
                 if(this.currentToken.kind == scanner.map.get("bool-lit")
                    || this.currentToken.kind == scanner.map.get("float-lit")
-                   || this.currentToken.kind == scanner.map.get("bool-lit"))
+                   || this.currentToken.kind == scanner.map.get("int-lit"))
                 {
                     parseLiteral();
                 }else{
