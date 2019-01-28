@@ -1,6 +1,15 @@
 <atribuição> ::=  <variável> := <expressão>
 
+1 regra - LL(1);
+
+
 <bool-lit> ::= true | false
+
+first(1):
+    true
+    false
+
+LL(1)
 
 <comando> ::= 
 	<atribuição> 

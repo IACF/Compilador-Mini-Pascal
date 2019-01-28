@@ -3,9 +3,13 @@ program teste;
     var aux2 : real;
     var ar : array [ 1 .. 3 ] of integer;
 begin
+    variavel := variavel;
     if (2 > 3)
     then 
+    variavel := variavel
+    else
     variavel := variavel;
-    
+    begin
+    end;
 end
 .
