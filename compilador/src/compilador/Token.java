@@ -2,11 +2,13 @@ package compilador;
 
 import java.util.Map;
 
-public class Token {
+public class Token extends AST {
     public int kind;
     public String spelling;
     public int line;
     public int collum;
+    
+    public Token(){}
 
     public Token(Map<String, Byte> map, int kind, String spelling, int line, int collum) {
         this.kind = kind;

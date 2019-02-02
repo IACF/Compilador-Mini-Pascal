@@ -41,51 +41,99 @@ public class Parser {
         currentToken = scanner.scan();
     }
     
-    private void parsePrograma() throws IOException{
+    private Identificador parseIdentificador() throws IOException{
+        Identificador idAST;
+        
+        if(this.currentToken.kind != scanner.map.get("id")){
+            throw new Error(currentToken);       
+        }else{
+            idAST = (Identificador) currentToken;
+            currentToken = scanner.scan();
+        }
+        
+        return idAST;
+    }
+    
+    private Programa parsePrograma() throws IOException{
+        Identificador idAST;
+        Corpo cAST;
+        
         accept("program");
-        accept("id");
+        idAST = parseIdentificador();
         accept(";");
-        parseCorpo();
+        cAST = parseCorpo();
         accept(".");
         System.out.println("funfou");
+        return new Programa(idAST, cAST);
     }
     
-    private void parseCorpo() throws IOException{
-        parseDeclaracoes();
-        parseComandoComposto();     
+    private Corpo parseCorpo() throws IOException{
+        Declaracao dAST;
+        Comando cAST;
+        
+        dAST = parseDeclaracoes();
+        cAST = parseComandoComposto(); 
+        
+        return new Corpo(dAST, cAST);
     }
     
-    private void parseDeclaracoes() throws IOException{
-        while(this.currentToken.kind == scanner.map.get("var")){
-            parseDeclaracaoDeVariavel();
+    private Declaracao parseDeclaracoes() throws IOException{
+        Declaracao d1AST = null;
+        
+        if(this.currentToken.kind == scanner.map.get("var")){
+            d1AST = parseDeclaracaoDeVariavel();
             accept(";");
         }
+        
+        while(this.currentToken.kind == scanner.map.get("var")){
+            Declaracao d2AST = parseDeclaracaoDeVariavel();
+            accept(";");
+            d1AST = new declaracaoSequencial(d1AST, d2AST);
+        }
+        
+        return d1AST;
     }
     
-    private void parseDeclaracaoDeVariavel() throws IOException{
+    private Declaracao parseDeclaracaoDeVariavel() throws IOException{
+        Identificador idAST;
+        Tipo tAST;
+        
         accept("var");
-        parseListaDeIds();
+        idAST = parseListaDeIds();
         accept(":");
-        parseTipo();
+        tAST = parseTipo();
+        return new daclaracaoDeVariavel(idAST, tAST);
     }
-    
-    private void parseListaDeIds() throws IOException{
-        accept("id");
+   
+    private Identificador parseListaDeIds() throws IOException{
+        Identificador id1AST, id2AST;
+        
+        id1AST = parseIdentificador();
+        
         while(this.currentToken.kind == scanner.map.get(",")){
             accept(",");
-            accept("id");
+            id2AST = parseIdentificador();
+            id1AST = new idSequencial(id1AST, id2AST);
         }
+        
+        return id1AST;
     }
     
-    private void parseTipo() throws IOException{
+    private Tipo parseTipo() throws IOException{
+        Tipo tAST;
+        
         if(this.currentToken.kind == scanner.map.get("array")){
-            parseTipoAgregado();
+            tAST = parseTipoAgregado();
         } else {
-            parseTipoSimples();
+            tAST = parseTipoSimples();
         }
+        
+        return tAST;
     }
     
-    private void parseTipoSimples() throws IOException{
+    private Tipo parseTipoSimples() throws IOException{
+        Tipo tASt;
+        
         if (
             this.currentToken.kind == scanner.map.get("integer") 
             || this.currentToken.kind == scanner.map.get("real") 
@@ -94,10 +142,12 @@ public class Parser {
             acceptIt();
         } else {
            throw new Error(currentToken);
-        }        
+        }
+        
+        return new Tipo();       
     }
     
-    private void parseTipoAgregado() throws IOException{
+    private Tipo parseTipoAgregado() throws IOException{
         accept("array");
         accept("[");
         parseLiteral();
@@ -106,6 +156,8 @@ public class Parser {
         accept("]");
         accept("of");
         parseTipo();
+        
+        return new Tipo();
     }
     
     private void parseLiteral() throws IOException{
@@ -120,10 +172,11 @@ public class Parser {
         }
     }
       
-    private void parseComandoComposto() throws IOException{
+    private Comando parseComandoComposto() throws IOException{
         accept("begin");
         parseListaDeComandos();
         accept("end");
+        return new Comando();
     }
 
     private void parseListaDeComandos() throws IOException {
