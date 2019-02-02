@@ -141,7 +141,7 @@ public class Parser {
         ) {
             tAST = new tipoSimples(currentToken);
             currentToken = scanner.scan();
-
+            
         } else {
            throw new Error(currentToken);
         }
@@ -185,26 +185,40 @@ public class Parser {
     }
       
     private Comando parseComandoComposto() throws IOException{
+        Comando C;
+        
         accept("begin");
-        parseListaDeComandos();
+        C = parseListaDeComandos();
         accept("end");
-        return new Comando();
+        return C;
     }
 
-    private void parseListaDeComandos() throws IOException {
-        while(this.currentToken.kind != scanner.map.get("end")){ // end é o follow de lista de comando.
-            parseComando();
-            accept(";");
+    private Comando parseListaDeComandos() throws IOException {
+        Comando c1AST = null;
+        Comando c2AST = null;
+        
+        if(this.currentToken.kind != scanner.map.get("end")){
+            c1AST = parseComando();
         }
+        
+        while(this.currentToken.kind != scanner.map.get("end")){ // end é o follow de lista de comando.
+            c2AST = parseComando();
+            accept(";");
+            c1AST = new comandoComposto(c1AST, c2AST);
+        }
+        
+        return c1AST;
     }
 
-    private void parseComando() throws IOException {
+    private Comando parseComando() throws IOException {
+        Comando cAST;
+        
         if(scanner.map.get("id") == currentToken.kind){
-            acceptIt();
-            parseSeletor();
+            Variavel vAST = parseVariavel();
             accept(":=");
-            parseExpressao();
-            return;
+            Expressao eAST = parseExpressao();
+            cAST = new comandoAtribuicao(vAST, eAST);
+            return cAST;
         }else{
             if(scanner.map.get("if") == currentToken.kind){
                 acceptIt();
@@ -236,21 +250,26 @@ public class Parser {
       throw new Error(currentToken);
    }
     
-    private void parseSeletor() throws IOException {
+    private Expressao parseSeletor() throws IOException {
+        Expressao eAST = null;
         
         while(this.currentToken.kind == scanner.map.get("[")){
             acceptIt();
-            parseExpressao();
+            eAST = parseExpressao();
             accept("]");
         }
+        
+        return eAST;
     }
 
-    private void parseExpressao() throws IOException {
+    private Expressao parseExpressao() throws IOException {
         parseExpressaoSimples();
         if(this.currentToken.kind >= scanner.map.get("<") && this.currentToken.kind <= scanner.map.get("<>")){
             acceptIt();
             parseExpressaoSimples();  
         }
+        
+        return new Expressao();
     }
 
     private void parseExpressaoSimples() throws IOException
@@ -325,9 +344,14 @@ public class Parser {
         }
     }
     
-    private void parseVariavel() throws IOException{
-        accept("id");
-        parseSeletor();
+    private Variavel parseVariavel() throws IOException{
+        Identificador idAST;
+        Expressao eAST;
+        
+        idAST = parseIdentificador();
+        eAST = parseSeletor();
+        
+        return new Variavel(idAST, eAST);
     }
 
 }
