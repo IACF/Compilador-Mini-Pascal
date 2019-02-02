@@ -9,11 +9,11 @@ package compilador;
  *
  * @author victor
  */
-public class tipoSimples extends Tipo{
-    Token TK;
+public class Literal extends AST{
+    Token T;
 
-    public tipoSimples(Token TK) {
-        this.TK = TK;
+    public Literal(Token T) {
+        this.T = T;
     }
-    
+       
 }

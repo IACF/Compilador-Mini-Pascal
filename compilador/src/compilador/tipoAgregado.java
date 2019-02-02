@@ -9,11 +9,15 @@ package compilador;
  *
  * @author victor
  */
-public class tipoSimples extends Tipo{
-    Token TK;
+public class tipoAgregado extends Tipo {
+    Literal L1;
+    Literal L2;
+    Tipo T;
 
-    public tipoSimples(Token TK) {
-        this.TK = TK;
+    public tipoAgregado(Literal L1, Literal L2, Tipo T) {
+        this.L1 = L1;
+        this.L2 = L2;
+        this.T = T;
     }
     
 }

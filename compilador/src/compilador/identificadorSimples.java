@@ -9,10 +9,10 @@ package compilador;
  *
  * @author victor
  */
-public class tipoSimples extends Tipo{
+public class identificadorSimples extends Identificador {
     Token TK;
-
-    public tipoSimples(Token TK) {
+    
+    public identificadorSimples(Token TK) {
         this.TK = TK;
     }
     

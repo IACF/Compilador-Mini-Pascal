@@ -10,6 +10,6 @@ package compilador;
  * @author victor
  */
 
-public class Identificador extends Token {
+public class Identificador extends AST{
     
 }

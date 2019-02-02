@@ -47,7 +47,7 @@ public class Parser {
         if(this.currentToken.kind != scanner.map.get("id")){
             throw new Error(currentToken);       
         }else{
-            idAST = (Identificador) currentToken;
+            idAST = new identificadorSimples(this.currentToken);
             currentToken = scanner.scan();
         }
         
@@ -132,44 +132,56 @@ public class Parser {
     }
     
     private Tipo parseTipoSimples() throws IOException{
-        Tipo tASt;
+        Tipo tAST;
         
         if (
             this.currentToken.kind == scanner.map.get("integer") 
             || this.currentToken.kind == scanner.map.get("real") 
             || this.currentToken.kind == scanner.map.get("boolean")
         ) {
-            acceptIt();
+            tAST = new tipoSimples(currentToken);
+            currentToken = scanner.scan();
+
         } else {
            throw new Error(currentToken);
         }
         
-        return new Tipo();       
+        return tAST;       
     }
     
     private Tipo parseTipoAgregado() throws IOException{
+        Tipo tASt;
+        Literal l1AST;
+        Literal l2AST;
+        
         accept("array");
         accept("[");
-        parseLiteral();
+        l1AST = parseLiteral();
         accept("..");
-        parseLiteral();
+        l2AST =parseLiteral();
         accept("]");
         accept("of");
-        parseTipo();
+        tASt = parseTipo();
         
-        return new Tipo();
+        return new tipoAgregado(l1AST, l2AST, tASt);
     }
     
-    private void parseLiteral() throws IOException{
+    private Literal parseLiteral() throws IOException{
+        Literal lAST;
+        
         if(
             this.currentToken.kind == scanner.map.get("int-lit") ||
             this.currentToken.kind == scanner.map.get("float-lit") ||
              this.currentToken.kind == scanner.map.get("bool-lit")) 
         {
-            acceptIt();
+            System.out.println("aq =" + currentToken.spelling);
+            lAST = new Literal(currentToken);
+            currentToken = scanner.scan();
         } else {
-            
+            throw new Error(currentToken);
         }
+        
+        return lAST;
     }
       
     private Comando parseComandoComposto() throws IOException{
@@ -285,7 +297,7 @@ public class Parser {
         ) {
             acceptIt();
         } else {
-            System.out.println("Erro");
+           throw new Error(currentToken);
         }
     }
     
