@@ -199,6 +199,7 @@ public class Parser {
         
         if(this.currentToken.kind != scanner.map.get("end")){
             c1AST = parseComando();
+            accept(";");
         }
         
         while(this.currentToken.kind != scanner.map.get("end")){ // end é o follow de lista de comando.
