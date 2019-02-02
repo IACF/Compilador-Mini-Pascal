@@ -222,25 +222,39 @@ public class Parser {
         }else{
             if(scanner.map.get("if") == currentToken.kind){
                 acceptIt();
-                parseExpressao();
+                Expressao eAST = parseExpressao();
                 accept("then");
-                parseComando();
+                Comando c1AST = parseComando();
+                Comando c2AST = null;
+                Comando c3AST = null;
+                
+                if(currentToken.kind == scanner.map.get("else")){
+                    acceptIt();
+                    c2AST = parseComando();
+                }
+                
                 while(currentToken.kind == scanner.map.get("else")){
                     acceptIt();
-                    parseComando();
+                    c3AST = parseComando();
+                    c2AST = new comandoComposto(c2AST, c3AST);
                 }
-                return;
+                
+                cAST = new comandoCondicional(eAST, c1AST, c2AST);
+                
+                return cAST;
+                
             }else{
                 if(scanner.map.get("while") == currentToken.kind){
                     acceptIt();
-                    parseExpressao();
+                    Expressao eASt = parseExpressao();
                     accept("do");
-                    parseComando();
-                    return;
+                    Comando c1AST = parseComando();
+                    cAST = new comandoIterativo(eASt, c1AST);
+                    return cAST;
                 }else{
                     if(scanner.map.get("begin") == currentToken.kind){
-                        parseComandoComposto();
-                        return;
+                        cAST = parseComandoComposto();
+                        return cAST;
                     }
                 }
             } 
