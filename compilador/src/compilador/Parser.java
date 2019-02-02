@@ -300,15 +300,19 @@ public class Parser {
         }  
     }
 
-    private void parseOpAd() throws IOException{
+    private Operador parseOpAd() throws IOException{
+        Operador oAST;
+        
         if (
             this.currentToken.kind == scanner.map.get("+") 
             || this.currentToken.kind == scanner.map.get("-") 
             || this.currentToken.kind == scanner.map.get("or")
         ) {
-            acceptIt();
+            oAST = new Operador(currentToken);
+            currentToken = scanner.scan();
+            return oAST;
         } else {
-            System.out.println("Erro");
+            throw new Error(currentToken);
         }
     }
     
@@ -323,13 +327,17 @@ public class Parser {
         }  
     }
     
-    private void parseOpMul() throws IOException{
+    private Operador parseOpMul() throws IOException{
+        Operador oAST;
+        
         if (
             this.currentToken.kind == scanner.map.get("*") 
             || this.currentToken.kind == scanner.map.get("/") 
             || this.currentToken.kind == scanner.map.get("and")
         ) {
-            acceptIt();
+            oAST = new Operador(currentToken);
+            currentToken = scanner.scan();
+            return oAST;
         } else {
            throw new Error(currentToken);
         }
