@@ -9,6 +9,6 @@ package compilador;
  *
  * @author victor
  */
-public class Tipo extends AST {
+public abstract class Tipo extends AST {
     
 }

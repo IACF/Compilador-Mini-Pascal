@@ -9,6 +9,6 @@ package compilador;
  *
  * @author victor
  */
-public class Declaracao extends AST{
+public abstract class Declaracao extends AST{
     
 }

@@ -5,13 +5,11 @@
  */
 package compilador;
 
-import java.beans.Expression;
-
 /**
  *
  * @author victor
  */
-public class Variavel extends AST{
+public class Variavel extends Expressao{
     Identificador I;
     Expressao E;
 

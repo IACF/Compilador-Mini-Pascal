@@ -9,7 +9,7 @@ package compilador;
  *
  * @author victor
  */
-public class Literal extends AST{
+public class Literal extends Expressao{
     Token T;
 
     public Literal(Token T) {

@@ -9,6 +9,6 @@ package compilador;
  *
  * @author victor
  */
-public class Comando extends AST{
+public abstract class Comando extends AST{
     
 }

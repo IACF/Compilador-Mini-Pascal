@@ -266,15 +266,24 @@ public class Parser {
    }
     
     private Expressao parseSeletor() throws IOException {
-        Expressao eAST = null;
+        Expressao e1AST = null;
+        Expressao e2AST = null;
         
-        while(this.currentToken.kind == scanner.map.get("[")){
+        if(this.currentToken.kind == scanner.map.get("[")){
             acceptIt();
-            eAST = parseExpressao();
+            e1AST = parseExpressao();
             accept("]");
         }
+            
+        while(this.currentToken.kind == scanner.map.get("[")){
+            acceptIt();         
+            e2AST = parseExpressao();
+            accept("]");
+            
+            e1AST = new expressaoSequencial(e1AST, e2AST);
+        }
         
-        return eAST;
+        return e1AST;
     }
     
     private Operador parseOprel() throws IOException{
@@ -297,12 +306,16 @@ public class Parser {
         Expressao e2AST = null;
         
         e1AST = parseExpressaoSimples();
-        if(this.currentToken.kind >= scanner.map.get("<") && this.currentToken.kind <= scanner.map.get("<>")){
+        
+        if(this.currentToken.kind >= scanner.map.get("<") && 
+           this.currentToken.kind <= scanner.map.get("<>"))
+        {    
             oAST = parseOprel();
             e2AST = parseExpressaoSimples();  
+            e1AST = new expressaoBinaria(e1AST, oAST, e2AST);
         }
         
-        return new Expressao();
+        return e1AST;
     }
 
     private Expressao parseExpressaoSimples() throws IOException
@@ -311,31 +324,18 @@ public class Parser {
         Expressao e2AST = null;
   
         e1AST = parseTermo();
-        
-        if(this.currentToken.kind == scanner.map.get("+") 
-            || this.currentToken.kind == scanner.map.get("-") 
-            || this.currentToken.kind == scanner.map.get("or")){
-              
-            Operador oAST = parseOpAd();
-            e2AST = parseTermo();          
-            e2AST = new expressaoUnaria(oAST, e2AST);
-        }
-       
+             
         while(this.currentToken.kind == scanner.map.get("+") 
             || this.currentToken.kind == scanner.map.get("-") 
             || this.currentToken.kind == scanner.map.get("or"))
         {
             Operador oAST = parseOpAd();
-            Expressao e3AST = parseTermo();
+            e2AST = parseTermo();
             
-            e3AST = new expressaoUnaria(oAST, e3AST);
-            e2AST = new expressaoSequencial(e2AST, e3AST);
+            e1AST = new expressaoBinaria(e1AST, oAST, e2AST);
         }  
-        
-        if(e2AST == null)
-            return e1AST;
-        
-        return new expressaoSequencial(e1AST, e2AST);
+            
+        return e1AST;
     }
 
     private Operador parseOpAd() throws IOException{
@@ -355,15 +355,21 @@ public class Parser {
     }
     
     private Expressao parseTermo() throws IOException{
-        parseFator();
+        Expressao e1AST;
+        Operador oAST;
+        Expressao e2AST;
+        
+        e1AST = parseFator();
         while(this.currentToken.kind == scanner.map.get("*")
             || this.currentToken.kind == scanner.map.get("/")
             || this.currentToken.kind == scanner.map.get("and"))
         {
-            parseOpMul();
-            parseFator();
+            oAST = parseOpMul();
+            e2AST = parseFator();
+            e1AST = new expressaoBinaria(e1AST, oAST, e2AST);
         }  
-        return new Expressao();
+        
+        return e1AST;
     }
     
     private Operador parseOpMul() throws IOException{
@@ -382,28 +388,29 @@ public class Parser {
         }
     }
     
-    private void parseFator() throws IOException{
-       // System.out.println(this.currentToken.spelling);
+    private Expressao parseFator() throws IOException{
+       Expressao eAST;
         
         if(this.currentToken.kind == scanner.map.get("id")){
-            parseVariavel();
+            eAST = parseVariavel();
         }else{
             if(this.currentToken.kind == scanner.map.get("(")){
                 acceptIt();
-                parseExpressao();
+                eAST = parseExpressao();
                 accept(")");
             }else{
                 if(this.currentToken.kind == scanner.map.get("bool-lit")
                    || this.currentToken.kind == scanner.map.get("float-lit")
                    || this.currentToken.kind == scanner.map.get("int-lit"))
                 {
-                    parseLiteral();
+                    eAST = parseLiteral();
                 }else{
                     System.out.println(currentToken.spelling);
                     throw new Error(currentToken);
                 }
             }
         }
+        return eAST;
     }
     
     private Variavel parseVariavel() throws IOException{
