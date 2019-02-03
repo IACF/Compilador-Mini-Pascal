@@ -276,28 +276,66 @@ public class Parser {
         
         return eAST;
     }
+    
+    private Operador parseOprel() throws IOException{
+         Operador oAST;
+        
+        if (this.currentToken.kind >= scanner.map.get("<") && 
+            this.currentToken.kind <= scanner.map.get("<>")) 
+        {
+            oAST = new Operador(currentToken);
+            currentToken = scanner.scan();
+            return oAST;
+        } else {
+           throw new Error(currentToken);
+        }
+    }
 
     private Expressao parseExpressao() throws IOException {
-        parseExpressaoSimples();
+        Expressao e1AST;
+        Operador oAST = null;
+        Expressao e2AST = null;
+        
+        e1AST = parseExpressaoSimples();
         if(this.currentToken.kind >= scanner.map.get("<") && this.currentToken.kind <= scanner.map.get("<>")){
-            acceptIt();
-            parseExpressaoSimples();  
+            oAST = parseOprel();
+            e2AST = parseExpressaoSimples();  
         }
         
         return new Expressao();
     }
 
-    private void parseExpressaoSimples() throws IOException
+    private Expressao parseExpressaoSimples() throws IOException
     {
-        parseTermo();
-        System.out.println("teste");
+        Expressao e1AST;
+        Expressao e2AST = null;
+  
+        e1AST = parseTermo();
+        
+        if(this.currentToken.kind == scanner.map.get("+") 
+            || this.currentToken.kind == scanner.map.get("-") 
+            || this.currentToken.kind == scanner.map.get("or")){
+              
+            Operador oAST = parseOpAd();
+            e2AST = parseTermo();          
+            e2AST = new expressaoUnaria(oAST, e2AST);
+        }
+       
         while(this.currentToken.kind == scanner.map.get("+") 
             || this.currentToken.kind == scanner.map.get("-") 
             || this.currentToken.kind == scanner.map.get("or"))
         {
-            parseOpAd();
-            parseTermo();
+            Operador oAST = parseOpAd();
+            Expressao e3AST = parseTermo();
+            
+            e3AST = new expressaoUnaria(oAST, e3AST);
+            e2AST = new expressaoSequencial(e2AST, e3AST);
         }  
+        
+        if(e2AST == null)
+            return e1AST;
+        
+        return new expressaoSequencial(e1AST, e2AST);
     }
 
     private Operador parseOpAd() throws IOException{
@@ -316,7 +354,7 @@ public class Parser {
         }
     }
     
-    private void parseTermo() throws IOException{
+    private Expressao parseTermo() throws IOException{
         parseFator();
         while(this.currentToken.kind == scanner.map.get("*")
             || this.currentToken.kind == scanner.map.get("/")
@@ -325,6 +363,7 @@ public class Parser {
             parseOpMul();
             parseFator();
         }  
+        return new Expressao();
     }
     
     private Operador parseOpMul() throws IOException{
