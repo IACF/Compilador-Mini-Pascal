@@ -30,8 +30,6 @@ public class Compilador {
         
         p = new Parser();
         
-
-        
     }
     
 }

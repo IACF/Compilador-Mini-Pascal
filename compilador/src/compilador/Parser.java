@@ -267,7 +267,7 @@ public class Parser {
     
     private Expressao parseSeletor() throws IOException {
         Expressao e1AST = null;
-        Expressao e2AST = null;
+        Expressao e2AST;
         
         if(this.currentToken.kind == scanner.map.get("[")){
             acceptIt();
@@ -321,7 +321,7 @@ public class Parser {
     private Expressao parseExpressaoSimples() throws IOException
     {
         Expressao e1AST;
-        Expressao e2AST = null;
+        Expressao e2AST;
   
         e1AST = parseTermo();
              
