@@ -102,7 +102,7 @@ public class Parser {
         idAST = parseListaDeIds();
         accept(":");
         tAST = parseTipo();
-        return new daclaracaoDeVariavel(idAST, tAST);
+        return new declaracaoDeVariavel(idAST, tAST);
     }
    
     private Identificador parseListaDeIds() throws IOException{

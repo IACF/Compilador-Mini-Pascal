@@ -20,4 +20,8 @@ public class expressaoBinaria extends Expressao{
         this.E2 = E2;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorExpressaoBinaria(this);
+    }
 }

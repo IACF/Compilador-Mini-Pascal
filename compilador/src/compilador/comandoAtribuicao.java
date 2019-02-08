@@ -18,4 +18,8 @@ public class comandoAtribuicao extends Comando {
         this.E = E;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorComandoAtribuicao(this);
+    }
 }

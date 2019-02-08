@@ -18,4 +18,8 @@ public class expressaoUnaria extends Expressao{
         this.E = E;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorExpressaoUnaria(this);
+    }
 }

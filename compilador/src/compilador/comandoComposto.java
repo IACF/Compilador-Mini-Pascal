@@ -18,4 +18,8 @@ public class comandoComposto extends Comando {
         this.C2 = C2;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorComandoComposto(this);
+    }
 }

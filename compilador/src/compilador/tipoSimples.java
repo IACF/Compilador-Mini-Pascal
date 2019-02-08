@@ -16,4 +16,8 @@ public class tipoSimples extends Tipo{
         this.TK = TK;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorTipoSimples(this);
+    }
 }

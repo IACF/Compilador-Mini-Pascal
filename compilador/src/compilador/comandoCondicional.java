@@ -20,4 +20,9 @@ public class comandoCondicional extends Comando{
         this.C2 = C2;
     
     }
+    
+    @Override
+    public void visit (Visitor v) {
+        v.visitorComandoCondicional(this);
+    }
 }

@@ -18,5 +18,9 @@ public class idSequencial extends Identificador{
         this.I2 = I2;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorIdSequencial(this);
+    }
     
 }

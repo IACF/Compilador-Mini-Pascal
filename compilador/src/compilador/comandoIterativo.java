@@ -18,4 +18,8 @@ public class comandoIterativo extends Comando{
         this.C = C;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorComandoIterativo(this);
+    }
 }

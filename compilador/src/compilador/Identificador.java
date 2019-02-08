@@ -11,5 +11,5 @@ package compilador;
  */
 
 public abstract class Identificador extends AST{
-    
+    public abstract void visit (Visitor v);
 }

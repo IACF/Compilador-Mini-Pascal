@@ -18,4 +18,8 @@ public class Variavel extends Expressao{
         this.E = E;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorVariavel(this);
+    }
 }

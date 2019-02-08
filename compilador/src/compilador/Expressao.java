@@ -11,4 +11,6 @@ package compilador;
  */
 public abstract class Expressao extends AST{
     
+    public abstract void visit (Visitor v);
+    
 }

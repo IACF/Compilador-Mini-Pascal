@@ -16,4 +16,8 @@ public class identificadorSimples extends Identificador {
         this.TK = TK;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorIdentificadorSimples(this);
+    }
 }

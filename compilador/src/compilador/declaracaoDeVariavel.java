@@ -9,13 +9,18 @@ package compilador;
  *
  * @author victor
  */
-public class daclaracaoDeVariavel extends Declaracao {
+public class declaracaoDeVariavel extends Declaracao {
     Identificador I;
     Tipo T;
 
-    public daclaracaoDeVariavel(Identificador I, Tipo T) {
+    public declaracaoDeVariavel(Identificador I, Tipo T) {
         this.I = I;
         this.T = T;
+    }
+    
+    @Override
+    public void visit (Visitor v) {
+        v.visitorDeclaracaoDeVariavel(this);
     }
     
 }

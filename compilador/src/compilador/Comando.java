@@ -10,5 +10,5 @@ package compilador;
  * @author victor
  */
 public abstract class Comando extends AST{
-    
+    public abstract void visit (Visitor v);
 }

@@ -15,5 +15,9 @@ public class Literal extends Expressao{
     public Literal(Token T) {
         this.T = T;
     }
-       
+     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorLiteral(this);
+    }
 }

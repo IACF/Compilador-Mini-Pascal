@@ -20,4 +20,8 @@ public class tipoAgregado extends Tipo {
         this.T = T;
     }
     
+    @Override
+    public void visit (Visitor v) {
+        v.visitorTipoAgregado(this);
+    }
 }
