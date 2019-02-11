@@ -18,4 +18,8 @@ public class Corpo extends AST {
         this.C = C;
     }
     
+    public void visit (Visitor v){
+        v.visitorCorpo(this);
+    }
+    
 }

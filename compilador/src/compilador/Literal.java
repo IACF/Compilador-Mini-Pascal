@@ -10,10 +10,10 @@ package compilador;
  * @author victor
  */
 public class Literal extends Expressao{
-    Token T;
+    Token TK;
 
-    public Literal(Token T) {
-        this.T = T;
+    public Literal(Token TK) {
+        this.TK = TK;
     }
      
     @Override

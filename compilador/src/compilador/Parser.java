@@ -21,23 +21,20 @@ public class Parser {
         BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
         this.scanner = new Scanner(reader);
         this.currentToken = scanner.scan();
+        Printer p = new Printer();
         
-        this.parsePrograma();
+        p.print(this.parsePrograma());
     }
     
     private void accept(String expectedToken) throws IOException{
-        System.out.println(this.currentToken.spelling);
         if(this.currentToken.kind == scanner.map.get(expectedToken)){
             currentToken = scanner.scan();
         }else{
-            System.out.println(this.currentToken.kind);
-            System.out.println(scanner.map.get(expectedToken));
             throw new Error(expectedToken, currentToken);
         }
     }
     
     private void acceptIt() throws IOException{
-        System.out.println(this.currentToken.spelling);
         currentToken = scanner.scan();
     }
     
@@ -63,7 +60,6 @@ public class Parser {
         accept(";");
         cAST = parseCorpo();
         accept(".");
-        System.out.println("funfou");
         return new Programa(idAST, cAST);
     }
     
@@ -113,7 +109,7 @@ public class Parser {
         while(this.currentToken.kind == scanner.map.get(",")){
             accept(",");
             id2AST = parseIdentificador();
-            id1AST = new idSequencial(id1AST, id2AST);
+            id1AST = new identificadorSequencial(id2AST, id1AST);
         }
         
         return id1AST;
@@ -174,7 +170,6 @@ public class Parser {
             this.currentToken.kind == scanner.map.get("float-lit") ||
              this.currentToken.kind == scanner.map.get("bool-lit")) 
         {
-            System.out.println("aq =" + currentToken.spelling);
             lAST = new Literal(currentToken);
             currentToken = scanner.scan();
         } else {
@@ -261,7 +256,6 @@ public class Parser {
             } 
         }
         
-        System.out.println("aq " +  currentToken.kind);
       throw new Error(currentToken);
    }
     
@@ -405,7 +399,6 @@ public class Parser {
                 {
                     eAST = parseLiteral();
                 }else{
-                    System.out.println(currentToken.spelling);
                     throw new Error(currentToken);
                 }
             }

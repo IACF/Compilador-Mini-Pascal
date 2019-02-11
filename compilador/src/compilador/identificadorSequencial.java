@@ -9,18 +9,18 @@ package compilador;
  *
  * @author victor
  */
-public class idSequencial extends Identificador{
+public class identificadorSequencial extends Identificador{
     Identificador I1;
     Identificador I2;
 
-    public idSequencial(Identificador I1,Identificador I2) {
+    public identificadorSequencial(Identificador I1,Identificador I2) {
         this.I1 = I1;
         this.I2 = I2;
     }
     
     @Override
     public void visit (Visitor v) {
-        v.visitorIdSequencial(this);
+        v.visitorIdentificadorSequencial(this);
     }
     
 }

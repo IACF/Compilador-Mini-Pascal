@@ -23,4 +23,9 @@ public class Token extends AST {
             }
         }
     }
+    
+    public void visit (Visitor v) {
+        v.visitorToken(this);
+        
+    }
 }

@@ -11,6 +11,8 @@ package compilador;
  */
 public interface Visitor {
     
+    public void visitorToken(Token t);
+    
     public void visitorPrograma(Programa p);
     
     public void visitorDeclaracaoDeVariavel(declaracaoDeVariavel d);
@@ -23,7 +25,7 @@ public interface Visitor {
     
     public void visitorExpressaoUnaria(expressaoUnaria e);
     
-    public void visitorIdSequencial(idSequencial i);
+    public void visitorIdentificadorSequencial(identificadorSequencial i);
     
     public void visitorIdentificadorSimples(identificadorSimples i);
 
@@ -44,5 +46,7 @@ public interface Visitor {
     public void visitorVariavel(Variavel v);
 
     public void visitorLiteral(Literal l);
+
+    public void visitorCorpo(Corpo aThis);
     
 }
