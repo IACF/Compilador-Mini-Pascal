@@ -273,7 +273,6 @@ public class Parser {
             acceptIt();         
             e2AST = parseExpressao();
             accept("]");
-            
             e1AST = new expressaoSequencial(e1AST, e2AST);
         }
         

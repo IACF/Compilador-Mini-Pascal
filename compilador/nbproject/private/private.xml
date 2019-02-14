@@ -3,33 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Corpo.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Compilador.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Identificador.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/declaracaoSequencial.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/tipoSimples.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/AST.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Comando.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/comandoCondicional.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Literal.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/comandoAtribuicao.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Operador.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Scanner.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/expressaoBinaria.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/comandoComposto.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Token.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Variavel.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/identificadorSimples.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Parser.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Tipo.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/idSequencial.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Expressao.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/comandoIterativo.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Programa.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/daclaracaoDeVariavel.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/tipoAgregado.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Error.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Declaracao.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/comandoIterativo.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Token.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Visitor.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/comandoAtribuicao.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/expressaoBinaria.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Parser.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/comandoCondicional.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Printer.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/declaracaoSequencial.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Literal.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Programa.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/identificadorSimples.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Identificador.java</file>
+            <file>file:/home/victor/Documentos/Compilador-Mini-Pascal/compilador/src/compilador/Operador.java</file>
         </group>
     </open-files>
 </project-private>

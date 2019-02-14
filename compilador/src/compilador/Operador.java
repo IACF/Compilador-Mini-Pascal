@@ -16,4 +16,8 @@ public class Operador extends AST{
         this.TK = TK;
     }
     
+    public void visit (Visitor v) {
+        v.visitorOperador(this);
+    }
+    
 }

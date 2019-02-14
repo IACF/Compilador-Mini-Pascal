@@ -23,8 +23,6 @@ public interface Visitor {
     
     public void visitorExpressaoSequencial(expressaoSequencial e);
     
-    public void visitorExpressaoUnaria(expressaoUnaria e);
-    
     public void visitorIdentificadorSequencial(identificadorSequencial i);
     
     public void visitorIdentificadorSimples(identificadorSimples i);
@@ -32,8 +30,6 @@ public interface Visitor {
     public void visitorTipoAgregado(tipoAgregado t);
 
     public void visitorTipoSimples(tipoSimples t);
-
-    public void visitordeclaracaoSequencial(comandoIterativo c);
 
     public void visitorComandoIterativo(comandoIterativo c);
 
@@ -48,5 +44,7 @@ public interface Visitor {
     public void visitorLiteral(Literal l);
 
     public void visitorCorpo(Corpo aThis);
+
+    public void visitorOperador(Operador aThis);
     
 }
