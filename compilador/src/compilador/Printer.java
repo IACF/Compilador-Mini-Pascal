@@ -6,7 +6,6 @@
 package compilador;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
@@ -15,7 +14,7 @@ import java.util.Iterator;
 public class Printer implements Visitor {
     
     private int count;
-     ArrayList<String> path = new ArrayList();
+    ArrayList<String> path = new ArrayList();
 
     public Printer() {
         this.count = 0;

@@ -12,10 +12,15 @@ package compilador;
 public class Variavel extends Expressao{
     Identificador I;
     Expressao E;
+    identificationTableElement ponteiro;
 
     public Variavel(Identificador I, Expressao E) {
         this.I = I;
         this.E = E;
+    }
+    
+    public void setPonteiroDeclaracao(identificationTableElement p){
+        this.ponteiro = p;
     }
     
     @Override

@@ -14,7 +14,7 @@ public class checker implements Visitor{
     identificationTable table;
     
     public void checker (Programa P) {
-        table = new identificationTable();
+        this.table = new identificationTable();
         P.visit(this);
     }
 
@@ -106,46 +106,35 @@ public class checker implements Visitor{
     @Override
     public void visitorIdentificadorSimples(identificadorSimples arg0) {
         if (arg0 != null) {
-            
-           
+       
             arg0.TK.visit(this);
-            
-            
+
         }
     }
 
     @Override
     public void visitorTipoAgregado(tipoAgregado arg0) {
-        
-       
+   
         arg0.L1.visit(this);
         arg0.L2.visit(this);
         arg0.T.visit(this);
-        
-        
+  
 
     }
 
     @Override
     public void visitorTipoSimples(tipoSimples arg0) {
         if (arg0 != null) {
-            
-            arg0.TK.visit(this);
-            
+            arg0.TK.visit(this);      
         }
     }
 
   
     @Override
     public void visitorComandoIterativo(comandoIterativo arg0) {
-        if (arg0 != null) {
-            
-           
+        if (arg0 != null) {    
             arg0.E.visit(this);
             arg0.C.visit(this);
-            
-            
-
         }
     }
 
@@ -167,7 +156,6 @@ public class checker implements Visitor{
             arg0.C1.visit(this);
             if (arg0.C2 != null) 
                 arg0.C2.visit(this);
-            
             
         }
     }
@@ -193,6 +181,8 @@ public class checker implements Visitor{
             
             if(element == null)
                 throw new Error(I);
+            
+            arg0.setPonteiroDeclaracao(element);
             
             if (arg0.E != null)
                 arg0.E.visit(this);
