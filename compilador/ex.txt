@@ -1,5 +1,5 @@
 program programa;
-    var variavel : integer;
+    var variavel,testinho,testao : integer;
     var aux2 : real;
     var ar : array [ 1 .. 3 ] of integer;
 begin
@@ -8,7 +8,7 @@ begin
     then 
     variavel := variavel
     else
-    variavel := variavel;
+    variavel := testinho;
     begin
     end;
 end

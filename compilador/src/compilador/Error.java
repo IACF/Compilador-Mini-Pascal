@@ -13,4 +13,12 @@ public class Error extends RuntimeException{
     public Error(Token current){
         super("Error de sintaxe na linha " + current.line + " coluna " + current.collum);
     }
+    
+    public Error(String variavel){
+        super("variavel " + variavel + " já declarada.");
+    }
+    
+     public Error(identificadorSimples i){
+        super("variavel " + i.TK.spelling + " não declarada.");
+    } 
 }
