@@ -153,7 +153,12 @@ public class checker implements Visitor{
     public void visitorComandoIterativo(comandoIterativo arg0) {
         if (arg0 != null) {    
             arg0.E.visit(this);
-            arg0.C.visit(this);
+            if (arg0.E.tipo.equals("boolean")) {
+                System.out.println("Tipo while: " + arg0.E.tipo);
+                arg0.C.visit(this);
+            } else {
+                System.out.println("ERRO DE WHILE");
+            }
         }
     }
 
