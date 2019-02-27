@@ -28,19 +28,20 @@ public class checker implements Visitor{
             //errors
         }
     }
-
+    
     public boolean identificaSequencia(Identificador i, Tipo t){
         identificadorSequencial gambirra;
+        Identificador aux = i;
         
-        if(i instanceof  identificadorSimples){
-            table.insert((identificadorSimples) i, t);
-            return true;
-        }
+        do{
+            gambirra = (identificadorSequencial) aux;
+            table.insert((identificadorSimples) gambirra.I1, t);
+            aux =  gambirra.I2;
+        }while(aux instanceof  identificadorSequencial);
         
-        gambirra = (identificadorSequencial) i;
-        table.insert((identificadorSimples) gambirra.I1, t);
+        table.insert((identificadorSimples) aux, t);
         
-        return identificaSequencia(gambirra.I2, t);
+        return true;
     }
     
     @Override
@@ -49,7 +50,17 @@ public class checker implements Visitor{
             if(arg0.I instanceof  identificadorSimples){
                 table.insert((identificadorSimples) arg0.I, arg0.T);
             }else{
-                identificaSequencia(arg0.I, arg0.T);
+                identificadorSequencial gambirra;
+                Identificador aux = arg0.I;
+
+                do{
+                    gambirra = (identificadorSequencial) aux;
+                    table.insert((identificadorSimples) gambirra.I1, arg0.T);
+                    aux =  gambirra.I2;
+                }while(aux instanceof  identificadorSequencial);
+
+                table.insert((identificadorSimples) aux, arg0.T);
+                
             }
             
             arg0.I.visit(this);
