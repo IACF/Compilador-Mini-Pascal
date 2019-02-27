@@ -1,10 +1,12 @@
 program programa;
-    var variavel,testinho,testao : integer;
+    var variavel,testinho,testao, recebe, isto : integer;
     var aux2 : real;
     var ar : array [ 1 .. 3 ] of integer;
+    var ar2: array [1 .. 3] of integer;
 begin
     variavel := variavel;
-    if (variavel > 3)
+    recebe := 2;
+    if (3 > 2)
     then 
       variavel := 2 + testao * 2.5
     else

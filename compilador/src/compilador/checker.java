@@ -97,13 +97,6 @@ public class checker implements Visitor{
                 arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
                 System.out.println("Tipo literal:" + arg0.tipo);
             }
-            
-            
-            
-            
-            
-            
-            
         }
     }
 
@@ -139,7 +132,10 @@ public class checker implements Visitor{
     public void visitorTipoAgregado(tipoAgregado arg0) {
    
         arg0.L1.visit(this);
+        System.out.println("tipoAgregado:" + arg0.L1.tipo);
+        
         arg0.L2.visit(this);
+        System.out.println("tipoAgregado:" + arg0.L2.tipo);
         arg0.T.visit(this);
   
 
@@ -164,10 +160,15 @@ public class checker implements Visitor{
     @Override
     public void visitorComandoCondicional(comandoCondicional arg0) {
         if (arg0 != null) {
- 
-            arg0.E.visit(this);
-            arg0.C1.visit(this);
-            arg0.C2.visit(this);
+            if("boolean".equals(arg0.E.tipo)) {
+                arg0.E.visit(this);
+                arg0.C1.visit(this);
+                arg0.C2.visit(this);
+            } else {
+                System.out.println("erro");
+            }
+                
+            
   
         }
     }
@@ -189,6 +190,12 @@ public class checker implements Visitor{
 
             arg0.V.visit(this);
             arg0.E.visit(this);
+            
+            if (!arg0.E.tipo.equals(arg0.V.tipo))
+                System.out.println("errado");
+            
+            
+            
         }
     }
 
