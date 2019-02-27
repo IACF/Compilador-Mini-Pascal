@@ -6,7 +6,7 @@ begin
     variavel := variavel;
     if (variavel > 3)
     then 
-    variavel := variavel
+      variavel := 2 + testao * 2.5
     else
     variavel := testinho;
     begin

@@ -76,18 +76,41 @@ public class checker implements Visitor{
     @Override
     public void visitorExpressaoBinaria(expressaoBinaria arg0) {
         if(arg0 != null){
-
+            
             arg0.E1.visit(this);
             arg0.O.visit(this);
+//            if(arg0.O.TK.spelling.equals("+")) {
+//                System.out.println("operação de adição");
+//                
+//            }
+
+            
             arg0.E2.visit(this);
-           
+            if(arg0.E1 instanceof Variavel) {
+               Variavel gambirraT = (Variavel) arg0.E1;
+                arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
+                System.out.println("Tipo varial:" + arg0.tipo);
+            }
+            
+            if(arg0.E1 instanceof Literal) {
+               Literal gambirraT = (Literal) arg0.E1;
+                arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
+                System.out.println("Tipo literal:" + arg0.tipo);
+            }
+            
+            
+            
+            
+            
+            
+            
         }
     }
 
     @Override
     public void visitorExpressaoSequencial(expressaoSequencial arg0) {
         if(arg0 != null){
-                       
+            
             arg0.E1.visit(this);
             arg0.E2.visit(this);
             
@@ -172,17 +195,22 @@ public class checker implements Visitor{
     @Override
     public void visitorVariavel(Variavel arg0) {
         if (arg0 != null) {
+            tipoSimples  tSimples;
             
             arg0.I.visit(this);
             
             identificadorSimples I = (identificadorSimples) arg0.I;
             
             identificationTableElement element = table.retrieve(I.TK.spelling);
-            
             if(element == null)
                 throw new Error(I);
             
             arg0.setPonteiroDeclaracao(element);
+            
+            if(element.tipo instanceof tipoSimples){
+                tSimples = (tipoSimples) element.tipo;
+                arg0.tipo = tSimples.TK.spelling;
+            }
             
             if (arg0.E != null)
                 arg0.E.visit(this);
@@ -193,12 +221,7 @@ public class checker implements Visitor{
     @Override
     public void visitorLiteral(Literal arg0) {
         if (arg0 != null) {
-            
-           
             arg0.TK.visit(this);
-            
-            
-
         }
     }
 
@@ -219,5 +242,41 @@ public class checker implements Visitor{
 
     }
     
-    
+    public String tipagemExpressao(String tipoE1,Operador Operador, String tipoE2) {
+        
+        
+        if (Operador.TK.kind >= 19 && Operador.TK.kind <= 23) {
+            if(tipoE1.equals("integer") && tipoE2.equals("integer"))
+                return "integer";
+            if(tipoE1.equals("real") && tipoE2.equals("real"))
+                return "real";
+            if(tipoE1.equals("boolean") && tipoE2.equals("boolean"))
+                return "erro";
+            if(
+                (tipoE1.equals("real") && tipoE2.equals("integer")) || 
+                (tipoE1.equals("integer") && tipoE2.equals("real"))
+            )
+                return "real";
+            if(
+                (tipoE1.equals("boolean") && tipoE2.equals("integer")) || 
+                (tipoE1.equals("integer") && tipoE2.equals("boolean")) ||
+                (tipoE1.equals("real") && tipoE2.equals("boolean")) ||
+                (tipoE1.equals("boolean") && tipoE2.equals("real"))
+            )
+                return "erro";
+        }
+        
+        if( Operador.TK.kind >= 25 && Operador.TK.kind <= 29) {
+            if(
+                (tipoE1.equals("boolean") && tipoE2.equals("integer")) || 
+                (tipoE1.equals("integer") && tipoE2.equals("boolean")) ||
+                (tipoE1.equals("real") && tipoE2.equals("boolean")) ||
+                (tipoE1.equals("boolean") && tipoE2.equals("real"))
+            )
+                return "erro";
+            return "boolean";
+        }
+        
+        return "ok";
+    }
 }
