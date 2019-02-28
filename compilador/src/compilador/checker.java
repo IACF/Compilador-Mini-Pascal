@@ -205,10 +205,13 @@ public class checker implements Visitor{
     public void visitorComandoAtribuicao(comandoAtribuicao arg0) {
         if (arg0 != null) {
 
+            identificadorSimples id = (identificadorSimples) arg0.V.I;
+            
             arg0.V.visit(this);
             arg0.E.visit(this);
             
             System.out.println("test = " + arg0.V.tipo);
+            System.out.println(id.TK.spelling);
             Tipo aux = arg0.V.ponteiro.tipo;
             
             if(aux instanceof tipoAgregado){
@@ -225,11 +228,11 @@ public class checker implements Visitor{
                 if (!arg0.E.tipo.equals(tipo.TK.spelling))
                     throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
             }else{
+                System.out.println(arg0.E.tipo);
                 if (!arg0.E.tipo.equals(arg0.V.tipo))
                     throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
             }
             
-           
         }
     }
 
@@ -381,6 +384,16 @@ public class checker implements Visitor{
             )
                 return "erro";
             return "boolean";
+        }
+        
+        
+        if( Operador.TK.kind == 21 || Operador.TK.kind == 24) {
+            if(
+                (tipoE1.equals("boolean") && tipoE2.equals("boolean"))
+            )
+               return "boolean";
+            
+            return "erro";
         }
         
         return "ok";
