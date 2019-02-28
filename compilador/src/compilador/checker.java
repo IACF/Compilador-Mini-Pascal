@@ -221,12 +221,13 @@ public class checker implements Visitor{
                 
                 tipo = (tipoSimples) aux;
                 if (!arg0.E.tipo.equals(tipo.TK.spelling))
-                    System.out.println("errado2");
+                    throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
             }else{
                 if (!arg0.E.tipo.equals(arg0.V.tipo))
-                    System.out.println("errado2");
+                    throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
             }
             
+           
         }
     }
 
@@ -287,31 +288,32 @@ public class checker implements Visitor{
                 for (int i= (count2-1); i >= 0; i--) {
                     System.out.println("lim = " + limite[i]);
                 }
-                    
+               
                 /////////////////////////////////////////////////////////////////
                 
                 tipoAgregado t;
                 Tipo aux = element.tipo;
                 int count = 0;
                 
-                while(aux instanceof tipoAgregado){
-                    t = (tipoAgregado) aux;
-                    
-                    if(!((limite[count] >= Integer.parseInt(t.L1.TK.spelling)
-                       && limite[count] < Integer.parseInt(t.L2.TK.spelling)) ||
-                       (limite[count] < Integer.parseInt(t.L1.TK.spelling)
-                       && limite[count] >= Integer.parseInt(t.L2.TK.spelling)))){
-                        System.out.println(t.L1.TK.spelling);
-                        System.out.println(limite[count]);
-                        System.out.println("errado cara");
-                    }
-                    
+                while(aux instanceof tipoAgregado ){
+                    t = (tipoAgregado) aux;                    
                     aux = t.T;
                     count++;
                 }
                 
                 if(count != count2)
-                    System.out.println("TA ERRRADOOOOO!");
+                    throw new Error(" => Dimensão inválida",(identificadorSimples) arg0.I);
+                
+                while(aux instanceof tipoAgregado ){
+                    t = (tipoAgregado) aux;                    
+                    if(!((limite[count] >= Integer.parseInt(t.L1.TK.spelling)
+                       && limite[count] < Integer.parseInt(t.L2.TK.spelling)) ||
+                       (limite[count] < Integer.parseInt(t.L1.TK.spelling)
+                       && limite[count] >= Integer.parseInt(t.L2.TK.spelling)))){
+                        throw new Error(" => Indice invalido no array ",(identificadorSimples) arg0.I);
+                    }
+                    aux = t.T;
+                }
             }
             
             if (arg0.E != null)
