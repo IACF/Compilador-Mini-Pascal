@@ -10,6 +10,7 @@ package compilador;
  * @author victor
  */
 public abstract class Expressao extends AST{
+    String tipo;
     
     public abstract void visit (Visitor v);
     

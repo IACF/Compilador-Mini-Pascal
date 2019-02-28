@@ -11,9 +11,20 @@ package compilador;
  */
 public class Literal extends Expressao{
     Token TK;
-
+    
+    
+    
     public Literal(Token TK) {
         this.TK = TK;
+        if(this.TK.kind == 1) {
+            this.tipo = "boolean";
+        }   
+        if(this.TK.kind == 11) {
+            this.tipo = "integer";
+        }
+        if(this.TK.kind == 37) {
+            this.tipo = "real";
+        }
     }
      
     @Override

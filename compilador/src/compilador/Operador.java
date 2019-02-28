@@ -11,7 +11,7 @@ package compilador;
  */
 public class Operador extends AST{
     Token TK;
-
+    
     public Operador(Token TK) {
         this.TK = TK;
     }

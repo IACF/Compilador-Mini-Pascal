@@ -13,6 +13,7 @@ public class expressaoBinaria extends Expressao{
     Expressao E1;
     Operador O;
     Expressao E2;
+    
 
     public expressaoBinaria(Expressao E1, Operador O, Expressao E2) {
         this.E1 = E1;
