@@ -395,8 +395,6 @@ public class Parser {
                 eAST = parseExpressao();
                 accept(")");
             }else{
-                System.out.println(this.currentToken.spelling);
-                
                
                 if(this.currentToken.kind == scanner.map.get("true")
                    || this.currentToken.kind == scanner.map.get("float-lit")

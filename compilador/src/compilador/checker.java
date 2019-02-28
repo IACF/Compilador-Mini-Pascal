@@ -89,25 +89,14 @@ public class checker implements Visitor{
     public void visitorExpressaoBinaria(expressaoBinaria arg0) {
         if(arg0 != null){
             
-            arg0.E1.visit(this);
-            arg0.O.visit(this);
-//            if(arg0.O.TK.spelling.equals("+")) {
-//                System.out.println("operação de adição");
-//                
-//            }
+        arg0.E1.visit(this);
+        arg0.O.visit(this);
+
+        arg0.E2.visit(this);
+        arg0.tipo = tipagemExpressao(arg0.E1.tipo, arg0.O, arg0.E2.tipo);
             
-            arg0.E2.visit(this);
-            if(arg0.E1 instanceof Variavel) {
-               Variavel gambirraT = (Variavel) arg0.E1;
-                arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
-                System.out.println("Tipo varial:" + arg0.tipo);
-            }
-            
-            if(arg0.E1 instanceof Literal) {
-               Literal gambirraT = (Literal) arg0.E1;
-                arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
-                System.out.println("Tipo literal:" + arg0.tipo);
-            }
+        if(arg0.tipo.equals("erro"))
+            System.out.println("ERRRRROUUUUUU!");
         }
     }
 
@@ -183,9 +172,7 @@ public class checker implements Visitor{
                 System.out.println("errooooo");
             }
             
-//            if(arg0.E instanceof expressaoBinaria){
-//                System.out.println("ola");
-//            }
+            System.out.println(arg0.E.tipo);
                
         }
     }
@@ -204,14 +191,11 @@ public class checker implements Visitor{
     @Override
     public void visitorComandoAtribuicao(comandoAtribuicao arg0) {
         if (arg0 != null) {
-
-            identificadorSimples id = (identificadorSimples) arg0.V.I;
             
             arg0.V.visit(this);
             arg0.E.visit(this);
             
             System.out.println("test = " + arg0.V.tipo);
-            System.out.println(id.TK.spelling);
             Tipo aux = arg0.V.ponteiro.tipo;
             
             if(aux instanceof tipoAgregado){

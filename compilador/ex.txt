@@ -10,7 +10,7 @@ begin
     recebe := 2 + 2;
     ar2[2] := 5;
     b := true and true;
-    if ((1 < 2))
+    if ((1 < 2) and (1 = 2))
     then 
       variavel := 2 + testao * 2
     else
