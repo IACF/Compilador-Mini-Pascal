@@ -11,7 +11,7 @@ begin
     then 
       variavel := 2 + testao * 2
     else
-    variavel := testinho;
+    variavel := test;
     begin
     end;
 end

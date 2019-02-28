@@ -28,19 +28,20 @@ public class checker implements Visitor{
             //errors
         }
     }
-
+    
     public boolean identificaSequencia(Identificador i, Tipo t){
         identificadorSequencial gambirra;
+        Identificador aux = i;
         
-        if(i instanceof  identificadorSimples){
-            table.insert((identificadorSimples) i, t);
-            return true;
-        }
+        do{
+            gambirra = (identificadorSequencial) aux;
+            table.insert((identificadorSimples) gambirra.I1, t);
+            aux =  gambirra.I2;
+        }while(aux instanceof  identificadorSequencial);
         
-        gambirra = (identificadorSequencial) i;
-        table.insert((identificadorSimples) gambirra.I1, t);
+        table.insert((identificadorSimples) aux, t);
         
-        return identificaSequencia(gambirra.I2, t);
+        return true;
     }
     
     @Override
@@ -49,11 +50,22 @@ public class checker implements Visitor{
             if(arg0.I instanceof  identificadorSimples){
                 table.insert((identificadorSimples) arg0.I, arg0.T);
             }else{
-                identificaSequencia(arg0.I, arg0.T);
+                identificadorSequencial gambirra;
+                Identificador aux = arg0.I;
+                
+                do{
+                    gambirra = (identificadorSequencial) aux;
+                    table.insert((identificadorSimples) gambirra.I1, arg0.T);
+                    aux =  gambirra.I2;
+                }while(aux instanceof  identificadorSequencial);
+
+                table.insert((identificadorSimples) aux, arg0.T);
+                
             }
             
             arg0.I.visit(this);
             arg0.T.visit(this);
+            
         }
     }
     
@@ -83,7 +95,6 @@ public class checker implements Visitor{
 //                System.out.println("operação de adição");
 //                
 //            }
-
             
             arg0.E2.visit(this);
             if(arg0.E1 instanceof Variavel) {
@@ -137,8 +148,7 @@ public class checker implements Visitor{
         arg0.L2.visit(this);
         System.out.println("tipoAgregado:" + arg0.L2.tipo);
         arg0.T.visit(this);
-  
-
+ 
     }
 
     @Override
@@ -214,6 +224,7 @@ public class checker implements Visitor{
             identificadorSimples I = (identificadorSimples) arg0.I;
             
             identificationTableElement element = table.retrieve(I.TK.spelling);
+            
             if(element == null)
                 throw new Error(I);
             
@@ -222,6 +233,65 @@ public class checker implements Visitor{
             if(element.tipo instanceof tipoSimples){
                 tSimples = (tipoSimples) element.tipo;
                 arg0.tipo = tSimples.TK.spelling;
+            }else{
+                
+                Expressao e = arg0.E;
+                int count2 = 0;
+                expressaoSequencial exp;
+                int[] limite = new int[30];
+                Literal l;
+                 
+                if(arg0.E instanceof expressaoSequencial){
+                    exp = (expressaoSequencial) e;
+                    if(exp.E2 instanceof Literal){
+                        System.out.println(exp.E2.getClass());
+                        l = (Literal) exp.E2;
+                        limite[count2] = Integer.parseInt(l.TK.spelling);
+                        count2 += 1;
+                        e = exp.E1;
+                    }
+                }else{
+                    count2 = 1;
+                }
+                
+                while(e instanceof expressaoSequencial){
+                    exp = (expressaoSequencial) e;
+                    l = (Literal) exp.E2;
+                    limite[count2] = Integer.parseInt(l.TK.spelling);
+                    e = exp.E1;
+                    count2 += 1;
+                }
+                
+                if(e instanceof Literal){
+                    l = (Literal) e;
+                    limite[count2] = Integer.parseInt(l.TK.spelling);
+                }
+                
+                for (int i= count2; i >= 0; i--) {
+                    System.out.println(limite[i]);
+                }
+                /////////////////////////////////////////////////////////////////
+                
+                tipoAgregado t;
+                Tipo aux = element.tipo;
+                int count = 0;
+                
+                while(aux instanceof tipoAgregado){
+                    t = (tipoAgregado) aux;
+                    
+                    if(!((limite[count] >= Integer.parseInt(t.L1.TK.spelling)
+                       && limite[count] < Integer.parseInt(t.L2.TK.spelling)) ||
+                       (limite[count] < Integer.parseInt(t.L1.TK.spelling)
+                       && limite[count] >= Integer.parseInt(t.L2.TK.spelling)))){
+                        System.out.println("errado cara");
+                    }
+                    
+                    aux = t.T;
+                    count++;
+                }
+                count--;
+                if(count != count2)
+                    System.out.println("TA ERRRADOOOOO!");
             }
             
             if (arg0.E != null)
