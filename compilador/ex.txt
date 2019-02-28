@@ -6,12 +6,13 @@ program programa;
     var ar2: array [1 .. 3] of integer;
 begin
     variavel := variavel;
-    recebe := 2;
+    recebe := 2.5;
+    ar2[1] := 5;
     if (3 > 2)
     then 
       variavel := 2 + testao * 2
     else
-    variavel := test;
+    variavel := 1;
     begin
     end;
 end

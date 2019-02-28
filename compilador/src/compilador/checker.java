@@ -205,12 +205,8 @@ public class checker implements Visitor{
 
             arg0.V.visit(this);
             arg0.E.visit(this);
-            
             if (!arg0.E.tipo.equals(arg0.V.tipo))
-                System.out.println("errado2");
-            
-            
-            
+                throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
         }
     }
 

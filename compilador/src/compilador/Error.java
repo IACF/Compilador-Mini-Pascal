@@ -18,7 +18,13 @@ public class Error extends RuntimeException{
         super("variavel " + variavel + " já declarada.");
     }
     
-     public Error(identificadorSimples i){
+    public Error(identificadorSimples i){
         super("variavel " + i.TK.spelling + " não declarada.");
-    } 
+    }
+    
+    public Error(String mensagem, identificadorSimples i){
+        super(i.TK.spelling + mensagem + "na linha " + i.TK.line + ", coluna " + i.TK.collum + ".");
+    }
+    
+    
 }
