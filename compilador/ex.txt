@@ -9,7 +9,7 @@ begin
     ar[7][7] := 3;
     recebe := 2;
     ar2[2] := 5;
-    if (3 > 2)
+    if ((3 > 2) and ( 1< 2))
     then 
       variavel := 2 + testao * 2
     else

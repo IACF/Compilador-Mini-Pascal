@@ -182,9 +182,11 @@ public class checker implements Visitor{
             } else {
                 System.out.println("errooooo");
             }
-                
             
-  
+//            if(arg0.E instanceof expressaoBinaria){
+//                System.out.println("ola");
+//            }
+               
         }
     }
 
@@ -354,8 +356,8 @@ public class checker implements Visitor{
                 return "integer";
             if(tipoE1.equals("real") && tipoE2.equals("real"))
                 return "real";
-            if(tipoE1.equals("boolean") && tipoE2.equals("boolean"))
-                return "erro";
+            if(tipoE1.equals("boolean") || tipoE2.equals("boolean"))
+                throw new Error ("Operandos inválidos para a operação binária ", Operador);
             if(
                 (tipoE1.equals("real") && tipoE2.equals("integer")) || 
                 (tipoE1.equals("integer") && tipoE2.equals("real"))
