@@ -153,24 +153,24 @@ public class checker implements Visitor{
     public void visitorComandoIterativo(comandoIterativo arg0) {
         if (arg0 != null) {    
             arg0.E.visit(this);
-            if (arg0.E.tipo.equals("boolean")) {
-                System.out.println("Tipo while: " + arg0.E.tipo);
+//            if (arg0.E.tipo.equals("boolean")) {
+//                System.out.println("Tipo while: " + arg0.E.tipo);
                 arg0.C.visit(this);
-            } else {
-                System.out.println("ERRO DE WHILE");
-            }
+//            } else {
+//                System.out.println("ERRO DE WHILE");
+//            }
         }
     }
 
     @Override
     public void visitorComandoCondicional(comandoCondicional arg0) {
         if (arg0 != null) {
+            arg0.E.visit(this);
             if("boolean".equals(arg0.E.tipo)) {
-                arg0.E.visit(this);
                 arg0.C1.visit(this);
                 arg0.C2.visit(this);
             } else {
-                System.out.println("erro");
+                System.out.println("errooooo");
             }
                 
             
@@ -197,7 +197,7 @@ public class checker implements Visitor{
             arg0.E.visit(this);
             
             if (!arg0.E.tipo.equals(arg0.V.tipo))
-                System.out.println("errado");
+                System.out.println("errado2");
             
             
             
