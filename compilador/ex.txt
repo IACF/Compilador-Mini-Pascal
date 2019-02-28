@@ -1,6 +1,7 @@
 program programa;
     var variavel,testinho,testao, recebe, isto : integer;
     var aux2 : real;
+    var b : boolean;
     var ar : array [ 1 .. 3 ] of integer;
     var ar2: array [1 .. 3] of integer;
 begin
@@ -8,7 +9,7 @@ begin
     recebe := 2;
     if (3 > 2)
     then 
-      variavel := 2 + testao * 2.5
+      variavel := 2 + testao * 2
     else
     variavel := testinho;
     begin
