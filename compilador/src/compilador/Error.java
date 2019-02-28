@@ -14,8 +14,8 @@ public class Error extends RuntimeException{
         super("Error de sintaxe na linha " + current.line + " coluna " + current.collum);
     }
     
-    public Error(String variavel){
-        super("variavel " + variavel + " já declarada.");
+    public Error(String string){
+        super(string);
     }
     
      public Error(identificadorSimples i){

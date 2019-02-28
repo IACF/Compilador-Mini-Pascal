@@ -24,7 +24,7 @@ public class identificationTable {
     public boolean insert(identificadorSimples i, Tipo t){
         
         if(table.containsKey(i.TK.spelling)){
-             throw new Error(i.TK.spelling);
+             throw new Error("variavel já declarada.");
         }
         
         identificationTableElement element = new identificationTableElement(i, false, t);

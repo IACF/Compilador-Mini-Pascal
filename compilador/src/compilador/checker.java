@@ -206,10 +206,26 @@ public class checker implements Visitor{
             arg0.V.visit(this);
             arg0.E.visit(this);
             
-            if (!arg0.E.tipo.equals(arg0.V.tipo))
-                System.out.println("errado2");
+            System.out.println("test = " + arg0.V.tipo);
+            Tipo aux = arg0.V.ponteiro.tipo;
             
+            if(aux instanceof tipoAgregado){
             
+                tipoAgregado t;
+                tipoSimples tipo;
+
+                while(aux instanceof tipoAgregado){
+                    t = (tipoAgregado) aux;
+                    aux = t.T;
+                }
+                
+                tipo = (tipoSimples) aux;
+                if (!arg0.E.tipo.equals(tipo.TK.spelling))
+                    System.out.println("errado2");
+            }else{
+                if (!arg0.E.tipo.equals(arg0.V.tipo))
+                    System.out.println("errado2");
+            }
             
         }
     }
@@ -246,12 +262,11 @@ public class checker implements Visitor{
                     if(exp.E2 instanceof Literal){
                         System.out.println(exp.E2.getClass());
                         l = (Literal) exp.E2;
+                        System.out.println("te = " + l.TK.spelling);
                         limite[count2] = Integer.parseInt(l.TK.spelling);
                         count2 += 1;
                         e = exp.E1;
                     }
-                }else{
-                    count2 = 1;
                 }
                 
                 while(e instanceof expressaoSequencial){
@@ -264,12 +279,15 @@ public class checker implements Visitor{
                 
                 if(e instanceof Literal){
                     l = (Literal) e;
+                    System.out.println("testando = " + l.TK.spelling);
                     limite[count2] = Integer.parseInt(l.TK.spelling);
+                    count2++;
                 }
                 
-                for (int i= count2; i >= 0; i--) {
-                    System.out.println(limite[i]);
+                for (int i= (count2-1); i >= 0; i--) {
+                    System.out.println("lim = " + limite[i]);
                 }
+                    
                 /////////////////////////////////////////////////////////////////
                 
                 tipoAgregado t;
@@ -283,13 +301,15 @@ public class checker implements Visitor{
                        && limite[count] < Integer.parseInt(t.L2.TK.spelling)) ||
                        (limite[count] < Integer.parseInt(t.L1.TK.spelling)
                        && limite[count] >= Integer.parseInt(t.L2.TK.spelling)))){
+                        System.out.println(t.L1.TK.spelling);
+                        System.out.println(limite[count]);
                         System.out.println("errado cara");
                     }
                     
                     aux = t.T;
                     count++;
                 }
-                count--;
+                
                 if(count != count2)
                     System.out.println("TA ERRRADOOOOO!");
             }
