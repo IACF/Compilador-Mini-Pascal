@@ -11,10 +11,10 @@ package compilador;
  */
 public class Checker implements Visitor{
     
-    identificationTable table;
+    tabelaDeIdentificacao table;
     
     public void checker (Programa P) {
-        this.table = new identificationTable();
+        this.table = new tabelaDeIdentificacao();
         P.visit(this);
     }
 
@@ -229,7 +229,7 @@ public class Checker implements Visitor{
             
             identificadorSimples I = (identificadorSimples) arg0.I;
             
-            identificationTableElement element = table.retrieve(I.TK.spelling);
+            elementoTabelaDeIdentificacao element = table.retrieve(I.TK.spelling);
             
             if(element == null)
                 throw new Error(I);

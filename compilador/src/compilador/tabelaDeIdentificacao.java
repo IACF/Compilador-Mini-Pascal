@@ -5,7 +5,6 @@
  */
 package compilador;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,11 +12,11 @@ import java.util.Map;
  *
  * @author victor
  */
-public class identificationTable {
+public class tabelaDeIdentificacao {
     
-    Map<String, identificationTableElement> table;
+    Map<String, elementoTabelaDeIdentificacao> table;
 
-    public identificationTable() {
+    public tabelaDeIdentificacao() {
         table = new HashMap<>();
     }
     
@@ -27,15 +26,15 @@ public class identificationTable {
              throw new Error("variavel já declarada.");
         }
         
-        identificationTableElement element = new identificationTableElement(i, false, t);
+        elementoTabelaDeIdentificacao element = new elementoTabelaDeIdentificacao(i, false, t);
         table.put(i.TK.spelling, element);
         return true;
         
     }
     
-    public identificationTableElement retrieve(String variavel){
+    public elementoTabelaDeIdentificacao retrieve(String variavel){
         if(table.containsKey(variavel)){
-            identificationTableElement element = table.get(variavel);
+            elementoTabelaDeIdentificacao element = table.get(variavel);
             element.checker = true;
             return element;
         }
