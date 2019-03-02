@@ -9,7 +9,7 @@ package compilador;
  *
  * @author victor
  */
-public class checker implements Visitor{
+public class Checker implements Visitor{
     
     identificationTable table;
     
@@ -240,7 +240,6 @@ public class checker implements Visitor{
                 tSimples = (tipoSimples) element.tipo;
                 arg0.tipo = tSimples.TK.spelling;
             }else{
-                
                 Expressao e = arg0.E;
                 int count2 = 0;
                 expressaoSequencial exp;
@@ -303,7 +302,11 @@ public class checker implements Visitor{
                     }
                     aux = t.T;
                 }
+                
+                 tSimples = (tipoSimples) aux;
+                 arg0.tipo = tSimples.TK.spelling;
             }
+            
             
             if (arg0.E != null)
                 arg0.E.visit(this);
@@ -358,6 +361,8 @@ public class checker implements Visitor{
             )
                 return "erro";
         }
+        
+        System.out.println(tipoE1);
         
         if( Operador.TK.kind >= 25 && Operador.TK.kind <= 29) {
             if(

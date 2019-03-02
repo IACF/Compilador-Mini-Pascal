@@ -22,7 +22,7 @@ public class Parser {
         this.scanner = new Scanner(reader);
         this.currentToken = scanner.scan();
         Printer p = new Printer();
-        checker c = new checker();
+        Checker c = new Checker();
         Programa program = this.parsePrograma();
         p.print(program);
         c.checker(program);

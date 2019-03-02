@@ -43,8 +43,8 @@ public interface Visitor {
 
     public void visitorLiteral(Literal l);
 
-    public void visitorCorpo(Corpo aThis);
+    public void visitorCorpo(Corpo Cp);
 
-    public void visitorOperador(Operador aThis);
+    public void visitorOperador(Operador O);
     
 }
