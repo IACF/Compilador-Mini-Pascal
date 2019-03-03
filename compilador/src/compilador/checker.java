@@ -204,7 +204,7 @@ public class checker implements Visitor{
         if (arg0 != null) {
 
             arg0.V.visit(this);
-            arg0.E.visit(this);
+        arg0.E.visit(this);
             if (!arg0.E.tipo.equals(arg0.V.tipo))
                 throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
         }
@@ -323,13 +323,13 @@ public class checker implements Visitor{
     public String tipagemExpressao(String tipoE1,Operador Operador, String tipoE2) {
         
         
-        if (Operador.TK.kind >= 19 && Operador.TK.kind <= 23) {
+        if (Operador.TK.kind >= 19 && Operador.TK.kind <= 23 && Operador.TK.kind != 21) {
             if(tipoE1.equals("integer") && tipoE2.equals("integer"))
                 return "integer";
             if(tipoE1.equals("real") && tipoE2.equals("real"))
                 return "real";
             if(tipoE1.equals("boolean") && tipoE2.equals("boolean"))
-                return "erro";
+                throw new Error("Operandos inválidos para a operação binária ", Operador );
             if(
                 (tipoE1.equals("real") && tipoE2.equals("integer")) || 
                 (tipoE1.equals("integer") && tipoE2.equals("real"))

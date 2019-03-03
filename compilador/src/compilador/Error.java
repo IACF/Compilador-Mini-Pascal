@@ -27,4 +27,9 @@ public class Error extends RuntimeException{
     }
     
     
+    public Error(String mensagem, Operador op){
+        super(mensagem + op.TK.spelling + " na linha " + op.TK.line + ".");
+    }
+    
+    
 }
