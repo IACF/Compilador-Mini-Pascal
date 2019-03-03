@@ -14,8 +14,8 @@ public class Error extends RuntimeException{
         super("Error de sintaxe na linha " + current.line + " coluna " + current.collum);
     }
     
-    public Error(String variavel){
-        super("variavel " + variavel + " já declarada.");
+    public Error(String string){
+        super(string);
     }
     
     public Error(identificadorSimples i){
@@ -24,6 +24,10 @@ public class Error extends RuntimeException{
     
     public Error(String mensagem, identificadorSimples i){
         super(i.TK.spelling + mensagem + "na linha " + i.TK.line + ", coluna " + i.TK.collum + ".");
+    }
+    
+       public Error(String mensagem, Operador op){
+        super(mensagem + "\'" + op.TK.spelling + "\'" + " na linha " + op.TK.line);
     }
     
     

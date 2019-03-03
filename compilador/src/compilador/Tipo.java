@@ -5,10 +5,6 @@
  */
 package compilador;
 
-/**
- *
- * @author victor
- */
 public abstract class Tipo extends AST {
     public abstract void visit (Visitor v);
 }

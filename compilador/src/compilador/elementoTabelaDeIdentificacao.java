@@ -9,12 +9,12 @@ package compilador;
  *
  * @author victor
  */
-public class identificationTableElement {
+public class elementoTabelaDeIdentificacao {
     identificadorSimples id;
     boolean checker;
     Tipo tipo;
 
-    public identificationTableElement(identificadorSimples id, boolean checker, Tipo tipo) {
+    public elementoTabelaDeIdentificacao(identificadorSimples id, boolean checker, Tipo tipo) {
         this.id = id;
         this.checker = checker;
         this.tipo = tipo;

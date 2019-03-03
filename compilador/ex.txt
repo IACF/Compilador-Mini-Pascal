@@ -2,17 +2,20 @@ program programa;
     var variavel,testinho,testao, recebe, isto : integer;
     var aux2 : real;
     var b : boolean;
-    var ar : array [ 1 .. 3 ] of integer;
+    var ar : array [ 6 .. 9 ] of array [ 6 .. 9 ] of integer;
     var ar2: array [1 .. 3] of integer;
 begin
-    variavel := variavel;
-    recebe := 2.5;
-    ar2[1] := 5;
-    if (3 > 2)
+    variavel := 8;
+    ar[7][7] := 3;
+    recebe := variavel + 2;
+    ar2[2] := 5;
+    b := true;
+    if ((ar[7][7] < 2) and (variavel = 2))
     then 
       variavel := 2 + testao * 2
     else
-    variavel := 1;
+    variavel := testinho;
+    testinho := 1;
     begin
     end;
 end

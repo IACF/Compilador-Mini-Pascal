@@ -9,12 +9,12 @@ package compilador;
  *
  * @author victor
  */
-public class checker implements Visitor{
+public class Checker implements Visitor{
     
-    identificationTable table;
+    tabelaDeIdentificacao table;
     
     public void checker (Programa P) {
-        this.table = new identificationTable();
+        this.table = new tabelaDeIdentificacao();
         P.visit(this);
     }
 
@@ -89,25 +89,14 @@ public class checker implements Visitor{
     public void visitorExpressaoBinaria(expressaoBinaria arg0) {
         if(arg0 != null){
             
-            arg0.E1.visit(this);
-            arg0.O.visit(this);
-//            if(arg0.O.TK.spelling.equals("+")) {
-//                System.out.println("operação de adição");
-//                
-//            }
+        arg0.E1.visit(this);
+        arg0.O.visit(this);
+
+        arg0.E2.visit(this);
+        arg0.tipo = tipagemExpressao(arg0.E1.tipo, arg0.O, arg0.E2.tipo);
             
-            arg0.E2.visit(this);
-            if(arg0.E1 instanceof Variavel) {
-               Variavel gambirraT = (Variavel) arg0.E1;
-                arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
-                System.out.println("Tipo varial:" + arg0.tipo);
-            }
-            
-            if(arg0.E1 instanceof Literal) {
-               Literal gambirraT = (Literal) arg0.E1;
-                arg0.tipo = tipagemExpressao(gambirraT.tipo, arg0.O, arg0.E2.tipo);
-                System.out.println("Tipo literal:" + arg0.tipo);
-            }
+        if(arg0.tipo.equals("erro"))
+            System.out.println("ERRRRROUUUUUU!");
         }
     }
 
@@ -182,9 +171,9 @@ public class checker implements Visitor{
             } else {
                 System.out.println("errooooo");
             }
-                
             
-  
+            System.out.println(arg0.E.tipo);
+               
         }
     }
 
@@ -202,11 +191,32 @@ public class checker implements Visitor{
     @Override
     public void visitorComandoAtribuicao(comandoAtribuicao arg0) {
         if (arg0 != null) {
-
+            
             arg0.V.visit(this);
-        arg0.E.visit(this);
-            if (!arg0.E.tipo.equals(arg0.V.tipo))
-                throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
+            arg0.E.visit(this);
+            
+            System.out.println("test = " + arg0.V.tipo);
+            Tipo aux = arg0.V.ponteiro.tipo;
+            
+            if(aux instanceof tipoAgregado){
+            
+                tipoAgregado t;
+                tipoSimples tipo;
+
+                while(aux instanceof tipoAgregado){
+                    t = (tipoAgregado) aux;
+                    aux = t.T;
+                }
+                
+                tipo = (tipoSimples) aux;
+                if (!arg0.E.tipo.equals(tipo.TK.spelling))
+                    throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
+            }else{
+                System.out.println(arg0.E.tipo);
+                if (!arg0.E.tipo.equals(arg0.V.tipo))
+                    throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
+            }
+            
         }
     }
 
@@ -219,7 +229,7 @@ public class checker implements Visitor{
             
             identificadorSimples I = (identificadorSimples) arg0.I;
             
-            identificationTableElement element = table.retrieve(I.TK.spelling);
+            elementoTabelaDeIdentificacao element = table.retrieve(I.TK.spelling);
             
             if(element == null)
                 throw new Error(I);
@@ -230,7 +240,6 @@ public class checker implements Visitor{
                 tSimples = (tipoSimples) element.tipo;
                 arg0.tipo = tSimples.TK.spelling;
             }else{
-                
                 Expressao e = arg0.E;
                 int count2 = 0;
                 expressaoSequencial exp;
@@ -242,12 +251,11 @@ public class checker implements Visitor{
                     if(exp.E2 instanceof Literal){
                         System.out.println(exp.E2.getClass());
                         l = (Literal) exp.E2;
+                        System.out.println("te = " + l.TK.spelling);
                         limite[count2] = Integer.parseInt(l.TK.spelling);
                         count2 += 1;
                         e = exp.E1;
                     }
-                }else{
-                    count2 = 1;
                 }
                 
                 while(e instanceof expressaoSequencial){
@@ -260,35 +268,45 @@ public class checker implements Visitor{
                 
                 if(e instanceof Literal){
                     l = (Literal) e;
+                    System.out.println("testando = " + l.TK.spelling);
                     limite[count2] = Integer.parseInt(l.TK.spelling);
+                    count2++;
                 }
                 
-                for (int i= count2; i >= 0; i--) {
-                    System.out.println(limite[i]);
+                for (int i= (count2-1); i >= 0; i--) {
+                    System.out.println("lim = " + limite[i]);
                 }
+               
                 /////////////////////////////////////////////////////////////////
                 
                 tipoAgregado t;
                 Tipo aux = element.tipo;
                 int count = 0;
                 
-                while(aux instanceof tipoAgregado){
-                    t = (tipoAgregado) aux;
-                    
+                while(aux instanceof tipoAgregado ){
+                    t = (tipoAgregado) aux;                    
+                    aux = t.T;
+                    count++;
+                }
+                
+                if(count != count2)
+                    throw new Error(" => Dimensão inválida",(identificadorSimples) arg0.I);
+                
+                while(aux instanceof tipoAgregado ){
+                    t = (tipoAgregado) aux;                    
                     if(!((limite[count] >= Integer.parseInt(t.L1.TK.spelling)
                        && limite[count] < Integer.parseInt(t.L2.TK.spelling)) ||
                        (limite[count] < Integer.parseInt(t.L1.TK.spelling)
                        && limite[count] >= Integer.parseInt(t.L2.TK.spelling)))){
-                        System.out.println("errado cara");
+                        throw new Error(" => Indice invalido no array ",(identificadorSimples) arg0.I);
                     }
-                    
                     aux = t.T;
-                    count++;
                 }
-                count--;
-                if(count != count2)
-                    System.out.println("TA ERRRADOOOOO!");
+                
+                 tSimples = (tipoSimples) aux;
+                 arg0.tipo = tSimples.TK.spelling;
             }
+            
             
             if (arg0.E != null)
                 arg0.E.visit(this);
@@ -328,8 +346,8 @@ public class checker implements Visitor{
                 return "integer";
             if(tipoE1.equals("real") && tipoE2.equals("real"))
                 return "real";
-            if(tipoE1.equals("boolean") && tipoE2.equals("boolean"))
-                throw new Error("Operandos inválidos para a operação binária ", Operador );
+            if(tipoE1.equals("boolean") || tipoE2.equals("boolean"))
+                throw new Error ("Operandos inválidos para a operação binária ", Operador);
             if(
                 (tipoE1.equals("real") && tipoE2.equals("integer")) || 
                 (tipoE1.equals("integer") && tipoE2.equals("real"))
@@ -344,6 +362,8 @@ public class checker implements Visitor{
                 return "erro";
         }
         
+        System.out.println(tipoE1);
+        
         if( Operador.TK.kind >= 25 && Operador.TK.kind <= 29) {
             if(
                 (tipoE1.equals("boolean") && tipoE2.equals("integer")) || 
@@ -353,6 +373,16 @@ public class checker implements Visitor{
             )
                 return "erro";
             return "boolean";
+        }
+        
+        
+        if( Operador.TK.kind == 21 || Operador.TK.kind == 24) {
+            if(
+                (tipoE1.equals("boolean") && tipoE2.equals("boolean"))
+            )
+               return "boolean";
+            
+            return "erro";
         }
         
         return "ok";

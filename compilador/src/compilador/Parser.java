@@ -22,7 +22,7 @@ public class Parser {
         this.scanner = new Scanner(reader);
         this.currentToken = scanner.scan();
         Printer p = new Printer();
-        checker c = new checker();
+        Checker c = new Checker();
         Programa program = this.parsePrograma();
         p.print(program);
         c.checker(program);
@@ -170,7 +170,8 @@ public class Parser {
         if(
             this.currentToken.kind == scanner.map.get("int-lit") ||
             this.currentToken.kind == scanner.map.get("float-lit") ||
-             this.currentToken.kind == scanner.map.get("bool-lit")) 
+            this.currentToken.kind == scanner.map.get("false")
+            || this.currentToken.kind == scanner.map.get("true")) 
         {
             lAST = new Literal(currentToken);
             currentToken = scanner.scan();
@@ -394,9 +395,11 @@ public class Parser {
                 eAST = parseExpressao();
                 accept(")");
             }else{
-                if(this.currentToken.kind == scanner.map.get("bool-lit")
+               
+                if(this.currentToken.kind == scanner.map.get("true")
                    || this.currentToken.kind == scanner.map.get("float-lit")
-                   || this.currentToken.kind == scanner.map.get("int-lit"))
+                   || this.currentToken.kind == scanner.map.get("int-lit")
+                   || this.currentToken.kind == scanner.map.get("false"))
                 {
                     eAST = parseLiteral();
                 }else{

@@ -32,7 +32,7 @@ public class Scanner {
        this.map = new HashMap<>()
         {{
             put(":=" , (byte) 0);
-            put("bool-lit",(byte) 1);
+            put("boolean",(byte) 1);
             put("integer",(byte) 2);
             put("begin",(byte) 3);
             put("end",(byte) 4);
@@ -73,7 +73,8 @@ public class Scanner {
             put("eof", (byte) 39);
             put("integer", (byte) 40);
             put("real", (byte) 41);
-            put("boolean", (byte) 42);
+            put("true", (byte) 42);
+            put("false", (byte) 43);
         }};
        
        this.coordinates[0] = 1;
