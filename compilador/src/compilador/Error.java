@@ -25,12 +25,7 @@ public class Error extends RuntimeException{
     public Error(String mensagem, identificadorSimples i){
         super(i.TK.spelling + mensagem + "na linha " + i.TK.line + ", coluna " + i.TK.collum + ".");
     }
-    
-       public Error(String mensagem, Operador op){
-        super(mensagem + "\'" + op.TK.spelling + "\'" + " na linha " + op.TK.line);
-    }
-    
-    
+        
     public Error(String mensagem, Operador op){
         super(mensagem + op.TK.spelling + " na linha " + op.TK.line + ".");
     }
