@@ -103,11 +103,11 @@ public class Scanner {
                 
                 break;
             
-            case ' ': 
+            case ' ': case '\t': 
                 do{
                     this.currentChar = ( char ) this.reader.read();
                     this.coordinates[1]++;
-                }while(this.currentChar == ' ');
+                }while(this.currentChar == ' ' || this.currentChar == '\t');
                 
                 break;
             case '\n':
@@ -161,6 +161,7 @@ public class Scanner {
                         this.coordinates[1]++;
                     }else{
                         flag = true;
+                        System.out.println(aux);
                         if(aux == '.'){              
                             break;
                         }  

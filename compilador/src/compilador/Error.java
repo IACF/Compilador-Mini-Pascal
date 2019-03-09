@@ -7,7 +7,7 @@ package compilador;
 
 public class Error extends RuntimeException{
     public Error(String expected, Token current){
-        super("Esperava-se '" + expected + "' encontrado '" + current.spelling + "', linha = " + current.line + " coluna = " + current.collum);
+        super("Erro de sintaxe, Esperava-se '" + expected + "' encontrado '" + current.spelling + "', linha = " + current.line + " coluna = " + current.collum);
     }
     
     public Error(Token current){
