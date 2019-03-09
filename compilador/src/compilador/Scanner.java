@@ -21,13 +21,13 @@ public class Scanner {
     int coordinates[] = new int[2];
     char currentChar;
     int currentKind;
-    boolean flag;
+  
     
     public Scanner(BufferedReader reader) throws IOException{
        this.reader = reader;
        this.currentSpelling = "";
        currentChar = ( char )reader.read();
-       this.flag = false;
+ 
      
        this.map = new HashMap<>()
         {{
@@ -152,22 +152,7 @@ public class Scanner {
             takeIt();
             while(isDigit(this.currentChar) || this.currentChar == '.'){
                 if (this.currentChar == '.') {
-                    char aux = ( char )reader.read();
-                                      
-                    take('.');
-                    
-                    if(isDigit(aux)){
-                        this.currentSpelling = this.currentSpelling.concat(Character.toString(aux));
-                        this.coordinates[1]++;
-                    }else{
-                        flag = true;
-                        System.out.println(aux);
-                        if(aux == '.'){              
-                            break;
-                        }  
-                        this.currentChar = aux;
-                    }
-                    
+                    takeIt();
                     while(isDigit(this.currentChar)){
                         takeIt();
                     }
@@ -230,11 +215,6 @@ public class Scanner {
         
         if(currentKind == 37)
             this.coordinates[1] = 1;
-        
-        if(flag){
-            this.currentSpelling = Character.toString(this.currentChar);
-            this.flag = false;
-        }
         
         while (this.currentChar == ' ' || this.currentChar == '!' || this.currentChar == '\n')
             scanSeparator();
