@@ -20,13 +20,13 @@ public class tabelaDeIdentificacao {
         table = new HashMap<>();
     }
     
-    public boolean insert(identificadorSimples i, Tipo t){
+    public boolean insert(identificadorSimples i, Tipo t, int enderecoVariavel){
         
         if(table.containsKey(i.TK.spelling)){
              throw new Error("variavel já declarada.");
         }
         
-        elementoTabelaDeIdentificacao element = new elementoTabelaDeIdentificacao(i, false, t);
+        elementoTabelaDeIdentificacao element = new elementoTabelaDeIdentificacao(i, false, t, enderecoVariavel);
         table.put(i.TK.spelling, element);
         return true;
         

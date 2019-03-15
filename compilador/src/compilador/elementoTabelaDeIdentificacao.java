@@ -13,11 +13,13 @@ public class elementoTabelaDeIdentificacao {
     identificadorSimples id;
     boolean checker;
     Tipo tipo;
-
-    public elementoTabelaDeIdentificacao(identificadorSimples id, boolean checker, Tipo tipo) {
+    int enderecoVariavel;
+    
+    public elementoTabelaDeIdentificacao(identificadorSimples id, boolean checker, Tipo tipo, int enderecoVariavel) {
         this.id = id;
         this.checker = checker;
         this.tipo = tipo;
+        this.enderecoVariavel = enderecoVariavel;
     }
     
     

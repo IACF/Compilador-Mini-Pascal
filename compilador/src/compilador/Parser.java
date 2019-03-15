@@ -23,9 +23,11 @@ public class Parser {
         this.currentToken = scanner.scan();
         Printer p = new Printer();
         Checker c = new Checker();
+        Coder code = new Coder();
         Programa program = this.parsePrograma();
         p.print(program);
         c.checker(program);
+        code.visitorPrograma(program);
     }
     
     private void accept(String expectedToken) throws IOException{

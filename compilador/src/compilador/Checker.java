@@ -5,6 +5,12 @@
  */
 package compilador;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author victor
@@ -12,10 +18,20 @@ package compilador;
 public class Checker implements Visitor{
     
     tabelaDeIdentificacao table;
+    int enderecoVariaveis;
+     Map<String, Integer> tamanhoTipos;
     
     public void checker (Programa P) {
+        this.enderecoVariaveis = 0;
         this.table = new tabelaDeIdentificacao();
+         this.tamanhoTipos = new HashMap<>()
+        {{
+            put("boolean",(int) 1);
+            put("integer",(int) 4);
+            put("real", (int) 8);
+        }};
         P.visit(this);
+
     }
 
     @Override
@@ -29,41 +45,37 @@ public class Checker implements Visitor{
         }
     }
     
-    public boolean identificaSequencia(Identificador i, Tipo t){
-        identificadorSequencial gambirra;
-        Identificador aux = i;
-        
-        do{
-            gambirra = (identificadorSequencial) aux;
-            table.insert((identificadorSimples) gambirra.I1, t);
-            aux =  gambirra.I2;
-        }while(aux instanceof  identificadorSequencial);
-        
-        table.insert((identificadorSimples) aux, t);
-        
-        return true;
-    }
-    
     @Override
     public void visitorDeclaracaoDeVariavel(declaracaoDeVariavel arg0) {
         if(arg0 != null){
+            tipoSimples  tp;
+            
+            arg0.I.visit(this);
+       //     if(arg0.T instanceof tipoSimples){
+            tp = (tipoSimples) arg0.T; 
+        //    }
+          
             if(arg0.I instanceof  identificadorSimples){
-                table.insert((identificadorSimples) arg0.I, arg0.T);
+                table.insert((identificadorSimples) arg0.I, arg0.T, this.enderecoVariaveis);
+                this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
+            
             }else{
                 identificadorSequencial gambirra;
                 Identificador aux = arg0.I;
                 
                 do{
                     gambirra = (identificadorSequencial) aux;
-                    table.insert((identificadorSimples) gambirra.I1, arg0.T);
+                    table.insert((identificadorSimples) gambirra.I1, arg0.T, this.enderecoVariaveis);
+                    System.out.println(this.tamanhoTipos.get(tp.TK.spelling));
+                    this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
                     aux =  gambirra.I2;
                 }while(aux instanceof  identificadorSequencial);
 
-                table.insert((identificadorSimples) aux, arg0.T);
+                table.insert((identificadorSimples) aux, arg0.T, this.enderecoVariaveis);
+                this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
                 
             }
-            
-            arg0.I.visit(this);
+            System.out.println("aq = " + this.enderecoVariaveis);
             arg0.T.visit(this);
             
         }
@@ -229,7 +241,7 @@ public class Checker implements Visitor{
             
             identificadorSimples I = (identificadorSimples) arg0.I;
             
-            elementoTabelaDeIdentificacao element = table.retrieve(I.TK.spelling);
+            elementoTabelaDeIdentificacao element = this.table.retrieve(I.TK.spelling);
             
             if(element == null)
                 throw new Error(I);
@@ -304,9 +316,14 @@ public class Checker implements Visitor{
                 }
                 
                  tSimples = (tipoSimples) aux;
+                 System.out.println("ershfosfhi = " + element.enderecoVariavel);
+                         
+                 arg0.endereco = element.enderecoVariavel;
                  arg0.tipo = tSimples.TK.spelling;
+                 
             }
             
+            arg0.endereco = element.enderecoVariavel;
             
             if (arg0.E != null)
                 arg0.E.visit(this);
