@@ -49,15 +49,29 @@ public class Checker implements Visitor{
     public void visitorDeclaracaoDeVariavel(declaracaoDeVariavel arg0) {
         if(arg0 != null){
             tipoSimples  tp;
+            int tamanho =0;
             
             arg0.I.visit(this);
-       //     if(arg0.T instanceof tipoSimples){
-            tp = (tipoSimples) arg0.T; 
-        //    }
+            if(arg0.T instanceof tipoSimples){
+                tp = (tipoSimples) arg0.T; 
+                tamanho = this.tamanhoTipos.get(tp.TK.spelling);
+            }else{
+                tipoAgregado t;
+                Tipo aux = arg0.T;
+
+                while(aux instanceof tipoAgregado){
+                    t = (tipoAgregado) aux;
+                    tamanho += (Integer.parseInt(t.L2.TK.spelling) - Integer.parseInt(t.L1.TK.spelling) + 1);
+                    aux = t.T;
+                }
+                
+                tp = (tipoSimples) aux;
+                tamanho *= this.tamanhoTipos.get(tp.TK.spelling);
+            }
           
             if(arg0.I instanceof  identificadorSimples){
                 table.insert((identificadorSimples) arg0.I, arg0.T, this.enderecoVariaveis);
-                this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
+                this.enderecoVariaveis += tamanho;
             
             }else{
                 identificadorSequencial gambirra;
@@ -66,12 +80,12 @@ public class Checker implements Visitor{
                 do{
                     gambirra = (identificadorSequencial) aux;
                     table.insert((identificadorSimples) gambirra.I1, arg0.T, this.enderecoVariaveis);
-                    this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
+                    this.enderecoVariaveis += tamanho;
                     aux =  gambirra.I2;
                 }while(aux instanceof  identificadorSequencial);
 
                 table.insert((identificadorSimples) aux, arg0.T, this.enderecoVariaveis);
-                this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
+                this.enderecoVariaveis += tamanho;
                 
             }
             System.out.println("aq = " + this.enderecoVariaveis);
@@ -314,7 +328,6 @@ public class Checker implements Visitor{
                  tSimples = (tipoSimples) aux;
                  System.out.println("ershfosfhi = " + element.enderecoVariavel);
                          
-                 arg0.endereco = element.enderecoVariavel;
                  arg0.tipo = tSimples.TK.spelling;
                  
             }
@@ -372,8 +385,8 @@ public class Checker implements Visitor{
         
         if( Operador.TK.kind >= 25 && Operador.TK.kind <= 29) {
             if(
-                (tipoE1.equals("integer") || tipoE2.equals("integer")) || 
-                (tipoE1.equals("real") || tipoE2.equals("real"))
+                !(tipoE1.equals("real") && tipoE2.equals("real")) &&
+                !(tipoE1.equals("integer") && tipoE2.equals("integer"))
             )
                 throw new Error ("Operandos inválidos para a operação binária ", Operador);
             

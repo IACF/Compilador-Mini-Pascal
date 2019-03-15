@@ -86,7 +86,31 @@ public class Coder implements Visitor {
                         Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }  
+            }else{
+                int tamanho = 0;
+                tipoAgregado t;
+                Tipo aux = arg0.T;
+
+                while(aux instanceof tipoAgregado){
+                    t = (tipoAgregado) aux;
+                    tamanho += (Integer.parseInt(t.L2.TK.spelling) - Integer.parseInt(t.L1.TK.spelling) + 1);
+                    aux = t.T;
+                }
+                
+                tp = (tipoSimples) aux;
+                tamanho *= this.tamanhoTipos.get(tp.TK.spelling);
+                
+                for (int i = 0; i < this.countIds; i++) {
+                    try {
+                        escrever("PUSH "+ tamanho);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }  
+       
+                
             }
+          
         }
     }
 
