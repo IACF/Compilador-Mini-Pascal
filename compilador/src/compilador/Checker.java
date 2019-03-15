@@ -66,7 +66,6 @@ public class Checker implements Visitor{
                 do{
                     gambirra = (identificadorSequencial) aux;
                     table.insert((identificadorSimples) gambirra.I1, arg0.T, this.enderecoVariaveis);
-                    System.out.println(this.tamanhoTipos.get(tp.TK.spelling));
                     this.enderecoVariaveis += this.tamanhoTipos.get(tp.TK.spelling);
                     aux =  gambirra.I2;
                 }while(aux instanceof  identificadorSequencial);
@@ -107,8 +106,6 @@ public class Checker implements Visitor{
         arg0.E2.visit(this);
         arg0.tipo = tipagemExpressao(arg0.E1.tipo, arg0.O, arg0.E2.tipo);
             
-        if(arg0.tipo.equals("erro"))
-            System.out.println("ERRRRROUUUUUU!");
         }
     }
 
@@ -164,12 +161,11 @@ public class Checker implements Visitor{
     public void visitorComandoIterativo(comandoIterativo arg0) {
         if (arg0 != null) {    
             arg0.E.visit(this);
-//            if (arg0.E.tipo.equals("boolean")) {
-//                System.out.println("Tipo while: " + arg0.E.tipo);
+            if (arg0.E.tipo.equals("boolean")) {
                 arg0.C.visit(this);
-//            } else {
-//                System.out.println("ERRO DE WHILE");
-//            }
+            } else {
+                  throw new Error ("A estrutura iterativa necessita de uma operação lógica.");
+            }
         }
     }
 
@@ -181,7 +177,7 @@ public class Checker implements Visitor{
                 arg0.C1.visit(this);
                 arg0.C2.visit(this);
             } else {
-                System.out.println("errooooo");
+                throw new Error ("A estrutura condicional necessita de uma operação lógica.");
             }
             
             System.out.println(arg0.E.tipo);
@@ -370,36 +366,27 @@ public class Checker implements Visitor{
                 (tipoE1.equals("integer") && tipoE2.equals("real"))
             )
                 return "real";
-            if(
-                (tipoE1.equals("boolean") && tipoE2.equals("integer")) || 
-                (tipoE1.equals("integer") && tipoE2.equals("boolean")) ||
-                (tipoE1.equals("real") && tipoE2.equals("boolean")) ||
-                (tipoE1.equals("boolean") && tipoE2.equals("real"))
-            )
-                return "erro";
         }
         
         System.out.println(tipoE1);
         
         if( Operador.TK.kind >= 25 && Operador.TK.kind <= 29) {
             if(
-                (tipoE1.equals("boolean") && tipoE2.equals("integer")) || 
-                (tipoE1.equals("integer") && tipoE2.equals("boolean")) ||
-                (tipoE1.equals("real") && tipoE2.equals("boolean")) ||
-                (tipoE1.equals("boolean") && tipoE2.equals("real"))
+                (tipoE1.equals("integer") || tipoE2.equals("integer")) || 
+                (tipoE1.equals("real") || tipoE2.equals("real"))
             )
-                return "erro";
+                throw new Error ("Operandos inválidos para a operação binária ", Operador);
+            
             return "boolean";
         }
-        
-        
+               
         if( Operador.TK.kind == 21 || Operador.TK.kind == 24) {
             if(
                 (tipoE1.equals("boolean") && tipoE2.equals("boolean"))
             )
-               return "boolean";
+                return "boolean";
             
-            return "erro";
+            throw new Error ("Operandos inválidos para a operação lógica ", Operador);
         }
         
         return "ok";

@@ -10,7 +10,7 @@ package compilador;
  * @author victor
  */
 public class Variavel extends Expressao{
-    Identificador I;
+    Identificador I;    
     Expressao E;
     elementoTabelaDeIdentificacao ponteiro;
     int endereco;
