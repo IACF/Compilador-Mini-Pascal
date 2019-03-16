@@ -52,6 +52,8 @@ public class Checker implements Visitor{
             int tamanho =0;
             
             arg0.I.visit(this);
+            arg0.T.visit(this); 
+            
             if(arg0.T instanceof tipoSimples){
                 tp = (tipoSimples) arg0.T; 
                 tamanho = this.tamanhoTipos.get(tp.TK.spelling);
@@ -89,7 +91,7 @@ public class Checker implements Visitor{
                 
             }
             System.out.println("aq = " + this.enderecoVariaveis);
-            arg0.T.visit(this);
+           
             
         }
     }
@@ -154,12 +156,13 @@ public class Checker implements Visitor{
     @Override
     public void visitorTipoAgregado(tipoAgregado arg0) {
    
-        arg0.L1.visit(this);
-        System.out.println("tipoAgregado:" + arg0.L1.tipo);
-        
-        arg0.L2.visit(this);
-        System.out.println("tipoAgregado:" + arg0.L2.tipo);
-        arg0.T.visit(this);
+        if((arg0.L1.tipo.equals("integer") && arg0.L2.tipo.equals("integer"))) {
+            arg0.L1.visit(this);
+            arg0.L2.visit(this);
+            arg0.T.visit(this);
+        } else {
+            throw new Error("Os intervalos no array devem ser do tipo interger");
+        }
  
     }
 
