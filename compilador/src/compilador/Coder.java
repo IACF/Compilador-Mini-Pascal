@@ -208,7 +208,8 @@ public class Coder implements Visitor {
     @Override
     public void visitorVariavel(Variavel arg0) {
         if (arg0 != null) {
-            System.out.println("end = " + arg0.endereco);
+            identificadorSimples i = (identificadorSimples) arg0.I;
+              System.out.println(i.TK.spelling+ " = " + arg0.endereco);
             arg0.I.visit(this);
              
             if (arg0.E != null)

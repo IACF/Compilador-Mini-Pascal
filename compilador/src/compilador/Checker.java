@@ -8,6 +8,7 @@ package compilador;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,21 +79,22 @@ public class Checker implements Visitor{
             }else{
                 identificadorSequencial gambirra;
                 Identificador aux = arg0.I;
+                Stack pilha = new Stack();
                 
                 do{
                     gambirra = (identificadorSequencial) aux;
-                    table.insert((identificadorSimples) gambirra.I1, arg0.T, this.enderecoVariaveis);
-                    this.enderecoVariaveis += tamanho;
+                    pilha.push((identificadorSimples) gambirra.I1);
                     aux =  gambirra.I2;
                 }while(aux instanceof  identificadorSequencial);
-
-                table.insert((identificadorSimples) aux, arg0.T, this.enderecoVariaveis);
-                this.enderecoVariaveis += tamanho;
                 
-            }
-            System.out.println("aq = " + this.enderecoVariaveis);
+                pilha.push((identificadorSimples) aux);
+                
+                while(!pilha.isEmpty()){
+                    table.insert((identificadorSimples) pilha.pop(), arg0.T, this.enderecoVariaveis);
+                    this.enderecoVariaveis += tamanho;
+                }
            
-            
+            }
         }
     }
     
@@ -319,17 +321,15 @@ public class Checker implements Visitor{
                 
                 while(aux instanceof tipoAgregado ){
                     t = (tipoAgregado) aux;                    
-                    if(!((limite[count] >= Integer.parseInt(t.L1.TK.spelling)
-                       && limite[count] < Integer.parseInt(t.L2.TK.spelling)) ||
-                       (limite[count] < Integer.parseInt(t.L1.TK.spelling)
-                       && limite[count] >= Integer.parseInt(t.L2.TK.spelling)))){
+                    if(!(limite[count] >= Integer.parseInt(t.L1.TK.spelling)
+                       && limite[count] < Integer.parseInt(t.L2.TK.spelling))){
                         throw new Error(" => Indice invalido no array ",(identificadorSimples) arg0.I);
                     }
                     aux = t.T;
                 }
                 
                  tSimples = (tipoSimples) aux;
-                 System.out.println("ershfosfhi = " + element.enderecoVariavel);
+              //   System.out.println("ershfosfhi = " + element.enderecoVariavel);
                          
                  arg0.tipo = tSimples.TK.spelling;
                  
