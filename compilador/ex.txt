@@ -10,6 +10,9 @@ begin
     recebe := 2;
     !ar2[2] := 5;
     aux2 := .2;
+    while (3 > 2)
+    do
+      recebe := 2;
     if ((3. > .2) and (1 < 2))
     then 
       variavel := 2 + testao * 2

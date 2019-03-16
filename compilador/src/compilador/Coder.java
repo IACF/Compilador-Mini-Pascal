@@ -173,7 +173,20 @@ public class Coder implements Visitor {
     public void visitorComandoIterativo(comandoIterativo c) {
          if (c != null) {    
             c.E.visit(this);
+             try {
+                 escrever("h:\n" + "JUMPIF(0) g");
+             } catch (IOException ex) {
+                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+             }
             c.C.visit(this);
+             try {
+                 escrever("JUMP h" + "\n" + "g:");
+             } catch (IOException ex) {
+                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             
+            
+             
         }
     }
 
