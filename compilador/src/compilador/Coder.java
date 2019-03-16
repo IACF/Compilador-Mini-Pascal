@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  *
  * @author victor
  */
+
 public class Coder implements Visitor {
     BufferedWriter buffWrite;
     Map<String, Byte> tamanhoTipos;
@@ -194,8 +195,25 @@ public class Coder implements Visitor {
     public void visitorComandoCondicional(comandoCondicional arg0) {
         if (arg0 != null) {
             arg0.E.visit(this);
+            
+            try {
+                escrever("JUMPIF (0) g");
+            } catch (IOException ex) {
+                Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+            }
             arg0.C1.visit(this);
+            try {
+                escrever("JUMP h");
+                escrever("g:");
+            } catch (IOException ex) {
+                Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+            }
             arg0.C2.visit(this);
+            try {
+                escrever("h:");
+            } catch (IOException ex) {
+                Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -223,13 +241,15 @@ public class Coder implements Visitor {
                       Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
                   }
             }
-            
           }
     }
 
     @Override
     public void visitorVariavel(Variavel arg0) {
         if (arg0 != null) {
+            identificadorSimples i = (identificadorSimples) arg0.I;
+            System.out.println(i.TK.spelling+ " = " + arg0.endereco);
+
             try {
                 escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + arg0.endereco + "[SB]");
             } catch (IOException ex) {

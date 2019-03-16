@@ -1,5 +1,5 @@
 program programa;
-    var istos, variavel,testinho,testao, recebe, isto : integer;
+    var     variavel,testinho,testao, recebe, isto : integer;
    	 var aux2 : real;
     var b : boolean;
     !var ar : array [6 ..7] of array [ 6 .. 9 ] of integer;
