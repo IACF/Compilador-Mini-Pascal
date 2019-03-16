@@ -278,8 +278,12 @@ public class Checker implements Visitor{
                 while(e instanceof expressaoSequencial){
                     exp = (expressaoSequencial) e;
                     if(exp.E2 instanceof Literal){
-                        l = (Literal) exp.E2;
-                        limite[count2] = Integer.parseInt(l.TK.spelling);
+                        if(((Literal) e).tipo.equals("integer")){
+                            l = (Literal) e;
+                            limite[count2] = Integer.parseInt(l.TK.spelling);
+                        }else{
+                            throw new Error(" => Tipo do indice invalido no array ",(identificadorSimples) arg0.I);
+                        }
                     }else{
                         notliteral[count2] = true;
                     }
@@ -288,8 +292,12 @@ public class Checker implements Visitor{
                 }
                 
                 if(e instanceof Literal){
-                    l = (Literal) e;
-                    limite[count2] = Integer.parseInt(l.TK.spelling);
+                    if(((Literal) e).tipo.equals("integer")){
+                        l = (Literal) e;
+                        limite[count2] = Integer.parseInt(l.TK.spelling);
+                    }else{
+                        throw new Error(" => Tipo do indice invalido no array ",(identificadorSimples) arg0.I);
+                    }
                 }
                 
                 count2++;

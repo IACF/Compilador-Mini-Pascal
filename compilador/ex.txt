@@ -8,7 +8,7 @@ begin
     variavel := variavel;
     !	ar[7][7] := 3;
     recebe := 2;
-    ar2[3] := 5;
+    ar2[2] := 5;
     aux2 := .2;
     while (3 > 2)
     do
