@@ -200,15 +200,28 @@ public class Coder implements Visitor {
     @Override
     public void visitorComandoAtribuicao(comandoAtribuicao arg0) {
           if (arg0 != null) {
-            arg0.V.visit(this);
             arg0.E.visit(this);
+            if(arg0.V.E != null) {
+                arg0.V.E.visit(this);
+            } else {
+                  try {
+                      escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.V.tipo) + ") " + arg0.V.endereco + "[SB]");
+                  } catch (IOException ex) {
+                      Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+            }
+            
           }
     }
 
     @Override
     public void visitorVariavel(Variavel arg0) {
         if (arg0 != null) {
-            System.out.println("end = " + arg0.endereco);
+            try {
+                escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + arg0.endereco + "[SB]");
+            } catch (IOException ex) {
+                Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+            }
             arg0.I.visit(this);
              
             if (arg0.E != null)
