@@ -126,8 +126,8 @@ public class Coder implements Visitor {
     public void visitorExpressaoBinaria(expressaoBinaria e) {
          if(e != null){
             e.E1.visit(this);
-            e.O.visit(this);
             e.E2.visit(this);
+            e.O.visit(this);
          }
     }
 
@@ -219,6 +219,11 @@ public class Coder implements Visitor {
     @Override
     public void visitorLiteral(Literal arg0) {
         if (arg0 != null) {
+            try {
+                escrever("LOADL "+ arg0.TK.spelling);
+            } catch (IOException ex) {
+                Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+            }
             arg0.TK.visit(this);
         }
     }
@@ -233,6 +238,10 @@ public class Coder implements Visitor {
 
     @Override
     public void visitorOperador(Operador O) {
+        switch(O.TK.spelling){
+            case "+":
+               // escrever("CALL")
+        }
         O.TK.visit(this);
     }
     
