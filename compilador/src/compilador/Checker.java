@@ -271,34 +271,30 @@ public class Checker implements Visitor{
                 int count2 = 0;
                 expressaoSequencial exp;
                 int[] limite = new int[30];
+                boolean[] notliteral = new boolean[30];
+                
                 Literal l;
-                 
-                if(arg0.E instanceof expressaoSequencial){
-                    exp = (expressaoSequencial) e;
-                    if(exp.E2 instanceof Literal){
-                        System.out.println(exp.E2.getClass());
-                        l = (Literal) exp.E2;
-                        System.out.println("te = " + l.TK.spelling);
-                        limite[count2] = Integer.parseInt(l.TK.spelling);
-                        count2 += 1;
-                        e = exp.E1;
-                    }
-                }
                 
                 while(e instanceof expressaoSequencial){
                     exp = (expressaoSequencial) e;
-                    l = (Literal) exp.E2;
-                    limite[count2] = Integer.parseInt(l.TK.spelling);
-                    e = exp.E1;
-                    count2 += 1;
+                    if(exp.E2 instanceof Literal){
+                        l = (Literal) exp.E2;
+                        limite[count2] = Integer.parseInt(l.TK.spelling);
+                    }else{
+                        notliteral[count2] = true;
+                    }
+                    count2++;
+                    e = exp.E1;   
                 }
                 
                 if(e instanceof Literal){
                     l = (Literal) e;
-                    System.out.println("testando = " + l.TK.spelling);
                     limite[count2] = Integer.parseInt(l.TK.spelling);
-                    count2++;
                 }
+                
+                count2++;
+                
+                System.out.println(count2);
                 
                 for (int i= (count2-1); i >= 0; i--) {
                     System.out.println("lim = " + limite[i]);
@@ -315,23 +311,30 @@ public class Checker implements Visitor{
                     aux = t.T;
                     count++;
                 }
+     
+                aux = element.tipo;
                 
                 if(count != count2)
-                    throw new Error(" => Dimensão inválida",(identificadorSimples) arg0.I);
+                    throw new Error(" => Dimensão inválida ",(identificadorSimples) arg0.I);
                 
+                count--;
+                 
                 while(aux instanceof tipoAgregado ){
-                    t = (tipoAgregado) aux;                    
-                    if(!(limite[count] >= Integer.parseInt(t.L1.TK.spelling)
-                       && limite[count] < Integer.parseInt(t.L2.TK.spelling))){
-                        throw new Error(" => Indice invalido no array ",(identificadorSimples) arg0.I);
+                    t = (tipoAgregado) aux;  
+                    if(!notliteral[count]){
+                        System.out.println(limite[count]); 
+                       if(!(limite[count] >= Integer.parseInt(t.L1.TK.spelling)
+                           && limite[count] <= Integer.parseInt(t.L2.TK.spelling))){
+                            throw new Error(" => Indice invalido no array ",(identificadorSimples) arg0.I);
+                        }
                     }
                     aux = t.T;
+                    count--;
                 }
                 
-                 tSimples = (tipoSimples) aux;
-              //   System.out.println("ershfosfhi = " + element.enderecoVariavel);
+                tSimples = (tipoSimples) aux;
                          
-                 arg0.tipo = tSimples.TK.spelling;
+                arg0.tipo = tSimples.TK.spelling;
                  
             }
             
