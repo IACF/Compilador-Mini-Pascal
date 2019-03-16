@@ -251,10 +251,37 @@ public class Coder implements Visitor {
 
     @Override
     public void visitorOperador(Operador O) {
+        String aux = null;
+        
         switch(O.TK.spelling){
             case "+":
-               // escrever("CALL")
+               aux = "add";break;
+            case "-":
+               aux = "sub";break;
+            case "/":
+               aux = "div";break;
+            case "*":
+               aux = "mult";break;
+            case ">=":
+               aux = "gte";break;
+            case "<=":
+               aux = "lte";break;
+            case ">":
+               aux = "gt";break;
+            case "<":
+               aux = "lt";break;
+            case "and":
+               aux = "and";break;
+            case "or":
+               aux = "or";break;
         }
+        
+        try {
+            escrever("CALL " + aux);
+        } catch (IOException ex) {
+            Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         O.TK.visit(this);
     }
     
