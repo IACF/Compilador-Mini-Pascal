@@ -248,18 +248,40 @@ public class Coder implements Visitor {
     public void visitorVariavel(Variavel arg0) {
         if (arg0 != null) {
             identificadorSimples i = (identificadorSimples) arg0.I;
-            System.out.println(i.TK.spelling+ " = " + arg0.endereco);
-
-            try {
-                escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + arg0.endereco + "[SB]");
-            } catch (IOException ex) {
-                Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            arg0.I.visit(this);
+            if(arg0.ponteiro.tipo instanceof tipoSimples){
              
-            if (arg0.E != null)
-                arg0.E.visit(this);
+                System.out.println(i.TK.spelling+ " = " + arg0.endereco);
+
+                try {
+                    escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + arg0.endereco + "[SB]");
+                } catch (IOException ex) {
+                    Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                arg0.I.visit(this);
+            }else{
+                if (arg0.E != null){
+                    if(arg0.E instanceof Literal){
+//                        tipoAgregado t;
+//                        Tipo aux = arg0.ponteiro.tipo;
+//                        int count = 0;
+//                        int enderecoVirtual;
+//                        int tamanhos[] = new int[30]; 
+//                        
+//                        while(aux instanceof tipoAgregado ){
+//                            t = (tipoAgregado) aux;  
+//                            tamanhos[count] = (Integer.parseInt(t.L2.TK.spelling) -Integer.parseInt(t.L1.TK.spelling) + 1) * this.tamanhoTipos.get(arg0.tipo)*Integer.parseInt(t.L1.TK.spelling);
+//                            aux = t.T;
+//                            count++;
+//                        }
+//                        
+//                        for (int x = (count -1); x >= 0; x--) {
+//                            System.out.println(i.TK.spelling + " virtual = " + tamanhos[x]);
+//                        }
+                    }
+                    arg0.E.visit(this);
+            }
         }
+    }
     }
 
     @Override

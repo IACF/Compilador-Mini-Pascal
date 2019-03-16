@@ -51,7 +51,7 @@ public class Checker implements Visitor{
         if(arg0 != null){
             tipoSimples  tp;
             int tamanho =0;
-            
+            int enderecoVirtual = 0;
             arg0.I.visit(this);
             arg0.T.visit(this); 
             
@@ -272,14 +272,13 @@ public class Checker implements Visitor{
                 expressaoSequencial exp;
                 int[] limite = new int[30];
                 boolean[] notliteral = new boolean[30];
-                
                 Literal l;
                 
                 while(e instanceof expressaoSequencial){
                     exp = (expressaoSequencial) e;
                     if(exp.E2 instanceof Literal){
-                        if(((Literal) e).tipo.equals("integer")){
-                            l = (Literal) e;
+                        if(exp.E2.tipo.equals("integer")){
+                            l = (Literal) exp.E2;
                             limite[count2] = Integer.parseInt(l.TK.spelling);
                         }else{
                             throw new Error(" => Tipo do indice invalido no array ",(identificadorSimples) arg0.I);
@@ -298,6 +297,8 @@ public class Checker implements Visitor{
                     }else{
                         throw new Error(" => Tipo do indice invalido no array ",(identificadorSimples) arg0.I);
                     }
+                }else{
+                    notliteral[count2] = true;
                 }
                 
                 count2++;
