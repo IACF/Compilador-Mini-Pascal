@@ -8,14 +8,17 @@ begin
     variavel := variavel;
     !	ar[7][7] := 3;
     recebe := 2;
-    ar2[variavel] := 5;
+    ar2[ variavel] := 5;
     aux2 := .2;
     while (3 > 2)
     do
       recebe := 2;
     if ((3. > .2) and (1 < 2))
     then 
-      ar[2][2][2] := 3 * 5
+    begin
+    variavel := 1;
+      ar[2][2][2] := 3 * 5;
+    end
     else
     variavel := testinho;
     variavel := 1;

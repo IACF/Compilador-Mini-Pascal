@@ -15,19 +15,13 @@ import java.io.IOException;
  */
 public class Parser {
     private Token currentToken;
-    private final Scanner scanner;
-    
-    public Parser() throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
+    private Scanner scanner;
+        
+    public Programa parse(String fileDir) throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader(fileDir));
         this.scanner = new Scanner(reader);
         this.currentToken = scanner.scan();
-        Printer p = new Printer();
-        Checker c = new Checker();
-        Coder code = new Coder();
-        Programa program = this.parsePrograma();
-        p.print(program);
-        c.checker(program);
-        code.visitorPrograma(program);
+        return this.parsePrograma();
     }
     
     private void accept(String expectedToken) throws IOException{
@@ -168,7 +162,7 @@ public class Parser {
     
     private Literal parseLiteral() throws IOException{
         Literal lAST;
-        
+        System.out.println(this.currentToken.spelling + " = " +  this.currentToken.kind);
         if(
             this.currentToken.kind == scanner.map.get("int-lit") ||
             this.currentToken.kind == scanner.map.get("float-lit") ||

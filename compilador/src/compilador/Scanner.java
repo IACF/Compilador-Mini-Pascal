@@ -7,7 +7,9 @@ package compilador;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,7 +82,17 @@ public class Scanner {
        this.coordinates[0] = 1;
        this.coordinates[1] = 1;
     }
-      
+    
+    public void scanTodos() throws IOException{
+        Token t;
+        List tokens =  new ArrayList();
+
+        do{
+           t = this.scan();
+        }while(t.kind != this.map.get("eof"));
+    
+    }
+    
     private boolean isLetter(char c){
         return Character.isLetter(c);
     }
@@ -223,6 +235,10 @@ public class Scanner {
         int collum = this.coordinates[1] - this.currentSpelling.length();
         if(collum < 0)
             collum = 1;
+        
+        if(this.currentKind == this.map.get("error"))
+            throw new Error("Erro léxico, caracter ' " + this.currentSpelling+ " ' inválido, linha = " + this.coordinates[0] + " coluna = " + (collum + 1));
+        
         return new Token(this.map, this.currentKind, this.currentSpelling, this.coordinates[0], collum);
             
     }

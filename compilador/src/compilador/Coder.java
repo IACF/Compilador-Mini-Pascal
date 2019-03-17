@@ -35,6 +35,10 @@ public class Coder implements Visitor {
          this.countIds = 0;
     }
     
+    public void code(Programa programa){
+        this.visitorPrograma(programa);
+    }
+    
     public void escrever(String texto) throws IOException{     
         buffWrite.append(texto + "\n");
     }

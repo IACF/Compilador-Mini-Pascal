@@ -22,14 +22,41 @@ public class Compilador {
      */
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
-        Scanner s = new Scanner(reader);
-        Token t;
-        List tokens =  new ArrayList();
+        int aux = 4;
+        Parser parser = new Parser();
+        Printer printer = new Printer();
+        Checker checker = new Checker();
+        Coder coder = new Coder();
+        Programa programa;
+         
+        switch(aux){
+            case 4:
+                programa = parser.parse("ex.txt");
+                printer.print(programa);
+                checker.check(programa);
+                coder.code(programa);
+                break;
+            case 3:
+                programa = parser.parse("ex.txt");
+                printer.print(programa);
+                checker.check(programa);
+                break;
+            case 2:
+                programa = parser.parse("ex.txt");
+                printer.print(programa);
+                break;
+            case 1:
+                programa = parser.parse("ex.txt");
+                break;
+            case 0:
+                Scanner s = new Scanner(reader);
+                s.scanTodos();
+                break;
+            default:
+                throw new Error("Argumento invalido.");
+                
+        }
             
-        Parser p;
-        
-        p = new Parser();
-        
     }
     
 }

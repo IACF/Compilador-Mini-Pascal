@@ -5,12 +5,9 @@
  */
 package compilador;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +19,7 @@ public class Checker implements Visitor{
     int enderecoVariaveis;
      Map<String, Integer> tamanhoTipos;
     
-    public void checker (Programa P) {
+    public void check (Programa P) {
         this.enderecoVariaveis = 0;
         this.table = new tabelaDeIdentificacao();
          this.tamanhoTipos = new HashMap<>()
