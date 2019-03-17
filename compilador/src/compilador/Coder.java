@@ -261,7 +261,7 @@ public class Coder implements Visitor {
             }else{
                 if (arg0.E != null){
                     arg0.E.visit(this);
-                    tipoAgregado t,x;
+                    tipoAgregado t;
                     t =  (tipoAgregado) arg0.ponteiro.tipo;
                     if(!(arg0.E instanceof expressaoSequencial)){
                         try {
@@ -280,27 +280,49 @@ public class Coder implements Visitor {
                     }else{
                         Tipo aux = arg0.ponteiro.tipo;
                         try {
-                            x  = (tipoAgregado) t.T;
-                            escrever("\nLOADL " + Integer.parseInt(x.L1.TK.spelling));
+                            int tamanhos[] = new int[30]; 
+                            int minimos[] = new int[30]; 
+                            int count = 0;
+                            
+                            while(aux instanceof tipoAgregado ){
+                                t = (tipoAgregado) aux;  
+                                tamanhos[count] = (Integer.parseInt(t.L2.TK.spelling) -Integer.parseInt(t.L1.TK.spelling) + 1);
+                                minimos[count] = Integer.parseInt(t.L1.TK.spelling);
+                                aux = t.T;
+                                count++;
+                            }
+                            count --;
+                            
+                            escrever("\nLOADL " + Integer.parseInt(t.L1.TK.spelling));
                             escrever("CALL sub");
                             escrever("LOADL " + this.tamanhoTipos.get(arg0.tipo));
                             escrever("CALL mult");
                             
-                            escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + "0[RA]");
-                            
-                            escrever("LOADL " + Integer.parseInt(t.L1.TK.spelling));
-                            escrever("CALL sub");
-                            escrever("LOADL " + this.tamanhoTipos.get(arg0.tipo));
-                            escrever("CALL mult");
-                            int tam = Integer.parseInt(x.L2.TK.spelling) -Integer.parseInt(x.L1.TK.spelling) + 1;
-                            escrever("LOADL " + tam);
-                            escrever("CALL mult");
-                            
-                            escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") "+ "0[RA]");
-                            escrever("CALL add");
+                            //escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + "0[RA]");
+                            System.out.println("cooooount" + count);
+                            for(int x = count; x >0; x--){
+                                escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + "0[RA]");
+                                escrever("LOADL " + minimos[x]);
+                                escrever("CALL sub");
+                                escrever("LOADL " + this.tamanhoTipos.get(arg0.tipo));
+                                escrever("CALL mult");
+                                
+                                int tam = tamanhos[x];
+                                
+                                if(x > 0)
+                                    tamanhos[count -1] *= tamanhos[count];
+                                
+                                escrever("LOADL " + tam);
+                                escrever("CALL mult");
+
+                                escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") "+ "0[RA]");
+                                escrever("CALL add");
+                             
+                            }
                             escrever("LOADA " + arg0.endereco + "[SB]");
                             escrever("CALL add");
-                            escrever("LOADI " + this.tamanhoTipos.get(arg0.tipo));
+                            escrever("LOADI " + this.tamanhoTipos.get(arg0.tipo) + "\n");
+                            
                         } catch (IOException ex) {
                             Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
                         }
