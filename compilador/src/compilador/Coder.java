@@ -233,7 +233,71 @@ public class Coder implements Visitor {
           if (arg0 != null) {
             arg0.E.visit(this);
             if(arg0.V.E != null) {
-                arg0.V.E.visit(this);
+                    System.out.println("oolha eu \n");
+                    tipoAgregado t;
+                    t =  (tipoAgregado) arg0.V.ponteiro.tipo;
+                    if(!(arg0.V.E instanceof expressaoSequencial)){
+                        try {
+                            escrever("LOADL " + Integer.parseInt(t.L1.TK.spelling));
+                            escrever("CALL sub");
+                            escrever("LOADL " + this.tamanhoTipos.get(arg0.V.tipo));
+                            escrever("CALL mult");
+                            escrever("LOADA " + arg0.V.endereco + "[SB]");
+                            escrever("CALL add");
+                            escrever("STOREI " + this.tamanhoTipos.get(arg0.V.tipo));
+                        } catch (IOException ex) {
+                            Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                    }else{
+                        Tipo aux = arg0.V.ponteiro.tipo;
+                        try {
+                            int tamanhos[] = new int[30]; 
+                            int minimos[] = new int[30]; 
+                            int count = 0;
+                            
+                            while(aux instanceof tipoAgregado ){
+                                t = (tipoAgregado) aux;  
+                                tamanhos[count] = (Integer.parseInt(t.L2.TK.spelling) -Integer.parseInt(t.L1.TK.spelling) + 1);
+                                minimos[count] = Integer.parseInt(t.L1.TK.spelling);
+                                aux = t.T;
+                                count++;
+                            }
+                            count --;
+                            
+                            escrever("\nLOADL " + Integer.parseInt(t.L1.TK.spelling));
+                            escrever("CALL sub");
+                            escrever("LOADL " + this.tamanhoTipos.get(arg0.V.tipo));
+                            escrever("CALL mult");
+                            
+                            //escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + "0[RA]");
+                            System.out.println("cooooount" + count);
+                            for(int x = count; x >0; x--){
+                                escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.V.tipo) + ") " + "0[RA]");
+                                escrever("LOADL " + minimos[x-1]);
+                                escrever("CALL sub");
+                                escrever("LOADL " + this.tamanhoTipos.get(arg0.V.tipo));
+                                escrever("CALL mult");
+                                
+                                int tam = tamanhos[x];
+                                
+                                if(x > 0)
+                                    tamanhos[count -1] *= tamanhos[count];
+                                
+                                escrever("LOADL " + tam);
+                                escrever("CALL mult");
+
+                                escrever("LOAD " + "(" + this.tamanhoTipos.get(arg0.V.tipo) + ") "+ "0[RA]");
+                                escrever("CALL add");
+                             
+                            }
+                            escrever("LOADA " + arg0.V.endereco + "[SB]");
+                            escrever("CALL add");
+                            escrever("STOREI " + this.tamanhoTipos.get(arg0.V.tipo) + "\n");
+                            } catch (IOException ex) {
+                            Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+                            }   
+                    }
             } else {
                   try {
                       escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.V.tipo) + ") " + arg0.V.endereco + "[SB]");
@@ -241,7 +305,7 @@ public class Coder implements Visitor {
                       Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
                   }
             }
-          }
+        }
     }
 
     @Override
@@ -275,7 +339,7 @@ public class Coder implements Visitor {
                         } catch (IOException ex) {
                             Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        //int endereco = this.tamanhoTipos.get(arg0.tipo);
+                        
 
                     }else{
                         Tipo aux = arg0.ponteiro.tipo;
@@ -301,8 +365,9 @@ public class Coder implements Visitor {
                             //escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + "0[RA]");
                             System.out.println("cooooount" + count);
                             for(int x = count; x >0; x--){
+                                System.out.println("minimos = " + minimos[x-1]);
                                 escrever("STORE " + "(" + this.tamanhoTipos.get(arg0.tipo) + ") " + "0[RA]");
-                                escrever("LOADL " + minimos[x]);
+                                escrever("LOADL " + minimos[x-1]);
                                 escrever("CALL sub");
                                 escrever("LOADL " + this.tamanhoTipos.get(arg0.tipo));
                                 escrever("CALL mult");
