@@ -260,7 +260,24 @@ public class Coder implements Visitor {
                 arg0.I.visit(this);
             }else{
                 if (arg0.E != null){
-                    if(arg0.E instanceof Literal){
+                    arg0.E.visit(this);
+                    tipoAgregado t;
+                    t =  (tipoAgregado) arg0.ponteiro.tipo;
+                    if(!(arg0.E instanceof expressaoSequencial)){
+                        try {
+                            escrever("LOADL " + Integer.parseInt(t.L1.TK.spelling));
+                            escrever("CALL sub");
+                            escrever("LOADL " + this.tamanhoTipos.get(arg0.tipo));
+                            escrever("CALL mult");
+                            escrever("LOADA " + arg0.endereco + "[SB]");
+                            escrever("CALL add");
+                            escrever("LOADI " + this.tamanhoTipos.get(arg0.tipo));
+                        } catch (IOException ex) {
+                            Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        //int endereco = this.tamanhoTipos.get(arg0.tipo);
+                        
+                                  
 //                        tipoAgregado t;
 //                        Tipo aux = arg0.ponteiro.tipo;
 //                        int count = 0;
@@ -278,7 +295,7 @@ public class Coder implements Visitor {
 //                            System.out.println(i.TK.spelling + " virtual = " + tamanhos[x]);
 //                        }
                     }
-                    arg0.E.visit(this);
+                   
             }
         }
     }
