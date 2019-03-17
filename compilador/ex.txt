@@ -1,28 +1,14 @@
 program programa;
-    var     variavel,testinho,testao, recebe, isto : integer;
-   	 var aux2 : real;
-    var b : boolean;
-    var ar : array [ 2 .. 4] of array [ 1 .. 3 ] of array [ 2 .. 5 ] of integer;
-    var ar2: array [1 .. 4] of integer;
+     var count,aux : integer;
+     var ar : array [ 0 .. 2] of array [ 1 .. 3 ] of array [ 2 .. 5 ] of integer;
 begin
-    variavel := variavel;
-    !	ar[7][7] := 3;
-    recebe := 2;
-    ar2[ variavel] := 5;
-    aux2 := .2;
-    while (3 > 2)
-    do
-      recebe := 2;
-    if ((3. > .2) and (1 < 2))
-    then 
+    count := 0;
+    aux := count;
+    while (count <= 2)
+    do 
     begin
-    variavel := 1;
-      ar[2][2][2] := 3 * 5;
-    end
-    else
-    variavel := testinho;
-    variavel := 1;
-    begin
+    ar[count][2][2] := aux;
+    count := count + 1;
     end;
 end
 .
