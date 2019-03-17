@@ -22,10 +22,11 @@ public class Coder implements Visitor {
     BufferedWriter buffWrite;
     Map<String, Byte> tamanhoTipos;
     int countIds;
-
+    int countLabels;
+    
     public Coder() throws IOException {
         this.buffWrite = new BufferedWriter(new FileWriter("assembly.asm"));
-        
+        this.countLabels = 0;
          this.tamanhoTipos = new HashMap<>()
         {{
             put("boolean",(byte) 1);
@@ -179,19 +180,17 @@ public class Coder implements Visitor {
          if (c != null) {    
             c.E.visit(this);
              try {
-                 escrever("h:\n" + "JUMPIF(0) g");
+                 this.countLabels++;
+                 escrever("h" + this.countLabels + ":\n" + "JUMPIF(0) g" + this.countLabels);
              } catch (IOException ex) {
                  Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
              }
             c.C.visit(this);
              try {
-                 escrever("JUMP h" + "\n" + "g:");
+                 escrever("JUMP h" + this.countLabels  + "\n" + "g" + this.countLabels + ":");
              } catch (IOException ex) {
                  Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
              }
-             
-            
-             
         }
     }
 
@@ -199,22 +198,22 @@ public class Coder implements Visitor {
     public void visitorComandoCondicional(comandoCondicional arg0) {
         if (arg0 != null) {
             arg0.E.visit(this);
-            
+            this.countLabels++;
             try {
-                escrever("JUMPIF (0) g");
+                escrever("JUMPIF (0) g" + this.countLabels);
             } catch (IOException ex) {
                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
             }
             arg0.C1.visit(this);
             try {
-                escrever("JUMP h");
-                escrever("g:");
+                escrever("JUMP h" + this.countLabels);
+                escrever("g" + this.countLabels + ":");
             } catch (IOException ex) {
                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
             }
             arg0.C2.visit(this);
             try {
-                escrever("h:");
+                escrever("h" + this.countLabels + ":");
             } catch (IOException ex) {
                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
             }

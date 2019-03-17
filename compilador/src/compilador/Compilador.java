@@ -53,7 +53,7 @@ public class Compilador {
                 s.scanTodos();
                 break;
             default:
-                throw new Error("Argumento invalido.");
+                throw new Error("Argumento inválido.");
                 
         }
             
