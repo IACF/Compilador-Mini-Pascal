@@ -180,10 +180,24 @@ public class Checker implements Visitor{
                 if(arg0.E instanceof expressaoBinaria){
                     exp = (expressaoBinaria) arg0.E;
                     throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha = " + exp.O.TK.line);
+                }else{
+                    if(arg0.E instanceof expressaoSequencial){
+                        expSeq = (expressaoSequencial) arg0.E;
+                        exp = (expressaoBinaria) expSeq.E2;
+                        throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + exp.O.TK.line);
+                    }else{
+                        if(arg0.E instanceof Variavel){
+                            Variavel v = (Variavel) arg0.E;
+                            identificadorSimples i = (identificadorSimples) v.I;
+                            throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + i.TK.line);
+                        }else{
+                            if(arg0.E instanceof Literal){
+                                Literal l = (Literal) arg0.E;
+                                throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + l.TK.line);
+                            }
+                        }
+                    }
                 }
-                expSeq = (expressaoSequencial) arg0.E;
-                exp = (expressaoBinaria) expSeq.E2;
-                throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + exp.O.TK.line);
             }
         }
     }
@@ -203,14 +217,25 @@ public class Checker implements Visitor{
                if(arg0.E instanceof expressaoBinaria){
                     exp = (expressaoBinaria) arg0.E;
                     throw new Error ("A estrutura condicional necessita de uma operação lógica, linha = " + exp.O.TK.line);
-                }
-                expSeq = (expressaoSequencial) arg0.E;
-                exp = (expressaoBinaria) expSeq.E2;
-                throw new Error ("A estrutura condicional necessita de uma operação lógica, linha =" + exp.O.TK.line);
+                }else{
+                    if(arg0.E instanceof expressaoSequencial){
+                        expSeq = (expressaoSequencial) arg0.E;
+                        exp = (expressaoBinaria) expSeq.E2;
+                        throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + exp.O.TK.line);
+                    }else{
+                        if(arg0.E instanceof Variavel){
+                            Variavel v = (Variavel) arg0.E;
+                            identificadorSimples i = (identificadorSimples) v.I;
+                            throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + i.TK.line);
+                        }else{
+                            if(arg0.E instanceof Literal){
+                                Literal l = (Literal) arg0.E;
+                                throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + l.TK.line);
+                            }
+                        }
+                    }
+               }
             }
-            
-            System.out.println(arg0.E.tipo);
-               
         }
     }
 

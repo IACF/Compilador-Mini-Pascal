@@ -1,12 +1,12 @@
 program programa;
      var count,aux : integer;
-     var boolean : boolean
+     var recebe : boolean;
 begin
     count := 0;
-    if (count > 2)
-    then
+    while (recebe)
+    do
     begin
-    count := count + 1;
+    count :=  count + 1;
     end;
 end
 .
