@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Parser.java</file>
-            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Coder.java</file>
+            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Printer.java</file>
+            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Scanner.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/elementoTabelaDeIdentificacao.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/tabelaDeIdentificacao.java</file>
+            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Compilador.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Variavel.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Checker.java</file>
+            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Parser.java</file>
+            <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Coder.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Literal.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/declaracaoDeVariavel.java</file>
             <file>file:/home/victor/Documentos/Univasf/Univasf%202018.2/Compiladores/Compilador-Mini-Pascal/compilador/src/compilador/Declaracao.java</file>

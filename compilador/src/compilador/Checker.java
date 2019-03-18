@@ -34,13 +34,8 @@ public class Checker implements Visitor{
 
     @Override
     public void visitorPrograma(Programa arg0) {
-        if (arg0 != null) {
             arg0.I.visit(this);
             arg0.C.visit(this);
-            
-        } else {
-            //errors
-        }
     }
     
     @Override

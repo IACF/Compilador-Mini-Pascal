@@ -14,6 +14,10 @@ public class Error extends RuntimeException{
         super("Error de sintaxe na linha " + current.line + " coluna " + current.collum);
     }
     
+    public Error(Token id, int linha, int coluna){
+        super("Identificador inválido '" + id.spelling + "' na linha " + linha + " coluna " + coluna);
+    }
+    
     public Error(String string){
         super(string);
     }

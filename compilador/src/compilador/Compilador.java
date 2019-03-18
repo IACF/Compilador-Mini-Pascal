@@ -22,9 +22,6 @@ public class Compilador {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException, Error {
-       // args[0] = "ex.txt";
-       // args[1] = "4";
-       // int aux = Integer.parseInt(4);
         Parser parser = new Parser();
         Printer printer = new Printer();
         Checker checker = new Checker();
@@ -33,7 +30,7 @@ public class Compilador {
          
         
          programa = parser.parse("ex.txt");
-                printer.print(programa);
+             printer.print(programa);
                 checker.check(programa);
                 coder.code(programa);
                 

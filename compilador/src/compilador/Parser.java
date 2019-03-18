@@ -40,7 +40,7 @@ public class Parser {
         Identificador idAST;
         
         if(this.currentToken.kind != scanner.map.get("id")){
-            throw new Error(currentToken);       
+            throw new Error(currentToken, currentToken.line, currentToken.collum);       
         }else{
             idAST = new identificadorSimples(this.currentToken);
             currentToken = scanner.scan();
