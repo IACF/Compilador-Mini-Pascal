@@ -167,7 +167,8 @@ public class Printer implements Visitor {
             path.add(arg0.getClass().getName());
             arg0.E.visit(this);
             arg0.C1.visit(this);
-            arg0.C2.visit(this);
+            if(arg0.C2 != null)
+                arg0.C2.visit(this);
             count--;
             path.remove(count);
 

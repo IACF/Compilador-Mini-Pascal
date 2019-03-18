@@ -160,7 +160,7 @@ public class Checker implements Visitor{
             arg0.L2.visit(this);
             arg0.T.visit(this);
         } else {
-            throw new Error("Os intervalos no array devem ser do tipo interger");
+            throw new Error("Os intervalos no array devem ser do tipo integer");
         }
  
     }
@@ -177,10 +177,18 @@ public class Checker implements Visitor{
     public void visitorComandoIterativo(comandoIterativo arg0) {
         if (arg0 != null) {    
             arg0.E.visit(this);
+            expressaoBinaria exp;
+            expressaoSequencial expSeq;
             if (arg0.E.tipo.equals("boolean")) {
                 arg0.C.visit(this);
             } else {
-                  throw new Error ("A estrutura iterativa necessita de uma operação lógica.");
+                if(arg0.E instanceof expressaoBinaria){
+                    exp = (expressaoBinaria) arg0.E;
+                    throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha = " + exp.O.TK.line);
+                }
+                expSeq = (expressaoSequencial) arg0.E;
+                exp = (expressaoBinaria) expSeq.E2;
+                throw new Error ("A estrutura iterativa necessita de uma operação lógica, linha =" + exp.O.TK.line);
             }
         }
     }
@@ -191,9 +199,19 @@ public class Checker implements Visitor{
             arg0.E.visit(this);
             if("boolean".equals(arg0.E.tipo)) {
                 arg0.C1.visit(this);
-                arg0.C2.visit(this);
+                if(arg0.C2 != null)
+                    arg0.C2.visit(this);
             } else {
-                throw new Error ("A estrutura condicional necessita de uma operação lógica.");
+                expressaoBinaria exp;
+                expressaoSequencial expSeq;
+                
+               if(arg0.E instanceof expressaoBinaria){
+                    exp = (expressaoBinaria) arg0.E;
+                    throw new Error ("A estrutura condicional necessita de uma operação lógica, linha = " + exp.O.TK.line);
+                }
+                expSeq = (expressaoSequencial) arg0.E;
+                exp = (expressaoBinaria) expSeq.E2;
+                throw new Error ("A estrutura condicional necessita de uma operação lógica, linha =" + exp.O.TK.line);
             }
             
             System.out.println(arg0.E.tipo);

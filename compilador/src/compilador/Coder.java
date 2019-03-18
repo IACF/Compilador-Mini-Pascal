@@ -215,7 +215,8 @@ public class Coder implements Visitor {
             } catch (IOException ex) {
                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
             }
-            arg0.C2.visit(this);
+            if(arg0.C2 !=  null)
+                arg0.C2.visit(this);
             try {
                 escrever("h" + this.countLabels + ":");
             } catch (IOException ex) {

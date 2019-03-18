@@ -30,7 +30,6 @@ public class Error extends RuntimeException{
         super(mensagem + "\'" + op.TK.spelling + "\'" + " na linha " + op.TK.line + ".");
     }
     
-    
 }
 
 

@@ -21,43 +21,50 @@ public class Compilador {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
-        int aux = 4;
+    public static void main(String[] args) throws IOException, Error {
+       // args[0] = "ex.txt";
+       // args[1] = "4";
+       // int aux = Integer.parseInt(4);
         Parser parser = new Parser();
         Printer printer = new Printer();
         Checker checker = new Checker();
         Coder coder = new Coder();
         Programa programa;
          
-        switch(aux){
-            case 4:
-                programa = parser.parse("ex.txt");
+        
+         programa = parser.parse("ex.txt");
                 printer.print(programa);
                 checker.check(programa);
                 coder.code(programa);
-                break;
-            case 3:
-                programa = parser.parse("ex.txt");
-                printer.print(programa);
-                checker.check(programa);
-                break;
-            case 2:
-                programa = parser.parse("ex.txt");
-                printer.print(programa);
-                break;
-            case 1:
-                programa = parser.parse("ex.txt");
-                break;
-            case 0:
-                Scanner s = new Scanner(reader);
-                s.scanTodos();
-                break;
-            default:
-                throw new Error("Argumento inválido.");
+                
+//        switch(aux){
+//            case 4:
+//                programa = parser.parse(args[0]);
+//                printer.print(programa);
+//                checker.check(programa);
+//                coder.code(programa);
+//                break;
+//            case 3:
+//                programa = parser.parse(args[0]);
+//                printer.print(programa);
+//                checker.check(programa);
+//                break;
+//            case 2:
+//                programa = parser.parse(args[0]);
+//                printer.print(programa);
+//                break;
+//            case 1:
+//                programa = parser.parse(args[0]);
+//                break;
+//            case 0:
+//                BufferedReader reader = new BufferedReader(new FileReader(args[0]));
+//                Scanner s = new Scanner(reader);
+//                s.scanTodos();
+//                break;
+//            default:
+//                throw new Error("Argumento inválido.");
                 
         }
             
     }
     
-}
