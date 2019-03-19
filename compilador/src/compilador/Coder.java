@@ -241,6 +241,7 @@ public class Coder implements Visitor {
           if (arg0 != null) {
             arg0.E.visit(this);
             if(arg0.V.E != null) {
+                    arg0.V.E.visit(this);
                     tipoAgregado t;
                     t =  (tipoAgregado) arg0.V.ponteiro.tipo;
                     if(!(arg0.V.E instanceof expressaoSequencial)){
@@ -417,8 +418,10 @@ public class Coder implements Visitor {
 
     @Override
     public void visitorLiteral(Literal arg0) {
+        
         if (arg0 != null) {
             try {
+                System.out.println("\n eaiii" +  arg0.TK.spelling);
                 escrever("LOADL "+ arg0.TK.spelling);
             } catch (IOException ex) {
                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);

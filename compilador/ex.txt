@@ -1,12 +1,7 @@
 program programa;
-     var count,aux : integer;
-     var recebe : boolean;
+     var ar : array [1 ..4] of array[1 ..4] of integer;
+     var count : integer;
 begin
-    count := 0;
-    while (recebe)
-    do
-    begin
-    count :=  count + 1;
-    end;
+    ar[1][2] := count;
 end
 .
