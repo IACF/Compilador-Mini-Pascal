@@ -465,6 +465,8 @@ public class Coder implements Visitor {
                aux = "or";break;
             case "=":
                aux = "equal";break;
+            case "<>":
+               aux = "diff";break;
         }
         
         try {
