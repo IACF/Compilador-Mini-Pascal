@@ -181,11 +181,16 @@ public class Coder implements Visitor {
 
     @Override
     public void visitorComandoIterativo(comandoIterativo c) {
-         if (c != null) {    
-            c.E.visit(this);
+         if (c != null) { 
              try {
                  this.countLabels++;
-                 escrever("h" + this.countLabels + ":\n" + "JUMPIF(0) g" + this.countLabels);
+                 escrever("h" + this.countLabels + ":");
+             } catch (IOException ex) {
+                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            c.E.visit(this);
+             try {
+                 escrever("JUMPIF(0) g" + this.countLabels);
              } catch (IOException ex) {
                  Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
              }
@@ -273,7 +278,7 @@ public class Coder implements Visitor {
                             }
                             count --;
                             
-                            escrever("\nLOADL " + Integer.parseInt(t.L1.TK.spelling));
+                            escrever("LOADL " + Integer.parseInt(t.L1.TK.spelling));
                             escrever("CALL sub");
                             escrever("LOADL " + this.tamanhoTipos.get(arg0.V.tipo));
                             escrever("CALL mult");
@@ -359,7 +364,7 @@ public class Coder implements Visitor {
                             }
                             count --;
                             
-                            escrever("\nLOADL " + Integer.parseInt(t.L1.TK.spelling));
+                            escrever("LOADL " + Integer.parseInt(t.L1.TK.spelling));
                             escrever("CALL sub");
                             escrever("LOADL " + this.tamanhoTipos.get(arg0.tipo));
                             escrever("CALL mult");

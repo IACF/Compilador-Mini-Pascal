@@ -1,7 +1,9 @@
 program programa;
-     var ar : array [1 ..4] of array[1 ..4] of integer;
      var count : integer;
 begin
-    ar[1][2] := count;
+    count := 0;
+    while (count <= 2)
+    do 
+    count := count +1;
 end
 .
