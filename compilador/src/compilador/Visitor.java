@@ -39,7 +39,7 @@ public interface Visitor {
 
     public void visitorComandoAtribuicao(comandoAtribuicao c);
 
-    public void visitorVariavel(Variavel v);
+    public void visitorVariavel(Variavel arg0);
 
     public void visitorLiteral(Literal l);
 

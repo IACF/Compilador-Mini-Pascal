@@ -1,5 +1,20 @@
 program programa1;
+var ar: array [1 .. 4] of array [1 .. 4] of real;
+var aux1,aux2: integer;
 begin 
+    aux1 := 1;
+    aux2 := 1;
+    
+    while(aux2 <= 4)
+    do
+    begin
+    ar[aux1][aux2] := 0.0;
+    aux1 := aux1 + 1;
+    if( aux1 > 4)
+    then
+        aux1 := 1;
+    aux2 := aux2 + 1;
+    end;
 
 end
 .
