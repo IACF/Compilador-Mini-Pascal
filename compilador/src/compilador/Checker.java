@@ -257,7 +257,6 @@ public class Checker implements Visitor{
             arg0.V.visit(this);
             arg0.E.visit(this);
             
-            System.out.println("test = " + arg0.V.tipo);
             Tipo aux = arg0.V.ponteiro.tipo;
             
             if(aux instanceof tipoAgregado){
@@ -274,7 +273,6 @@ public class Checker implements Visitor{
                 if (!arg0.E.tipo.equals(tipo.TK.spelling))
                     throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
             }else{
-                System.out.println(arg0.E.tipo);
                 if (!arg0.E.tipo.equals(arg0.V.tipo))
                     throw new Error(" possui um tipo incompatível ",(identificadorSimples) arg0.V.I);
             }
@@ -338,12 +336,7 @@ public class Checker implements Visitor{
                 
                 count2++;
                 
-                System.out.println(count2);
                 
-                for (int i= (count2-1); i >= 0; i--) {
-                    System.out.println("lim = " + limite[i]);
-                }
-               
                 /////////////////////////////////////////////////////////////////
                 
                 tipoAgregado t;
@@ -366,7 +359,6 @@ public class Checker implements Visitor{
                 while(aux instanceof tipoAgregado ){
                     t = (tipoAgregado) aux;  
                     if(!notliteral[count]){
-                        System.out.println(limite[count]); 
                        if(!(limite[count] >= Integer.parseInt(t.L1.TK.spelling)
                            && limite[count] <= Integer.parseInt(t.L2.TK.spelling))){
                             throw new Error(" => Indice invalido no array ",(identificadorSimples) arg0.I);
@@ -398,12 +390,8 @@ public class Checker implements Visitor{
     }
 
     @Override
-    public void visitorToken(Token t) {
-          
-        System.out.println(" { " + t.spelling + " } ");
-        
-    }
-
+    public void visitorToken(Token t) {}
+    
     @Override
     public void visitorOperador(Operador arg0) {
         
@@ -431,7 +419,6 @@ public class Checker implements Visitor{
                 return "real";
         }
         
-        System.out.println(tipoE1);
         
         if( Operador.TK.kind >= 25 && Operador.TK.kind <= 29) {
             if(

@@ -83,8 +83,7 @@ public class Coder implements Visitor {
            this.countIds = 0;
            
            arg0.I.visit(this);
-            System.out.println(this.countIds);
-            
+ 
             if(arg0.T instanceof tipoSimples){
                 for (int i = 0; i < this.countIds; i++) {
                     tp = (tipoSimples) arg0.T;
@@ -396,24 +395,6 @@ public class Coder implements Visitor {
                             Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);
                         }
                           
-                                  
-//                        tipoAgregado t;
-//                        Tipo aux = arg0.ponteiro.tipo;
-//                        int count = 0;
-//                        int enderecoVirtual;
-//                        int tamanhos[] = new int[30]; 
-//                        
-//                        while(aux instanceof tipoAgregado ){
-//                            t = (tipoAgregado) aux;  
-//                            tamanhos[count] = (Integer.parseInt(t.L2.TK.spelling) -Integer.parseInt(t.L1.TK.spelling) + 1) * this.tamanhoTipos.get(arg0.tipo)*Integer.parseInt(t.L1.TK.spelling);
-//                            aux = t.T;
-//                            count++;
-//                        }
-//                        
-//                        for (int x = (count -1); x >= 0; x--) {
-//                            System.out.println(i.TK.spelling + " virtual = " + tamanhos[x]);
-//                        }
-                    
                     }
                    
             }
@@ -426,7 +407,6 @@ public class Coder implements Visitor {
         
         if (arg0 != null) {
             try {
-                System.out.println("\n eaiii" +  arg0.TK.spelling);
                 escrever("LOADL "+ arg0.TK.spelling);
             } catch (IOException ex) {
                 Logger.getLogger(Coder.class.getName()).log(Level.SEVERE, null, ex);

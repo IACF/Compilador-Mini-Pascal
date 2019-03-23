@@ -162,7 +162,7 @@ public class Parser {
     
     private Literal parseLiteral() throws IOException{
         Literal lAST;
-        System.out.println(this.currentToken.spelling + " = " +  this.currentToken.kind);
+
         if(
             this.currentToken.kind == scanner.map.get("int-lit") ||
             this.currentToken.kind == scanner.map.get("float-lit") ||

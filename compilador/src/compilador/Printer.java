@@ -28,7 +28,7 @@ public class Printer implements Visitor {
     public void visitorPrograma(Programa arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("P");
             arg0.I.visit(this);
             arg0.C.visit(this);
             count--;
@@ -42,7 +42,7 @@ public class Printer implements Visitor {
     public void visitorDeclaracaoDeVariavel(declaracaoDeVariavel arg0) {
         if(arg0 != null){
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("DV");
             arg0.I.visit(this);
             arg0.T.visit(this);
             count--;
@@ -54,7 +54,7 @@ public class Printer implements Visitor {
     public void visitorCorpo(Corpo arg0) {
         if(arg0 != null){
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("C");
             arg0.D.visit(this);
             arg0.C.visit(this);
             count--;
@@ -67,7 +67,7 @@ public class Printer implements Visitor {
     public void visitorDeclaracaoSequencial(declaracaoSequencial arg0) {
         if(arg0 != null){
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("DS");
             arg0.D1.visit(this);
             arg0.D2.visit(this);
             count--;
@@ -80,7 +80,7 @@ public class Printer implements Visitor {
     public void visitorExpressaoBinaria(expressaoBinaria arg0) {
         if(arg0 != null){
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("EB");
             arg0.E1.visit(this);
             arg0.O.visit(this);
             arg0.E2.visit(this);
@@ -93,7 +93,7 @@ public class Printer implements Visitor {
     public void visitorExpressaoSequencial(expressaoSequencial arg0) {
         if(arg0 != null){
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("ES");
             arg0.E1.visit(this);
             arg0.E2.visit(this);
             count--;
@@ -104,7 +104,7 @@ public class Printer implements Visitor {
     @Override
     public void visitorIdentificadorSequencial(identificadorSequencial arg0) {
         count++;
-        path.add(arg0.getClass().getName());
+        path.add("IS");
         arg0.I2.visit(this);
         arg0.I1.visit(this);
         count--;
@@ -115,7 +115,7 @@ public class Printer implements Visitor {
     public void visitorIdentificadorSimples(identificadorSimples arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("I");
             arg0.TK.visit(this);
             count--;
             path.remove(count);
@@ -125,7 +125,7 @@ public class Printer implements Visitor {
     @Override
     public void visitorTipoAgregado(tipoAgregado arg0) {
         count++;
-        path.add(arg0.getClass().getName());
+        path.add("TA");
         arg0.L1.visit(this);
         arg0.L2.visit(this);
         arg0.T.visit(this);
@@ -138,7 +138,7 @@ public class Printer implements Visitor {
     public void visitorTipoSimples(tipoSimples arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("TS");
             arg0.TK.visit(this);
             count--;
             path.remove(count);
@@ -151,7 +151,7 @@ public class Printer implements Visitor {
     public void visitorComandoIterativo(comandoIterativo arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("CI");
             arg0.E.visit(this);
             arg0.C.visit(this);
             count--;
@@ -164,7 +164,7 @@ public class Printer implements Visitor {
     public void visitorComandoCondicional(comandoCondicional arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("CCd");
             arg0.E.visit(this);
             arg0.C1.visit(this);
             if(arg0.C2 != null)
@@ -179,7 +179,7 @@ public class Printer implements Visitor {
     public void visitorComandoComposto(comandoComposto arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("CCp");
             arg0.C1.visit(this);
             if (arg0.C2 != null) 
                 arg0.C2.visit(this);
@@ -192,7 +192,7 @@ public class Printer implements Visitor {
     public void visitorComandoAtribuicao(comandoAtribuicao arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("CA");
             arg0.V.visit(this);
             arg0.E.visit(this);
             count--;
@@ -205,7 +205,7 @@ public class Printer implements Visitor {
     public void visitorVariavel(Variavel arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("V");
             arg0.I.visit(this);
             
             if (arg0.E != null)
@@ -219,7 +219,7 @@ public class Printer implements Visitor {
     public void visitorLiteral(Literal arg0) {
         if (arg0 != null) {
             count++;
-            path.add(arg0.getClass().getName());
+            path.add("L");
             arg0.TK.visit(this);
             count--;
             path.remove(count);
@@ -230,11 +230,11 @@ public class Printer implements Visitor {
     @Override
     public void visitorToken(Token t) {
         count++;
-        path.add(t.getClass().getName());
-        System.out.print(count +" :=");
+        path.add("TK");
+        System.out.print(count +" : ");
         
         path.forEach((next) -> {
-            System.out.print(next.replace("compilador.", "") + "-> ");
+            System.out.print(next.replace("compilador.", "") + " -> ");
         });
         
         System.out.println(" { " + t.spelling + " } ");
@@ -245,7 +245,7 @@ public class Printer implements Visitor {
     @Override
     public void visitorOperador(Operador arg0) {
         count++;
-        path.add(arg0.getClass().getName());
+        path.add("O");
         arg0.TK.visit(this);
         count--;
         path.remove(count);
