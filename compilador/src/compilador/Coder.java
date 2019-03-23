@@ -418,8 +418,10 @@ public class Coder implements Visitor {
     @Override
     public void visitorCorpo(Corpo arg0) {
          if(arg0 != null){
-            arg0.D.visit(this);
-            arg0.C.visit(this);
+            if(arg0.D != null)
+                arg0.D.visit(this);
+            if(arg0.C != null)
+                arg0.C.visit(this);
         }
     }
 

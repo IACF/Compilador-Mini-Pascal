@@ -1,9 +1,5 @@
-program programa;
-     var count : integer;
-begin
-    count := 0;
-    while (count <= 2)
-    do 
-    count := count +1;
+program programa1;
+begin 
+
 end
 .

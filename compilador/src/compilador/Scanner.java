@@ -228,7 +228,7 @@ public class Scanner {
         if(currentKind == 37)
             this.coordinates[1] = 1;
         
-        while (this.currentChar == ' ' || this.currentChar == '!' || this.currentChar == '\n')
+        while (this.currentChar == '\t' || this.currentChar == ' ' || this.currentChar == '!' || this.currentChar == '\n')
             scanSeparator();
  
         this.currentKind = scanToken();

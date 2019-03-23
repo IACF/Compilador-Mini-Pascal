@@ -26,20 +26,16 @@ public class Printer implements Visitor {
     
     @Override
     public void visitorPrograma(Programa arg0) {
-        if (arg0 != null) {
             count++;
             path.add("P");
             arg0.I.visit(this);
             arg0.C.visit(this);
             count--;
             path.remove(count);
-        } else {
-            //errors
-        }
     }
 
     @Override
-    public void visitorDeclaracaoDeVariavel(declaracaoDeVariavel arg0) {
+    public void visitorDeclaracaoDeVariavel(declaracaoDeVariavel arg0) {                                 
         if(arg0 != null){
             count++;
             path.add("DV");
@@ -55,8 +51,10 @@ public class Printer implements Visitor {
         if(arg0 != null){
             count++;
             path.add("C");
-            arg0.D.visit(this);
-            arg0.C.visit(this);
+            if(arg0.D != null)
+                arg0.D.visit(this);
+            if(arg0.C != null)
+                arg0.C.visit(this);
             count--;
             path.remove(count);
 
@@ -234,7 +232,7 @@ public class Printer implements Visitor {
         System.out.print(count +" : ");
         
         path.forEach((next) -> {
-            System.out.print(next.replace("compilador.", "") + " -> ");
+            System.out.print(next + " -> ");
         });
         
         System.out.println(" { " + t.spelling + " } ");

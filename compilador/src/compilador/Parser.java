@@ -52,7 +52,6 @@ public class Parser {
     private Programa parsePrograma() throws IOException{
         Identificador idAST;
         Corpo cAST;
-        
         accept("program");
         idAST = parseIdentificador();
         accept(";");
