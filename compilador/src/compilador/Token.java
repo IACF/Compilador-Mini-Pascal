@@ -9,7 +9,7 @@ public class Token {
     public int line;
     public int collum;
 
-    public Token(Map<String, Integer> map, int kind, String spelling, int line, int collum) {
+    public Token(HashTable map, int kind, String spelling, int line, int collum) {
         this.kind = kind;
         this.spelling = spelling;
         this.line = line;

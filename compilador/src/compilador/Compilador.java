@@ -21,7 +21,7 @@ public class Compilador {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, Exception {
         BufferedReader reader = new BufferedReader(new FileReader("ex.txt"));
         Scanner s = new Scanner(reader);
         Token t;
@@ -32,12 +32,10 @@ public class Compilador {
             tokens.add(t);
             //System.out.println(t.kind);
         }while(t.kind != 39); // diferente de EOF.
-
-        System.out.println(tokens.size());
         
         for (Iterator iterator = tokens.iterator(); iterator.hasNext();) {
             Token next = (Token) iterator.next();
-            System.out.println(next.spelling + " l = " +  Integer.toString(next.line) + " c = " + Integer.toString(next.collum) + " k = " + next.kind);
+            System.out.println("*" + next.spelling + "*" + " linha = " +  Integer.toString(next.line) + " coluna = " + Integer.toString(next.collum) + " key = " + next.kind + "\n");
         }
     }
     
